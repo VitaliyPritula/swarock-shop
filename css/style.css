@@ -582,7 +582,6 @@ h6 {
 .products__title {
   position: relative;
   font-size: calc(18px + 6 * ((100vw - 320px) / 1600));
-  background-color: #fff;
   line-height: 1.12;
   /* 18/16 */
   z-index: 2;
