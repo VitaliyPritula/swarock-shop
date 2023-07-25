@@ -53,7 +53,7 @@
 						<div class="header__menu menu">
 							<div class="menu__body">
 								<ul class="menu__list">
-									<li class="menu__item"><a href="../catalog.html" class="menu__link">Футболки</a></li>
+									<li class="menu__item"><a href="../catalog.html" class="menu__link _active">Футболки</a></li>
 									<li class="menu__item"><a href="../404.html" class="menu__link">Косухи</a></li>
 									<li class="menu__item"><a href="" class="menu__link">Обувь</a></li>
 									<li class="menu__item"><a href="" class="menu__link">Головные уборы</a></li>
@@ -69,151 +69,73 @@
 				</div>
 			</div>
 		</header>
-		<main class="page home">
-			<section class="home-slider">
-				<div class="page-home__body">
-					<div class="page-home__slider">
-						<div class="swiper">
-							<!-- Additional required wrapper -->
-							<div class="swiper-wrapper">
-								<!-- Slides -->
-								<div class="swiper-slide slider-home">
-									<div class="slider-home__content">
-										<div class="slider-home__text">
-											<p>Ди Снайдер, бывший вокалист глэм-метал-группы «Twisted Sister»,
-												анонсировал выпуск нового альбома под
-												многообещающим названием «For the Love of Metal».</p>
+		<main class="page">
+			<section class="catalog">
+				<div class="catalog__container">
+					<div class="catalog__header">
+						<ul class="catalog__list">
+							<li><a href="index.html" class="catalog__link">Главная</a></li>
+							<li class="catalog__item"><span>|</span>Футболки</li>
+						</ul>
+						<h2 class="catalog__title">Футболки с группами</h2>
+					</div>
+				</div>
+				<div class="catalog__container">
+					<div class="catalog__body">
+						<form action="#" id="form" class="catalog__aside formFilter">
+							<h2 class="formFilter__title">Фильтры</h2>
+							<div id="filters">
+								<div class="options">
+									<div class="form__item">
+										<div class="form__label">Пол</div>
+										<div id="country" class="options">
+											<div id="pol" class="options__item">
+												<input id="formRightHanded" checked type="radio" name="filter" value="1" class="options__input">
+												<label for="formRightHanded" class="options__label"><span>Мужской</span></label>
+											</div>
+											<div class="options__item">
+												<input id="formLeftHanded" type="radio" name="filter" value="2" class="options__input">
+												<label for="formLeftHanded" class="options__label"><span>Женский</span></label>
+											</div>
 										</div>
 									</div>
-									<div class="slider__img">
-										<picture><source srcset="img/main-slider/01.webp" type="image/webp"><img src="img/main-slider/01.png" alt="main-slider"></picture>
+								</div>
+								<div class="size">
+									<h2 class="form__label">Производство</h2>
+									<div id="size">
+										<label><input type="checkbox" class="btn" value="S">Украина</label><br>
+										<label><input type="checkbox" class="btn" value="L">США</label><br>
+										<label><input type="checkbox" class="btn" value="M">Китай</label><br>
 									</div>
 								</div>
-								<div class="swiper-slide slider-home">
-									<div class="slider-home__content">
-										<div class="slider-home__text">
-											<p>Ди Снайдер, бывший вокалист глэм-метал-группы «Twisted Sister»,
-												анонсировал выпуск нового альбома под
-												многообещающим названием «For the Love of Metal».</p>
+								<div class="price">
+									<h2 class="form__label">Цена</h2>
+									<div class="price__item">
+										<div class="price-input">
+											<input class="input-text" type="text" value="" id="price-min">&nbsp;<span>грн</span>&nbsp;
+										</div>
+										<div class="price-input">
+											<input class="input-text" type="text" value="" id="price-max">&nbsp;&nbsp;
 										</div>
 									</div>
-									<div class="slider__img">
-										<picture><source srcset="img/main-slider/01.webp" type="image/webp"><img src="img/main-slider/01.png" alt="main-slider"></picture>
+								</div>
+								<div class="size">
+									<h2 class="form__label">Цвет</h2>
+									<div id="color">
+										<label><input type="checkbox" class="btn" value="black">Черный</label><br>
+										<label><input type="checkbox" class="btn" value="white">Белый</label><br>
+										<label><input type="checkbox" class="btn" value="blue">Синий</label><br>
+										<label><input type="checkbox" class="btn" value="M">Красный</label><br>
+										<label><input type="checkbox" class="btn" value="M">Хаки</label><br>
 									</div>
 								</div>
-								<div class="swiper-slide slider-home">
-									<div class="slider-home__content">
-										<div class="slider-home__text">
-											<p>Ди Снайдер, бывший вокалист глэм-метал-группы «Twisted Sister»,
-												анонсировал выпуск нового альбома под
-												многообещающим названием «For the Love of Metal».</p>
-										</div>
-									</div>
-									<div class="slider__img">
-										<picture><source srcset="img/main-slider/01.webp" type="image/webp"><img src="img/main-slider/01.png" alt="main-slider"></picture>
-									</div>
-								</div>
+
 							</div>
-							<!-- If we need pagination -->
-							<div class="slider__dotts"></div>
-							<!-- If we need navigation buttons -->
-							<div class="swiper-button-next"></div>
-							<div class="swiper-button-prev"></div>
-						</div>
+						</form>
+						<div id="goods" class="catalog-contgent"></div>
 					</div>
 				</div>
-			</section>
-			<section class="home-products products">
-				<div class="products__container">
-					<div class="products__header">
-						<h1 class="products__title">Популярныйе товари</h1>
-						<H2 class="products__text">все товари в наличии! отправка в день заказа!</H2>
-					</div>
-					<div class="products__body">
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/populyar-img/01.webp" type="image/webp"><img src="img/populyar-img/01.png" alt="populyar-img"></picture>
-								</div>
-								<div class="products__item-title">Футболка <span>Cannibal Corpse</span></div>
-								<div class="products__item-price">250 грн.</div>
-							</a>
-						</div>
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/populyar-img/02.webp" type="image/webp"><img src="img/populyar-img/02.png" alt="populyar-img"></picture>
-								</div>
-								<div class="products__item-title">Косуха кожаная в стиле <span>ПАНК</span></div>
-								<div class="products__item-price">1300 грн.</div>
-							</a>
-						</div>
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/populyar-img/03.webp" type="image/webp"><img src="img/populyar-img/03.png" alt="populyar-img"></picture>
-								</div>
-								<div class="products__item-title">Ботинки <span>STEEL 105/106O</span></div>
-								<div class="products__item-price">2500 грн.</div>
-							</a>
-						</div>
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/populyar-img/04.webp" type="image/webp"><img src="img/populyar-img/04.png" alt="populyar-img"></picture>
-								</div>
-								<div class="products__item-title">Кулон <span>CHILDREN OF BODOM</span></div>
-								<div class="products__item-price">100 грн.</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</section>
-			<section class="home-products products">
-				<div class="products__container">
-					<div class="products__header">
-						<h1 class="products__title">НОВИНКИ</h1>
-						<H2 class="products__text">ОТСЛЕЖИВАЕМ ВСЁ САМОЕ НОВОЕ В РОК - АТРИБУТИКЕ</H2>
-					</div>
-					<div class="products__body">
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/nevs-product/01.webp" type="image/webp"><img src="img/nevs-product/01.png" alt="nevs-product"></picture>
-								</div>
-								<div class="products__item-title">Бейсболка Шлем Ужаса</div>
-								<div class="products__item-price">150 грн.</div>
-							</a>
-						</div>
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/nevs-product/02.webp" type="image/webp"><img src="img/nevs-product/02.png" alt="nevs-product"></picture>
-								</div>
-								<div class="products__item-title">Маска <span>AC-DC</span></div>
-								<div class="products__item-price">80 грн.</div>
-							</a>
-						</div>
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/nevs-product/03.webp" type="image/webp"><img src="img/nevs-product/03.png" alt="nevs-product"></picture>
-								</div>
-								<div class="products__item-title">Нашивка вышитая <span>AC-DC</span></div>
-								<div class="products__item-price">35 грн.</div>
-							</a>
-						</div>
-						<div class="products__column">
-							<a href="" class="products__items">
-								<div class="products__images">
-									<picture><source srcset="img/nevs-product/04.webp" type="image/webp"><img src="img/nevs-product/04.png" alt="nevs-product"></picture>
-								</div>
-								<div class="products__item-title">Футболка мужская <span>IT</span></div>
-								<div class="products__item-price">250 грн.</div>
-							</a>
-						</div>
-					</div>
-				</div>
+
 			</section>
 		</main>
 		<footer class="footer">

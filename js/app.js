@@ -4746,6 +4746,124 @@
             autoplay: true,
             speed: 800
         });
+        const filters = document.querySelector("#form");
+        filters.addEventListener("input", filterGoods);
+        function filterGoods() {
+            const country = filters.querySelector("#country").value, sizes = [ ...filters.querySelectorAll("#size input:checked") ].map((n => n.value)), colors = [ ...filters.querySelectorAll("#color input:checked") ].map((n => n.value)), priceMin = document.querySelector("#price-min").value, priceMax = document.querySelector("#price-max").value;
+            outputGoods(DATA.filter((n => (!country || n.country === country) && (!sizes.length || sizes.includes(n.size)) && (!colors.length || colors.includes(n.color)) && (!priceMin || priceMin <= n.cost) && (!priceMax || priceMax >= n.cost))));
+        }
+        function outputGoods(goods) {
+            document.getElementById("goods").innerHTML = goods.map((n => `\n    <div class="catalog-contgent__colum">\n      <a href="" class="catalog-contgent__item">\n        <img src="${n.image}">\n        <div class="catalog-contgent__text">\n          <h3>${n.name}</h3>\n          <p class="catalog-contgent__price">${n.cost} грн</p>\n        </div>\n      </a>\n    </div>\n  `)).join("");
+        }
+        const DATA = [ {
+            sex: "male",
+            name: "Футболка мужская 30 Seconds To Mars",
+            cost: 250,
+            country: "turkey",
+            image: "../img/catalog/01.png",
+            size: "S",
+            color: "black"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Aborted",
+            cost: 400,
+            country: "china",
+            image: "../img/catalog/02.png",
+            size: "M",
+            color: "white"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Abruptum",
+            cost: 280,
+            country: "turkey",
+            image: "../img/catalog/03.png",
+            size: "S"
+        }, {
+            sex: "male",
+            name: "Футболка мужская ABSU",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/04.png",
+            size: "S"
+        }, {
+            sex: "male",
+            name: "Футболка мужская ABSU",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/05.png",
+            size: "S"
+        }, {
+            sex: "male",
+            name: "Футболка мужская AC-DC",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/06.png",
+            size: "S"
+        }, {
+            sex: "male",
+            name: "Футболка мужская AC-DC",
+            cost: 300,
+            country: "china",
+            image: "../img/catalog/07.png",
+            size: "S"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Accept",
+            cost: 230,
+            country: "china",
+            image: "../img/catalog/08.png",
+            size: "M"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/09.png",
+            size: "L"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/10.png",
+            size: "L"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/11.png",
+            size: "L"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/12.png",
+            size: "L"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/13.png",
+            size: "L"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/14.png",
+            size: "L"
+        }, {
+            sex: "male",
+            name: "Футболка мужская Acheron",
+            cost: 280,
+            country: "china",
+            image: "../img/catalog/15.png",
+            size: "L"
+        } ];
+        outputGoods(DATA);
         const spollersArray = document.querySelectorAll("[data-spollers]");
         if (spollersArray.length > 0) {
             const spollersRegular = Array.from(spollersArray).filter((function(item, index, self) {
