@@ -6,5 +6,30 @@
   "Footer": {
     "copyright": " Всі права захищені.",
     "shopName": "Культовий рок-магазин \"SvaROCK\""
+  },
+  "Header": {
+    "searchPlaceholder": "Пошук…",
+    "searchAria": "Пошук",
+    "openSearch": "Відкрити пошук",
+    "user": "Користувач",
+    "favorites": "Обране",
+    "cart": "Кошик",
+    "login": "Вхід / Реєстрація",
+    "wishlist": "Вибране",
+    "delivery": "Оплата та доставка",
+    "blog": "Наш блог",
+    "nav": {
+      "home": "Головна",
+      "catalog": "Каталог",
+      "tshirts": "Футболки",
+      "jackets": "Куртки",
+      "shoes": "Взуття",
+      "headwear": "Головні убори",
+      "accessories": "Аксесуари",
+      "music": "Музика",
+      "posters": "Плакати",
+      "tickets": "Квитки",
+      "blog": "Наш блог"
+    }
   }
 }

@@ -6,5 +6,30 @@
   "Footer": {
     "copyright": "All rights reserved.",
     "shopName": "Cultivated Rock Shop \"SvaROCK\""
+  },
+  "Header": {
+    "searchPlaceholder": "Search…",
+    "searchAria": "Search",
+    "openSearch": "Open search",
+    "user": "User",
+    "favorites": "Favorites",
+    "cart": "Cart",
+    "login": "Login / Register",
+    "wishlist": "Favorites",
+    "delivery": "Payment & Delivery",
+    "blog": "Our blog",
+    "nav": {
+      "home": "Home",
+      "catalog": "Catalog",
+      "tshirts": "T-shirts",
+      "jackets": "Jackets",
+      "shoes": "Shoes",
+      "headwear": "Headwear",
+      "accessories": "Accessories",
+      "music": "Music",
+      "posters": "Posters",
+      "tickets": "Tickets",
+      "blog": "Our blog"
+    }
   }
 }

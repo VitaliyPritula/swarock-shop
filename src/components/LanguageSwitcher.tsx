@@ -19,10 +19,10 @@ export const LanguageToogler = () => {
         onClick={() => changeLanguage('uk')}
         type="button"
         className={clsx(
-          'flex cursor-pointer items-center text-[14px] font-medium leading-[19.5px] transition-all duration-300 hover:text-accent tablet:text-sm tablet:font-semibold tablet:leading-[21.94px]',
+          'flex cursor-pointer items-center text-[18px] font-medium leading-[19.5px] transition-all duration-300 hover:text-accent tablet:font-semibold tablet:leading-[21.94px]',
           currentLocale === 'uk'
             ? 'text-accent'
-            : 'text-light-background tablet:text-body-text'
+            : 'text-light-background'
         )}
       >
         Ua
@@ -32,10 +32,10 @@ export const LanguageToogler = () => {
         onClick={() => changeLanguage('en')}
         type="button"
         className={clsx(
-          'flex cursor-pointer items-center text-[14px] font-medium leading-[19.5px] transition-all duration-300 hover:text-accent tablet:font-semibold tablet:leading-[21.94px]',
+          'flex cursor-pointer items-center text-[18px] font-medium leading-[19.5px] transition-all duration-300 hover:text-accent tablet:font-semibold tablet:leading-[21.94px]',
           currentLocale === 'en'
             ? 'text-accent'
-            : 'text-light-background tablet:text-body-text'
+            : 'text-light-background'
         )}
       >
         En
