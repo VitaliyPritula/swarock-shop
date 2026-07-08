@@ -27,13 +27,16 @@ export default async function RootLayout({ children }: Props) {
 
       <body>
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          <div className="min-h-screen flex flex-col">
+            <Header />
 
-          <main>
-            {children}
-          </main>
+            <main className="flex-[1_1_auto]">
+              {children}
+            </main>
 
-          <Footer />
+            <Footer />
+
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

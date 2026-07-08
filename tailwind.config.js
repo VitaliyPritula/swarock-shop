@@ -8,14 +8,14 @@ module.exports = {
     extend: {
       colors: {
         primary: '#1D1D24',
-        secondary: '#F59E0B',
+        secondary: '#DADFE2',
         // accent: '#1d1d24',
       },
       screens: {
         // Custom breakpoints
         'xs': '400px',        // very small phones
         'sm': '640px',        // small (default Tailwind sm)
-        'md': '768px',        // medium
+        'md': '992px',        // medium
         'lg': '1024px',       // large
         'xl': '1280px',       // extra large
         '2xl': '1536px',      // 2x

@@ -18,7 +18,7 @@ export default function HeaderNav({ isOpen, items, t }: HeaderNavProps) {
   return (
     <div
       className={`flex flex-col gap-x-5 rounded-xl bg-[#DADFE2] p-4 text-black shadow-lg shadow-black/10 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:flex-row md:flex-wrap md:bg-transparent md:shadow-none ${isOpen ? 'translate-x-0' : 'translate-x-full'
-        } ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+        } ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'} md:pointer-events-auto`}
     >
       {items.map((item) => (
         <Link
@@ -51,7 +51,7 @@ export default function HeaderNav({ isOpen, items, t }: HeaderNavProps) {
       </div>
       <a
         href="tel:+380574622726"
-        className="mt-5 block text-m text-center font-light leading-[19.5px] transition-all duration-200 hover:text-gray-border hover:underline"
+        className="mt-5 block text-m md:hidden text-center font-light leading-[19.5px] transition-all duration-200 hover:text-gray-border hover:underline"
       >
         +380574622726
       </a>
