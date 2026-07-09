@@ -25,11 +25,8 @@
     "register": "Реєстрація",
     "callback": "Зворотній дзвінок",
     "contactsTitle": "Контакти",
-    "locationUk": "м. Чугуїв, вул. Соборна 3",
-    "contactsRuTitle": "Контакты",
-    "forResidents": "Для жителів та",
-    "forGuests": "гостей міста",
-    "ofChuguev": "Чугуєва",
+    "contactsRuTitle": "Контакт",
+    "forResidents": "Для жителів та\nгостей міста Чугуєва",
     "shopNameRu": "Магазин “SvaROCK”",
     "shopAddress": "пл. Соборна 2",
     "socialTitle": "Наші спільноти"

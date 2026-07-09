@@ -22,13 +22,13 @@ export default function HeaderActions({ isMenuOpen, onOpenSearch, t }: HeaderAct
       </button>
 
       <div className="flex items-center gap-2">
-        <Link href="/" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('user')}>
+        <Link href="/login" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('user')}>
           <UserRound className="h-5 w-5" />
         </Link>
-        <Link href="/" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('favorites')}>
+        <Link href="/wishlist" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('favorites')}>
           <Heart className="h-5 w-5" />
         </Link>
-        <Link href="/" className="rounded-full p-2 text-white transition hover:bg-white/10" aria-label={t('cart')}>
+        <Link href="/cart" className="rounded-full p-2 text-white transition hover:bg-white/10" aria-label={t('cart')}>
           <ShoppingCart className="h-5 w-5" />
         </Link>
       </div>

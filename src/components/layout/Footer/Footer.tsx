@@ -50,28 +50,35 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
     {
       title: t('contactsTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
-          <li>+38 067 777 88 67</li>
-          <li>+38 050 123 45 67</li>
-          <li>svarock.mag@gmail.com</li>
-          <li className="pt-2">{t('locationUk')}</li>
-        </ul>
+        <div className="space-y-5 text-sm text-muted-foreground">
+          <div>
+            <ul className="space-y-1">
+              <li><a href="tel:+380677778867">+38 067 777 88 67</a></li>
+              <li><a href="tel:+380501234567">+38 050 123 45 67</a></li>
+              <li><a href="mailto:svarock.mag@gmail.com">svarock.mag@gmail.com</a></li>
+              {/* <li className="pt-2">{t('locationUk')}</li> */}
+            </ul>
+          </div>
+          <div className="max-w-[200px]">
+            <h5 className="font-normal text-foreground text-xl pb-6">{t('forResidents')}</h5>
+            <ul className="space-y-1">
+              <li>{t('shopName')}</li>
+              <li>{t('shopAddress')}</li>
+              <li><a href="tel:+380574622726">+380574622726</a></li>
+            </ul>
+          </div>
+        </div>
       ),
     },
     {
-      title: t('contactsRuTitle'),
+      title: t('socialTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
-          <li>+380677213567</li>
-          <li>+380507336884</li>
-          <li>svarock.mag@gmail.com</li>
-          <li>{t('forResidents')}</li>
-          <li>{t('forGuests')}</li>
-          <li>{t('ofChuguev')}</li>
-          <li>{t('shopName')}</li>
-          <li>{t('shopAddress')}</li>
-          <li>+380574622726</li>
-        </ul>
+        <div className="space-y-3">
+          <div className="flex flex-wrap gap-3 text-foreground">
+            <a href="#" aria-label="Facebook" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold"><ICONS.FACEBOOK /></a>
+            <a href="#" aria-label="Instagram" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold"><ICONS.INSTAGRAM /></a>
+          </div>
+        </div>
       ),
     },
   ];
@@ -119,10 +126,9 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       title: t('contactsTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
-          <li>+38 067 777 88 67</li>
-          <li>+38 050 123 45 67</li>
-          <li>svarock.mag@gmail.com</li>
-          <li className="pt-2">{t('locationUk')}</li>
+          <li><a href="tel:+380677778867">+38 067 777 88 67</a></li>
+          <li><a href="tel:+380501234567">+38 050 123 45 67</a></li>
+          <li><a href="mailto:svarock.mag@gmail.com">svarock.mag@gmail.com</a></li>
         </ul>
       ),
     },
@@ -130,15 +136,10 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       title: t('contactsRuTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
-          <li>+380677213567</li>
-          <li>+380507336884</li>
-          <li>svarock.mag@gmail.com</li>
           <li>{t('forResidents')}</li>
-          <li>{t('forGuests')}</li>
-          <li>{t('ofChuguev')}</li>
           <li>{t('shopName')}</li>
           <li>{t('shopAddress')}</li>
-          <li>+380574622726</li>
+          <li><a href="tel:+380574622726">+380574622726</a></li>
         </ul>
       ),
     },
@@ -173,9 +174,8 @@ function FooterAccordion({ sections, t }: { sections: Section[]; t: ReturnType<t
       <div className="flex items-center justify-between border-b border-border bg-secondary px-4 py-3">
         <span className="font-display text-sm uppercase tracking-widest">{t('socialTitle')}</span>
         <div className="flex gap-3 text-foreground">
-          <a href="#" aria-label="Facebook" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold">f</a>
-          <a href="#" aria-label="Instagram" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold">ig</a>
-          <a href="#" aria-label="YouTube" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold">yt</a>
+          <a href="#" aria-label="Facebook" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold"><ICONS.FACEBOOK /></a>
+          <a href="#" aria-label="Instagram" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold"><ICONS.INSTAGRAM /></a>
         </div>
       </div>
     </div>
@@ -198,15 +198,6 @@ export default function Footer() {
           </div>
         ))}
       </div>
-      <div className="mx-auto hidden max-w-7xl px-4 pb-10 min-[992px]:block">
-        <h4 className="mb-3 font-display text-sm uppercase tracking-widest">Наші спільноти</h4>
-        <div className="flex gap-3 text-foreground">
-          <a href="#" aria-label="Facebook" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold">f</a>
-          <a href="#" aria-label="Instagram" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold">ig</a>
-          <a href="#" aria-label="YouTube" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold">yt</a>
-        </div>
-      </div>
-
       {/* Mobile/Tablet < lg */}
       <FooterAccordion sections={mobileSections} t={t} />
 
