@@ -1,7 +1,7 @@
 {
   "Home": {
-    "title": "Main paged",
-    "description": "Clothing for rock fans"
+    "title": "Main page",
+    "heroText": "Dee Snider, former vocalist for the glam metal band Twisted Sister, has announced the release of a new album under the promising title For the Love of Metal."
   },
   "Footer": {
     "copyright": "All rights reserved.",
@@ -26,9 +26,7 @@
     "callback": "Callback",
     "contactsTitle": "Contacts",
     "contactsRuTitle": "Contacts",
-    "forResidents": "For residents and",
-    "forGuests": "city guests",
-    "ofChuguev": "of Chuhuiv",
+    "forResidents": "For residents and\ncity guests\nof Chuhuiv",
     "shopNameRu": "Shop “SvaROCK”",
     "shopAddress": "Soborna Sq. 2",
     "socialTitle": "Our social"

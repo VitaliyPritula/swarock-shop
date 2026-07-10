@@ -130,9 +130,9 @@ export default function Header() {
       </div>
 
       <div
-        className={`md:relative absolute left-0 top-0 h-auto w-full md:bg-transparent bg-[#0e0925a9] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] mx-auto px-4 max-w-[1440px]
+        className={`md:relative absolute z-10 left-0 top-0 h-auto w-full md:bg-transparent bg-[#0e0925a9] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] mx-auto px-4 max-w-[1440px]
           ${isOpen
-            ? "translate-x-[0%] pt-[20%] lg:h-8 h-screen overflow-y-scroll px-7"
+            ? "translate-x-[0%] pt-[14%] lg:h-8 h-screen overflow-y-scroll px-7"
             : "md:-translate-x-[98%] -translate-x-[1000%]"
           }
           `}>

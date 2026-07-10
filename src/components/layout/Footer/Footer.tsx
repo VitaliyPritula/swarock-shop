@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react";
 import { ICONS } from '../../containts/icon';
 
 type Section = {
+  id: string;
   title: string;
   content: ReactNode;
 };
@@ -12,6 +13,7 @@ type Section = {
 function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
   return [
     {
+      id: 'catalog',
       title: t('catalogTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
@@ -27,6 +29,7 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'about',
       title: t('aboutTitle'),
       content: (
         <div className="space-y-4">
@@ -48,6 +51,7 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'contacts',
       title: t('contactsTitle'),
       content: (
         <div className="space-y-5 text-sm text-muted-foreground">
@@ -71,6 +75,7 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'social',
       title: t('socialTitle'),
       content: (
         <div className="space-y-3">
@@ -87,6 +92,7 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
 function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
   return [
     {
+      id: 'catalog',
       title: t('catalogTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
@@ -102,6 +108,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'about',
       title: t('aboutTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
@@ -113,6 +120,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'user',
       title: t('userSection'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
@@ -123,6 +131,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'contactsT',
       title: t('contactsTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
@@ -133,6 +142,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       ),
     },
     {
+      id: 'contactsR',
       title: t('contactsRuTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
@@ -151,22 +161,22 @@ function FooterAccordion({ sections, t }: { sections: Section[]; t: ReturnType<t
   return (
     <div className="footer md:hidden">
       {sections.map((s) => {
-        const isOpen = open === s.title;
+        const isOpen = open === s.id;
         return (
-          <div key={s.title} className="">
+          <div key={s.id} className="">
             <button
               type="button"
-              onClick={() => setOpen(isOpen ? null : s.title)}
+              onClick={() => setOpen(isOpen ? null : s.id)}
               className="flex w-full items-center justify-between bg-secondary px-4 py-3 text-left font-display text-sm uppercase tracking-widest"
               aria-expanded={isOpen}
             >
-              <span>{s.title}</span>
+              <span>{s.id}</span>
               <ICONS.ARROW className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-180 text-white" : ""}`} />
             </button>
             <div
               className={`grid overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
             >
-              <div className="min-h-0 px-4 py-4">{s.content}</div>
+              <div className="min-h-0 px-4 py-2">{s.content}</div>
             </div>
           </div>
         );
@@ -192,8 +202,8 @@ export default function Footer() {
       {/* Desktop ≥ lg (992+) */}
       <div className="mx-auto hidden max-w-7xl gap-8 px-4 py-10 min-[992px]:grid min-[992px]:grid-cols-4">
         {desktopSections.map((s) => (
-          <div key={s.title}>
-            <h4 className="mb-3 font-display text-sm uppercase tracking-widest">{s.title}</h4>
+          <div key={s.id}>
+            <h4 className="mb-3 font-display text-sm uppercase tracking-widest">{s.id}</h4>
             {s.content}
           </div>
         ))}
