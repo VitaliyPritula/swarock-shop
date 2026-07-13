@@ -93,12 +93,12 @@ export default function Header() {
               buttonClassName="rounded bg-white p-2"
               iconClassName="h-5 w-5 text-primary"
             />
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <HeaderActions isMenuOpen={isOpen} onOpenSearch={() => setIsSearchOpen(true)} t={t} />
             <div className="hidden md:block">
               <LanguageSwitcher />
             </div>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <HeaderActions isMenuOpen={isOpen} onOpenSearch={() => setIsSearchOpen(true)} t={t} />
           </div>
         </div>
         {/* Mobile search overlay */}

@@ -22,7 +22,7 @@ export default function HeaderActions({ isMenuOpen, onOpenSearch, t }: HeaderAct
       </button>
 
       <div className="flex items-center gap-2">
-        <Link href="/login" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('user')}>
+        <Link href="/auth" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('user')}>
           <UserRound className="h-5 w-5" />
         </Link>
         <Link href="/wishlist" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('favorites')}>

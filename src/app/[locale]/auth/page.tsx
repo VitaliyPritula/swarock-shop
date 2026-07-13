@@ -1,16 +1,12 @@
-import { Link } from '@/src/i18n/routing';
+'use client'
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/src/lovable/client";
+import { lovable } from "@/src/lovable/index";
 
-export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Вхід — SVAROCK" }] }),
-  component: AuthPage,
-});
-
-function AuthPage() {
-  // const nav = useNavigate();
+export default function AuthPage() {
+  const router = useRouter();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +20,7 @@ function AuthPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("З поверненням!");
-        nav({ to: "/account" });
+        router.push("/account");
       } else {
         const { error } = await supabase.auth.signUp({
           email, password,
@@ -32,7 +28,7 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Реєстрація успішна");
-        nav({ to: "/account" });
+        router.push("/account");
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Помилка");
@@ -43,7 +39,7 @@ function AuthPage() {
 
   async function google() {
     const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (res.error) toast.error(res.error.message);
+    if (res.error) toast.error(res.error instanceof Error ? res.error.message : "Помилка");
   }
 
   return (
@@ -56,18 +52,15 @@ function AuthPage() {
           placeholder="Email" className="w-full rounded border px-3 py-2" />
         <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
           placeholder="Пароль" className="w-full rounded border px-3 py-2" />
-        <button disabled={loading} className="w-full rounded bg-[color:var(--brand)] py-2 font-display uppercase tracking-widest text-white disabled:opacity-60">
+        <button disabled={loading} className="w-full rounded bg-[#1D1D24] py-2 font-display uppercase tracking-widest text-white disabled:opacity-60">
           {loading ? "…" : mode === "login" ? "Увійти" : "Зареєструватися"}
         </button>
       </form>
       <button onClick={google} className="mt-3 w-full rounded border py-2 text-sm">
         Увійти через Google
       </button>
-      <button
-        type="button"
-        onClick={() => setMode(mode === "login" ? "signup" : "login")}
-        className="mt-4 w-full text-sm text-muted-foreground"
-      >
+      <button type="button" onClick={() => setMode(mode === "login" ? "signup" : "login")}
+        className="mt-4 w-full text-sm text-muted-foreground">
         {mode === "login" ? "Немає акаунту? Реєстрація" : "Вже маю акаунт — увійти"}
       </button>
     </div>

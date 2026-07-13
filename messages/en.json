@@ -55,5 +55,22 @@
       "tickets": "Tickets",
       "blog": "Our blog"
     }
+  },
+  "Products": {
+    "popular": "Popular products",
+    "popularDescription": "In stock. Ships on the day of purchase.",
+    "new": "New products",
+    "newDescription": "The latest rock apparel and accessories.",
+    "backToCatalog": "Back to products",
+    "material": "Material",
+    "items": {
+      "leatherJacket": { "name": "Leather Jacket", "material": "Leather", "description": "A durable jacket for a bold everyday look." },
+      "rockTshirt": { "name": "Rock T-shirt", "material": "Cotton", "description": "A soft cotton T-shirt for concerts and everyday wear." },
+      "combatBoots": { "name": "Combat Boots", "material": "Leather", "description": "Sturdy boots made for long walks and loud shows." },
+      "rockCap": { "name": "Rock Cap", "material": "Cotton", "description": "An adjustable cap with a classic rock attitude." },
+      "bandMask": { "name": "Band Mask", "material": "Cotton", "description": "A comfortable accessory for your concert outfit." },
+      "rockPoster": { "name": "Rock Poster", "material": "Paper", "description": "A statement poster for your wall." },
+      "vinylRecord": { "name": "Vinyl Record", "material": "Vinyl", "description": "A vinyl release for a proper listening session." }
+    }
   }
 }
