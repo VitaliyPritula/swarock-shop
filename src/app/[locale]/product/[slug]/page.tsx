@@ -32,10 +32,30 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const price = Number(databaseProduct?.price ?? localProduct?.price ?? 0);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:py-12">
-      <Link href="/" className="text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground">
-        {t("backToCatalog")}
-      </Link>
+    <main className="mx-auto max-w-7xl px-4">
+      <nav className="flex items-center gap-2 text-xs text-muted-foreground">
+        <Link href="/" className="text-sm font-medium tracking-widest text-muted-foreground hover:text-foreground">
+          {t("backToCatalog")}
+        </Link>
+        <span>|</span>
+        <Link href="/catalog" className="hover:text-foreground hover:underline">Каталог</Link>
+        {databaseProduct?.categories && (
+          <>
+            <Link
+              href={`/catalog/${databaseProduct.categories.slug}`}
+              className="hover:text-foreground"
+            >
+              {databaseProduct.categories.name}
+            </Link>
+          </>
+        )}
+
+        <span>|</span>
+
+        <span className="text-foreground">
+          {name}
+        </span>
+      </nav>
 
       <div className="mt-6 grid gap-8 md:grid-cols-2 md:gap-12">
         <div className="aspect-square overflow-hidden bg-white">

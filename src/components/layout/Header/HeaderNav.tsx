@@ -17,7 +17,7 @@ type HeaderNavProps = {
 export default function HeaderNav({ isOpen, items, t }: HeaderNavProps) {
   return (
     <div
-      className={`flex flex-col gap-x-5 rounded-xl bg-[#DADFE2] p-4 text-black shadow-lg shadow-black/10 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:flex-row md:flex-wrap md:bg-transparent md:shadow-none ${isOpen ? 'translate-x-0' : 'translate-x-full'
+      className={`flex flex-col gap-x-5 rounded-xl bg-[#DADFE2] p-4 text-black shadow-lg shadow-black/10 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:flex-row md:flex-wrap md:bg-transparent md:shadow-none ${isOpen ? 'translate-x-0' : 'translate-x-[105%]'
         } ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'} md:pointer-events-auto`}
     >
       {items.map((item) => (

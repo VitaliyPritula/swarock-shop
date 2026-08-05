@@ -1,37 +1,71 @@
 'use client'
-import { useRouter } from 'next/navigation';
-import { useState } from "react";
-import { toast } from "sonner";
+import { useRouter } from "@/src/i18n/routing";
 import { supabase } from "@/src/lovable/client";
 import { lovable } from "@/src/lovable/index";
+import { Eye, EyeOff } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function AuthPage() {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations('Auth');
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function redirectIfAuthenticated() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        router.push("/account", { locale });
+      }
+    }
+
+    redirectIfAuthenticated();
+  }, [router, locale]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password;
+
+    if (!trimmedEmail || !trimmedPassword) {
+      toast.error(t('missingCredentials'));
+      setLoading(false);
+      return;
+    }
+
     try {
       if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({ email: trimmedEmail, password: trimmedPassword });
         if (error) throw error;
         toast.success("З поверненням!");
-        router.push("/account");
+        router.push("/account", { locale });
       } else {
         const { error } = await supabase.auth.signUp({
-          email, password,
+          email: trimmedEmail,
+          password: trimmedPassword,
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
         toast.success("Реєстрація успішна");
-        router.push("/account");
+        router.push("/account", { locale });
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Помилка");
+      let message = t('unknownError');
+      if (err instanceof Error) {
+        if (err.message.includes('Invalid login credentials') || err.message.includes('invalid login credentials')) {
+          message = t('invalidCredentials');
+        } else {
+          message = err.message;
+        }
+      }
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -50,8 +84,18 @@ export default function AuthPage() {
       <form onSubmit={submit} className="mt-6 space-y-3">
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
           placeholder="Email" className="w-full rounded border px-3 py-2" />
-        <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
-          placeholder="Пароль" className="w-full rounded border px-3 py-2" />
+        <div className="relative">
+          <input type={showPassword ? "text" : "password"} required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
+            placeholder="Пароль" className="w-full rounded border px-3 py-2 pr-10" />
+          <button
+            type="button"
+            onClick={() => setShowPassword((value) => !value)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-900"
+            aria-label={showPassword ? "Сховати пароль" : "Показати пароль"}
+          >
+            {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+          </button>
+        </div>
         <button disabled={loading} className="w-full rounded bg-[#1D1D24] py-2 font-display uppercase tracking-widest text-white disabled:opacity-60">
           {loading ? "…" : mode === "login" ? "Увійти" : "Зареєструватися"}
         </button>
