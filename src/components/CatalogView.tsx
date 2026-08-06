@@ -40,11 +40,11 @@ function FilterGroup({ title, children, defaultOpen = true }: { title: string; c
   );
 }
 
-function Checkbox({ checked, onChange, label, count }: { checked: boolean; onChange: () => void; label: string; count?: number }) {
+function Checkbox({ checked, onChange, label, count, labelClassName }: { checked: boolean; onChange: () => void; label: React.ReactNode; count?: number; labelClassName?: string }) {
   return (
     <label className="flex cursor-pointer items-center gap-2 py-1 text-sm">
       <input type="checkbox" checked={checked} onChange={onChange} className="h-4 w-4 shrink-0 accent-[color:var(--brand)]" />
-      <span className="min-w-0 flex-1">{label}</span>
+      <span className={`min-w-0 flex-1 ${labelClassName ?? ""}`}>{label}</span>
       {count !== undefined && <span className="text-xs text-muted-foreground">({count})</span>}
     </label>
   );
@@ -99,6 +99,7 @@ export function CatalogView({
   const [priceMax, setPriceMax] = useState(priceBounds.max);
   const [sizes, setSizes] = useState<Set<string>>(new Set());
   const [materials, setMaterials] = useState<Set<string>>(new Set());
+  const [showAllStaticMaterials, setShowAllStaticMaterials] = useState(false);
   const [onlyNew, setOnlyNew] = useState(false);
   const [onlyPopular, setOnlyPopular] = useState(false);
   const [productions, setProductions] = useState<Set<string>>(new Set());
@@ -332,7 +333,7 @@ export function CatalogView({
           )}
 
           {allMaterials.length > 0 && (
-            <FilterGroup title="Матеріали">
+            <FilterGroup title="Група/Бренд">
               <div className="relative mb-2">
                 <input
                   value={matQuery}
@@ -362,17 +363,43 @@ export function CatalogView({
             </FilterGroup>
           )}
 
-          <FilterGroup title="Позначки">
-            <Checkbox checked={onlyNew} onChange={() => { setOnlyNew(!onlyNew); setPage(1); }} label="Новинки" />
-            <Checkbox checked={onlyPopular} onChange={() => { setOnlyPopular(!onlyPopular); setPage(1); }} label="Популярні" />
-          </FilterGroup>
+          <FilterGroup title="Матеріали">
+            {(() => {
+              const staticMaterials = [
+                "Хлопок",
+                "Хлопок, полиэстер - 35%/65%",
+                "Хлопок, полиэстер - 60%/30%",
+                "Хлопок, полиэстер - 80%/20%",
+                "Хлопок, полиэстер - 50%/20%",
+                "Хлопок, полиэстер - 50%/20%",
+                "Хлопок, полиэстер - 75%/20%",
+              ];
+              const visible = showAllStaticMaterials ? staticMaterials : staticMaterials.slice(0, 3);
 
-          <button
-            onClick={reset}
-            className="mt-4 w-full rounded border border-border py-2 text-xs uppercase tracking-widest hover:border-foreground"
-          >
-            Скинути фільтри
-          </button>
+              return (
+                <>
+                  {visible.map((m, i) => (
+                    <Checkbox
+                      key={`${m}-${i}`}
+                      checked={materials.has(m)}
+                      onChange={() => toggle(materials, setMaterials, m)}
+                      label={m}
+                      labelClassName="font-Regular text-primary text-[14px]"
+                    />
+                  ))}
+
+                  {staticMaterials.length > 3 && (
+                    <button
+                      onClick={() => setShowAllStaticMaterials(!showAllStaticMaterials)}
+                      className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
+                    >
+                      {showAllStaticMaterials ? "Згорнути" : "показати все"}
+                    </button>
+                  )}
+                </>
+              );
+            })()}
+          </FilterGroup>
         </aside>
 
         <section>

@@ -1,9 +1,10 @@
 'use client'
-import { Link } from "@/src/i18n/routing";
+import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
 import Image from "next/image";
 import { useState } from "react";
+import ProductModal from "./ProductModal";
 
 export type ProductCardData = {
   slug: string;
@@ -16,10 +17,17 @@ export type ProductCardData = {
 
 export function ProductCard({ p }: { p: ProductCardData }) {
   const [selectedSize, setSelectedSize] = useState(p.sizes?.[0] ?? "");
+  const [open, setOpen] = useState(false);
   const image = p.image_url?.startsWith("http") ? p.image_url : img(p.image_url);
 
   return (
-    <div className="group relative flex w-full flex-col overflow-hidden rounded bg-white text-center shadow-sm transition hover:shadow-md">
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => setOpen(true)}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOpen(true); }}
+      className="group relative flex w-full flex-col overflow-hidden rounded bg-white text-center shadow-sm transition hover:shadow-md cursor-pointer"
+    >
       <div className="aspect-square overflow-hidden bg-white">
         <Image
           src={image}
@@ -39,11 +47,11 @@ export function ProductCard({ p }: { p: ProductCardData }) {
         <div className="mt-2 font-display text-lg">{uah(p.price)}</div>
       </div>
 
-      <div className="absolute inset-0 flex items-end justify-center bg-black/0 opacity-0 transition duration-300 group-hover:bg-black/40 group-hover:opacity-100">
+      <div className="absolute inset-0 flex items-end justify-center bg-black/0 opacity-0 transition duration-300  group-hover:opacity-100">
         <div className="w-full bg-background/95 px-4 py-4 backdrop-blur-sm sm:px-5">
           <div className="flex flex-col gap-3">
             <label htmlFor={`size-${p.slug}`} className="text-xs uppercase tracking-widest text-zinc-900">
-              Виберіть розмір
+
             </label>
             <div className="flex justify-between">
               <div className="relative">
@@ -51,6 +59,7 @@ export function ProductCard({ p }: { p: ProductCardData }) {
                   id={`size-${p.slug}`}
                   value={selectedSize}
                   onChange={(event) => setSelectedSize(event.target.value)}
+                  onClick={(e) => e.stopPropagation()}
                   className="w-[150%] appearance-none rounded border border-border bg-background px-1 py-2 pr-1 text-sm outline-none focus:border-[color:var(--brand)] focus:ring-2 focus:ring-[color:var(--brand)]/20"
                 >
                   {p.sizes && p.sizes.length > 0 ? (
@@ -74,16 +83,27 @@ export function ProductCard({ p }: { p: ProductCardData }) {
 
                 </span>
               </div>
-              <Link
-                href={`/product/${p.slug}`}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  useCart.getState().add({
+                    productId: String(p.slug),
+                    slug: p.slug,
+                    name: p.name,
+                    image: typeof image === "string" ? image : (image as any)?.src ?? "",
+                    size: selectedSize || null,
+                    price: p.price,
+                  }, 1);
+                }}
                 className="no-underline inline-flex items-center justify-center rounded bg-primary px-4 py-2 text-sm uppercase tracking-widest text-white transition hover:bg-primary/90"
               >
                 Купити
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       </div>
+      {open && <ProductModal p={p} onClose={() => setOpen(false)} />}
     </div>
   );
 }

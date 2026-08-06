@@ -1,9 +1,13 @@
 "use client";
+"use client";
+import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
+import { useWishlist } from "@/src/lib/wishlist";
 import { Heart, X } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Variant = { id: string; size: string; stock?: number };
 
@@ -16,15 +20,18 @@ export default function ProductModal({
 }) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState<string | null>(p?.product_variants?.[0]?.size ?? null);
+  const [mounted, setMounted] = useState(false);
 
-  if (!p) return null;
+  useEffect(() => setMounted(true), []);
+
+  if (!p || !mounted) return null;
 
   const image = p.image_url?.startsWith("http") ? p.image_url : img(p.image_url);
 
-  return (
+  const modal = (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative z-10 w-[720px] max-w-full rounded bg-white p-6 shadow-lg">
+      <div onClick={(e) => e.stopPropagation()} className="relative z-10 w-[720px] max-w-full rounded bg-white p-6 shadow-lg">
         <button onClick={onClose} className="absolute right-3 top-3 text-muted-foreground">
           <X className="h-5 w-5" />
         </button>
@@ -71,12 +78,52 @@ export default function ProductModal({
             <div className="mb-4 text-xs">Код товару: <span className="text-[color:var(--brand)]">{p.id}</span></div>
 
             <div className="flex items-center gap-3">
-              <button className="flex-1 rounded bg-[color:var(--brand)] py-2 text-sm text-white">Додати в корзину</button>
-              <button className="rounded border p-2 text-muted-foreground"><Heart className="h-4 w-4" /></button>
+              <button
+                onClick={() => {
+                  useCart.getState().add({
+                    productId: String(p.id ?? p.slug),
+                    slug: p.slug,
+                    name: p.name,
+                    image: typeof image === "string" ? image : (image as any)?.src ?? "",
+                    size: size,
+                    price: p.price,
+                  }, qty);
+                  onClose();
+                }}
+                className="flex-1 rounded bg-primary py-2 text-sm text-white"
+              >
+                Додати в корзину
+              </button>
+              <WishlistHeart p={p} size={size} />
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+
+  return createPortal(modal, document.body);
+}
+
+function WishlistHeart({ p, size }: { p: any; size: string | null }) {
+  const has = useWishlist((s) => s.has(String(p.id ?? p.slug), size));
+  const toggle = useWishlist((s) => s.toggle);
+  return (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        toggle({
+          productId: String(p.id ?? p.slug),
+          slug: p.slug,
+          name: p.name,
+          image: typeof p.image_url === "string" ? p.image_url : "",
+          size: size,
+        });
+      }}
+      className={`rounded border p-2 ${has ? "text-[color:var(--brand)]" : "text-muted-foreground"}`}
+      aria-pressed={has}
+    >
+      <Heart className="h-4 w-4" />
+    </button>
   );
 }
