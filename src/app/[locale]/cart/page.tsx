@@ -1,13 +1,10 @@
 'use client';
 import { Link } from '@/src/i18n/routing';
 import { useCart } from '@/src/lib/cart';
-import { img } from "@/src/lib/images";
-import { uah } from "@/src/lib/format";
-import { Trash2 } from "lucide-react";
-
+import Image from 'next/image';
 
 export default function CartPage() {
-  
+
   const items = useCart((s) => s.items);
   const remove = useCart((s) => s.remove);
   const setQty = useCart((s) => s.setQty);
@@ -30,20 +27,47 @@ export default function CartPage() {
       <div className="space-y-4">
         {items.map((item) => (
           <div key={item.id} className="flex flex-col gap-4 rounded border p-4 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-2">
-              <div className="font-semibold">{item.name}</div>
-              <div className="text-sm text-muted-foreground">{item.size ? `Розмір: ${item.size}` : 'Без розміру'}</div>
-              <div className="text-sm">Ціна: {item.price} ₴</div>
+            <div className="flex items-center gap-4">
+              <div className="h-24 w-24 overflow-hidden rounded bg-white shadow-sm">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={96}
+                  height={96}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="space-y-2">
+                <div className="font-semibold">{item.name}</div>
+                <div className="text-sm text-muted-foreground">{item.size ? `Розмір: ${item.size}` : 'Без розміру'}</div>
+                <div className="text-sm">Ціна: {item.price} ₴</div>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <label className="text-sm">Кількість</label>
-              <input
-                type="number"
-                min={1}
-                value={item.qty}
-                onChange={(e) => setQty(item.id, Math.max(1, Number(e.target.value) || 1))}
-                className="w-20 rounded border px-2 py-1 text-center"
-              />
+              <div className="flex items-center rounded border bg-white">
+                <button
+                  type="button"
+                  onClick={() => setQty(item.id, Math.max(1, item.qty - 1))}
+                  className="h-9 w-9 border-r border-border text-lg leading-none text-muted-foreground transition hover:bg-slate-100"
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  min={1}
+                  value={item.qty}
+                  onChange={(e) => setQty(item.id, Math.max(1, Number(e.target.value) || 1))}
+                  className="w-16 border-0 bg-transparent px-2 text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setQty(item.id, item.qty + 1)}
+                  className="h-9 w-9 border-l border-border text-lg leading-none text-muted-foreground transition hover:bg-slate-100"
+                >
+                  +
+                </button>
+              </div>
               <button
                 type="button"
                 onClick={() => remove(item.id)}

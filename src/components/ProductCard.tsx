@@ -2,7 +2,7 @@
 import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
 import ProductModal from "./ProductModal";
 
@@ -18,7 +18,9 @@ export type ProductCardData = {
 export function ProductCard({ p }: { p: ProductCardData }) {
   const [selectedSize, setSelectedSize] = useState(p.sizes?.[0] ?? "");
   const [open, setOpen] = useState(false);
-  const image = p.image_url?.startsWith("http") ? p.image_url : img(p.image_url);
+  const image: string | StaticImageData = p.image_url?.startsWith("http")
+    ? p.image_url
+    : img(p.image_url);
 
   return (
     <div
@@ -90,7 +92,7 @@ export function ProductCard({ p }: { p: ProductCardData }) {
                     productId: String(p.slug),
                     slug: p.slug,
                     name: p.name,
-                    image: typeof image === "string" ? image : (image as any)?.src ?? "",
+                    image: typeof image === "string" ? image : image.src,
                     size: selectedSize || null,
                     price: p.price,
                   }, 1);

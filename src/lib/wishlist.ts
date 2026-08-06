@@ -8,6 +8,7 @@ export type WishItem = {
   name: string;
   image: string;
   size: string | null;
+  price: number;
 };
 
 type WishState = {

@@ -1,5 +1,4 @@
 "use client";
-"use client";
 import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
@@ -11,22 +10,34 @@ import { createPortal } from "react-dom";
 
 type Variant = { id: string; size: string; stock?: number };
 
+type ProductModalItem = {
+  id?: string;
+  slug: string;
+  name: string;
+  image_url?: string;
+  price: number;
+  product_variants?: Variant[];
+};
+
 export default function ProductModal({
   p,
   onClose,
 }: {
-  p: any;
+  p: ProductModalItem;
   onClose: () => void;
 }) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState<string | null>(p?.product_variants?.[0]?.size ?? null);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!p || !mounted) return null;
 
   const image = p.image_url?.startsWith("http") ? p.image_url : img(p.image_url);
+  const imageSrc = typeof image === "string" ? image : image.src;
 
   const modal = (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -35,8 +46,8 @@ export default function ProductModal({
         <button onClick={onClose} className="absolute right-3 top-3 text-muted-foreground">
           <X className="h-5 w-5" />
         </button>
-        <div className="flex gap-6">
-          <div className="w-1/2">
+        <div className="flex flex-wrap sm:flex-nowrap gap-6">
+          <div className="md:w-1/2">
             <div className="aspect-[4/5] overflow-hidden bg-gray-100">
               <Image
                 src={image}
@@ -47,7 +58,7 @@ export default function ProductModal({
               />
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="md:w-1/2 w-full">
             <h2 className="mb-2 text-sm font-semibold uppercase">{p.name}</h2>
             <div className="mb-4 flex items-center gap-3">
               <div className="rounded-full border border-green-600 bg-green-50 px-2 py-0.5 text-xs text-green-700">В наявності</div>
@@ -63,17 +74,17 @@ export default function ProductModal({
               </div>
             </div>
 
-            {p.product_variants?.length > 0 && (
+            {p.product_variants?.length ? (
               <div className="mb-3">
                 <label className="block mb-1 text-xs text-muted-foreground">Розмір</label>
                 <select value={size ?? ""} onChange={(e) => setSize(e.target.value)} className="w-full rounded border px-2 py-1">
-                  {p.product_variants.map((v: Variant) => (
+                  {p.product_variants?.map((v: Variant) => (
                     <option key={v.id} value={v.size}>{v.size}</option>
                   ))}
                 </select>
                 <div className="mt-2 text-xs"><a className="underline">Таблиця розмірів</a></div>
               </div>
-            )}
+            ) : null}
 
             <div className="mb-4 text-xs">Код товару: <span className="text-[color:var(--brand)]">{p.id}</span></div>
 
@@ -84,7 +95,7 @@ export default function ProductModal({
                     productId: String(p.id ?? p.slug),
                     slug: p.slug,
                     name: p.name,
-                    image: typeof image === "string" ? image : (image as any)?.src ?? "",
+                    image: imageSrc,
                     size: size,
                     price: p.price,
                   }, qty);
@@ -105,7 +116,7 @@ export default function ProductModal({
   return createPortal(modal, document.body);
 }
 
-function WishlistHeart({ p, size }: { p: any; size: string | null }) {
+function WishlistHeart({ p, size }: { p: ProductModalItem; size: string | null }) {
   const has = useWishlist((s) => s.has(String(p.id ?? p.slug), size));
   const toggle = useWishlist((s) => s.toggle);
   return (
@@ -116,8 +127,9 @@ function WishlistHeart({ p, size }: { p: any; size: string | null }) {
           productId: String(p.id ?? p.slug),
           slug: p.slug,
           name: p.name,
-          image: typeof p.image_url === "string" ? p.image_url : "",
+          image: imageSrc,
           size: size,
+          price: p.price,
         });
       }}
       className={`rounded border p-2 ${has ? "text-[color:var(--brand)]" : "text-muted-foreground"}`}

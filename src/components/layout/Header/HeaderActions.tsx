@@ -44,9 +44,9 @@ export default function HeaderActions({ isMenuOpen, onOpenSearch, t }: HeaderAct
         <Search className="h-5 w-4 text-white" />
       </button>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         {isAuthenticated ? (
-          <Link href="/account" className="rounded-full p-2 hidden md:block text-white transition hover:bg-white/10" aria-label={t('user')}>
+          <Link href="/account" className="rounded-full p-2 !pr-0 hidden md:block text-white transition hover:bg-white/10" aria-label={t('user')}>
             <UserRound className="h-5 w-5" />
           </Link>
         ) : (
@@ -57,10 +57,10 @@ export default function HeaderActions({ isMenuOpen, onOpenSearch, t }: HeaderAct
 
         <div className="relative hidden md:block">
           <Link href="/wishlist" className="rounded-full p-2 text-white transition hover:bg-white/10" aria-label={t('favorites')}>
-            <Heart className="h-5 w-5" />
+            <Heart className="h-5 w-8" />
           </Link>
           {wishCount > 0 && (
-            <span className="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--brand)] text-xs text-white">{wishCount}</span>
+            <span className="absolute top-[15%] -right-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#FF0000] text-xs text-white">{wishCount}</span>
           )}
         </div>
         <div className="relative">
@@ -68,7 +68,7 @@ export default function HeaderActions({ isMenuOpen, onOpenSearch, t }: HeaderAct
             <ShoppingCart className="h-5 w-5" />
           </Link>
           {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--brand)] text-xs text-white">{cartCount}</span>
+            <span className="absolute top-[15%] -right-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#FF0000] text-xs text-white">{cartCount}</span>
           )}
         </div>
       </div>
