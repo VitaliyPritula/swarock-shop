@@ -30,7 +30,7 @@ export async function listProducts(params: ListProductsParams = {}) {
   const sb = serverClient();
   let q = sb
     .from("products")
-    .select("id,slug,name,price,image_url,is_new,is_popular,category_id,categories(slug,name)")
+    .select("id,code,slug,name,price,image_url,is_new,is_popular,category_id,categories(slug,name)")
     .order("created_at", { ascending: false });
 
   if (params.category) {
@@ -67,7 +67,7 @@ export async function searchProducts(q: string) {
   const term = `%${q}%`;
   const { data } = await sb
     .from("products")
-    .select("id,slug,name,price,image_url")
+    .select("id,code,slug,name,price,image_url")
     .ilike("name", term)
     .limit(30);
   return data ?? [];
@@ -97,7 +97,7 @@ export async function getBlogPost(slug: string) {
 // ─── Orders ───────────────────────────────────────────────────────────────────
 
 const OrderItemSchema = z.object({
-  productId: z.string().uuid(),
+  productId: z.string().min(1),
   name: z.string(),
   size: z.string().nullable(),
   qty: z.number().int().min(1).max(50),
@@ -120,6 +120,7 @@ export type OrderInput = z.infer<typeof OrderSchema>;
 export async function createOrder(input: unknown) {
   const data = OrderSchema.parse(input);
   const sb = serverClient();
+  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
   const total = data.items.reduce((s, x) => s + x.qty * x.price, 0);
 
@@ -145,7 +146,7 @@ export async function createOrder(input: unknown) {
   const { error: itemsErr } = await sb.from("order_items").insert(
     data.items.map((i) => ({
       order_id: order.id,
-      product_id: i.productId,
+      product_id: uuidPattern.test(i.productId) ? i.productId : null,
       product_name: i.name,
       size: i.size,
       qty: i.qty,

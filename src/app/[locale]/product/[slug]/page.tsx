@@ -6,6 +6,7 @@ import { localProducts } from "@/src/lib/catalog";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
 import { getProduct } from "@/src/lib/shop.functions";
+import ProductDetails from "@/src/components/ProductDetails";
 
 type ProductPageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -76,6 +77,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <h1 className="mt-3 font-display text-3xl uppercase sm:text-4xl">{name}</h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">{description}</p>
           <p className="mt-8 font-display text-3xl">{uah(price)}</p>
+          <ProductDetails name={name} />
         </div>
       </div>
     </main>

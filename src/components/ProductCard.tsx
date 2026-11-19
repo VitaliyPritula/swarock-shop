@@ -7,6 +7,8 @@ import { useState } from "react";
 import ProductModal from "./ProductModal";
 
 export type ProductCardData = {
+  id?: string;
+  code?: string | null;
   slug: string;
   name: string;
   price: number;
@@ -52,9 +54,6 @@ export function ProductCard({ p }: { p: ProductCardData }) {
       <div className="absolute inset-0 flex items-end justify-center bg-black/0 opacity-0 transition duration-300  group-hover:opacity-100">
         <div className="w-full bg-background/95 px-4 py-4 backdrop-blur-sm sm:px-5">
           <div className="flex flex-col gap-3">
-            <label htmlFor={`size-${p.slug}`} className="text-xs uppercase tracking-widest text-zinc-900">
-
-            </label>
             <div className="flex justify-between">
               <div className="relative">
                 <select
@@ -90,6 +89,7 @@ export function ProductCard({ p }: { p: ProductCardData }) {
                   e.stopPropagation();
                   useCart.getState().add({
                     productId: String(p.slug),
+                    code: p.code ?? null,
                     slug: p.slug,
                     name: p.name,
                     image: typeof image === "string" ? image : image.src,

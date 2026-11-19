@@ -1,4 +1,5 @@
 "use client";
+import { Link } from '@/src/i18n/routing';
 import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
@@ -12,9 +13,10 @@ type Variant = { id: string; size: string; stock?: number };
 
 type ProductModalItem = {
   id?: string;
+  code?: string | null;
   slug: string;
   name: string;
-  image_url?: string;
+  image_url?: string | null;
   price: number;
   product_variants?: Variant[];
 };
@@ -31,7 +33,8 @@ export default function ProductModal({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = window.setTimeout(() => setMounted(true), 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   if (!p || !mounted) return null;
@@ -48,15 +51,17 @@ export default function ProductModal({
         </button>
         <div className="flex flex-wrap sm:flex-nowrap gap-6">
           <div className="md:w-1/2">
-            <div className="aspect-[4/5] overflow-hidden bg-gray-100">
-              <Image
-                src={image}
-                alt={p.name}
-                width={600}
-                height={800}
-                className="h-full w-full object-contain"
-              />
-            </div>
+            <Link href={`/product/${p.slug}`}>
+              <div className="aspect-[4/5] overflow-hidden bg-gray-100">
+                <Image
+                  src={image}
+                  alt={p.name}
+                  width={600}
+                  height={800}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            </Link>
           </div>
           <div className="md:w-1/2 w-full">
             <h2 className="mb-2 text-sm font-semibold uppercase">{p.name}</h2>
@@ -86,13 +91,14 @@ export default function ProductModal({
               </div>
             ) : null}
 
-            <div className="mb-4 text-xs">Код товару: <span className="text-[color:var(--brand)]">{p.id}</span></div>
+            {p.code && <div className="mb-4 text-xs">Код товару: <span className="text-[color:var(--brand)]">{p.code}</span></div>}
 
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {
                   useCart.getState().add({
                     productId: String(p.id ?? p.slug),
+                    code: p.code ?? null,
                     slug: p.slug,
                     name: p.name,
                     image: imageSrc,
@@ -103,9 +109,9 @@ export default function ProductModal({
                 }}
                 className="flex-1 rounded bg-primary py-2 text-sm text-white"
               >
-                Додати в корзину
+                Додати в кошик
               </button>
-              <WishlistHeart p={p} size={size} />
+              <WishlistHeart p={p} size={size} imageSrc={imageSrc} />
             </div>
           </div>
         </div>
@@ -116,7 +122,7 @@ export default function ProductModal({
   return createPortal(modal, document.body);
 }
 
-function WishlistHeart({ p, size }: { p: ProductModalItem; size: string | null }) {
+function WishlistHeart({ p, size, imageSrc }: { p: ProductModalItem; size: string | null; imageSrc: string }) {
   const has = useWishlist((s) => s.has(String(p.id ?? p.slug), size));
   const toggle = useWishlist((s) => s.toggle);
   return (
@@ -125,6 +131,7 @@ function WishlistHeart({ p, size }: { p: ProductModalItem; size: string | null }
         e.stopPropagation();
         toggle({
           productId: String(p.id ?? p.slug),
+          code: p.code ?? null,
           slug: p.slug,
           name: p.name,
           image: imageSrc,

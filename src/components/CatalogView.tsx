@@ -74,6 +74,7 @@ export function CatalogView({
   activeCategorySlug?: string;
 }) {
   const pathname = usePathname();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const priceBounds = useMemo(() => {
     if (products.length === 0) return { min: 0, max: 5000 };
@@ -215,7 +216,7 @@ export function CatalogView({
   const activeLinkClass = "text-[color:var(--brand)] font-semibold";
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6">
+    <div className="mx-auto max-w-[1440px] px-4 py-6 md:px-8">
       <nav className="mb-4 text-xs text-muted-foreground">
         <Link href="/" className="hover:underline">Головна</Link>
         <span className="mx-2">/</span>
@@ -223,8 +224,22 @@ export function CatalogView({
         {activeCategorySlug && <><span className="mx-2">/</span><span>{title}</span></>}
       </nav>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
-        <aside className="text-sm">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-[260px_1fr]">
+        {isFilterOpen && (
+          <button
+            type="button"
+            aria-label="Закрити фільтри"
+            onClick={() => setIsFilterOpen(false)}
+            className="fixed inset-0 z-40 bg-primary/50 md:hidden"
+          />
+        )}
+        <aside className={`${isFilterOpen ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 left-0 z-50 w-[min(320px,calc(100vw-32px))] overflow-y-auto bg-background px-4 py-6 text-sm transition-transform duration-300 md:static md:z-auto md:w-auto md:translate-x-0 md:overflow-visible md:px-0 md:py-0`}>
+          <div className="mb-4 flex items-center justify-between md:hidden">
+            <span className="font-display text-sm uppercase tracking-widest">Фільтри</span>
+            <button type="button" onClick={() => setIsFilterOpen(false)} aria-label="Закрити фільтри" className="rounded p-1">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
           <div className="mb-4 bg-foreground px-4 py-3 text-center font-display text-sm uppercase tracking-widest text-background">
             Фільтри
           </div>
@@ -403,6 +418,14 @@ export function CatalogView({
         </aside>
 
         <section>
+          <button
+            type="button"
+            onClick={() => setIsFilterOpen(true)}
+            className="mb-4 flex w-full items-center justify-between border border-border px-4 py-3 text-sm uppercase tracking-widest md:hidden"
+          >
+            Фільтри
+            <ChevronDown className="h-4 w-4" />
+          </button>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h1 className="font-display text-2xl uppercase tracking-widest">{title}</h1>
             <div className="flex flex-wrap items-center gap-3 text-sm">

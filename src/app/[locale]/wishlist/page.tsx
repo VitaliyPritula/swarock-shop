@@ -50,6 +50,7 @@ export default function WishlistPage() {
                 type="button"
                 onClick={() => addToCart({
                   productId: item.productId,
+                  code: item.code ?? null,
                   slug: item.slug,
                   name: item.name,
                   image: item.image,

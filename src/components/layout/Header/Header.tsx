@@ -1,5 +1,5 @@
 'use client';
-import { Link } from '@/src/i18n/routing';
+import { Link, useRouter } from '@/src/i18n/routing';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
@@ -12,6 +12,7 @@ import { NAV } from './nav-data';
 
 export default function Header() {
   const t = useTranslations('Header');
+  const router = useRouter();
   const [q, setQ] = useState('');
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,7 +25,7 @@ export default function Header() {
     const trimmed = q.trim();
     if (!trimmed) return;
 
-    window.location.href = `/search?q=${encodeURIComponent(trimmed)}`;
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
     setIsSearchOpen(false);
   };
 

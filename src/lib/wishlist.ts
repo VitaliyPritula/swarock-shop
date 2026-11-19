@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 export type WishItem = {
   id: string; // productId + size
   productId: string;
+  code: string | null;
   slug: string;
   name: string;
   image: string;

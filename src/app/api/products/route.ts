@@ -29,7 +29,7 @@ export async function GET(req: Request) {
     function buildQuery() {
       let q = sb
         .from('products')
-        .select('id,slug,name,price,image_url,is_new,is_popular,material')
+        .select('id,code,slug,name,price,image_url,is_new,is_popular,material')
         .order(sort === 'new' ? 'created_at' : sort.startsWith('price') ? 'price' : 'name');
 
       return q;
