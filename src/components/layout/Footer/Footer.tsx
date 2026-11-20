@@ -143,7 +143,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
     },
     {
       id: 'contactsR',
-      title: t('contactsRuTitle'),
+      title: t('residentsTitle'),
       content: (
         <ul className="space-y-1 text-sm text-muted-foreground">
           <li>{t('forResidents')}</li>
@@ -170,7 +170,7 @@ function FooterAccordion({ sections, t }: { sections: Section[]; t: ReturnType<t
               className="flex w-full items-center justify-between bg-secondary px-4 py-3 text-left font-display text-sm uppercase tracking-widest"
               aria-expanded={isOpen}
             >
-              <span>{s.id}</span>
+              <span>{s.title}</span>
               <ICONS.ARROW className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-180 text-white" : ""}`} />
             </button>
             <div
@@ -203,7 +203,7 @@ export default function Footer() {
       <div className="mx-auto hidden max-w-7xl gap-8 px-4 py-10 min-[992px]:grid min-[992px]:grid-cols-4">
         {desktopSections.map((s) => (
           <div key={s.id}>
-            <h4 className="mb-3 font-display text-sm uppercase tracking-widest">{s.id}</h4>
+            <h4 className="mb-3 font-display text-sm uppercase tracking-widest">{s.title}</h4>
             {s.content}
           </div>
         ))}

@@ -13,8 +13,10 @@ type ProductPageProps = {
 };
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const t = await getTranslations("Products");
+  const commonT = await getTranslations("Common");
+  const catalogT = await getTranslations("Catalog");
   const [databaseProduct, localProduct] = await Promise.all([
     getProduct(slug).catch(() => null),
     Promise.resolve(localProducts.find((product) => product.slug === slug)),
@@ -33,20 +35,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const price = Number(databaseProduct?.price ?? localProduct?.price ?? 0);
 
   return (
-    <main className="mx-auto max-w-7xl px-4">
-      <nav className="flex items-center gap-2 text-xs text-muted-foreground">
+    <section className="px-4">
+      <nav className="border-b border-border py-4 flex items-center gap-2 text-xs text-muted-foreground ">
         <Link href="/" className="text-sm font-medium tracking-widest text-muted-foreground hover:text-foreground">
-          {t("backToCatalog")}
+          {commonT("home")}
         </Link>
         <span>|</span>
-        <Link href="/catalog" className="hover:text-foreground hover:underline">Каталог</Link>
+        <Link href="/catalog" className="hover:text-foreground hover:underline">{commonT("catalog")}</Link>
         {databaseProduct?.categories && (
           <>
             <Link
               href={`/catalog/${databaseProduct.categories.slug}`}
               className="hover:text-foreground"
             >
-              {databaseProduct.categories.name}
+              {catalogT.has(`categories.${databaseProduct.categories.slug}`)
+                ? catalogT(`categories.${databaseProduct.categories.slug}`)
+                : databaseProduct.categories.name}
             </Link>
           </>
         )}
@@ -76,10 +80,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </p>
           <h1 className="mt-3 font-display text-3xl uppercase sm:text-4xl">{name}</h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">{description}</p>
-          <p className="mt-8 font-display text-3xl">{uah(price)}</p>
+          <p className="mt-8 font-display text-3xl">{uah(price, locale)}</p>
           <ProductDetails name={name} />
         </div>
       </div>
-    </main>
+    </section>
   );
 }

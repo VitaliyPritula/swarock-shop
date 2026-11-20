@@ -3,15 +3,17 @@
 type BurgerIconProps = {
   isOpen: boolean;
   onClick: () => void;
+  openLabel: string;
+  closeLabel: string;
 };
 
-export default function BurgerIcon({ isOpen, onClick }: BurgerIconProps) {
+export default function BurgerIcon({ isOpen, onClick, openLabel, closeLabel }: BurgerIconProps) {
   return (
     <button
       type="button"
       onClick={onClick}
       className=" z-80 flex h-4 cursor-pointer flex-col justify-between md:hidden"
-      aria-label={isOpen ? 'Закрити меню' : 'Відкрити меню'}
+      aria-label={isOpen ? closeLabel : openLabel}
       aria-expanded={isOpen}
     >
       <span

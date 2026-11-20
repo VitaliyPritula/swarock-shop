@@ -65,10 +65,15 @@ export default function Header() {
   }, [isSearchOpen]);
 
   return (
-    <header className="w-full relative">
+    <header className="border-b w-full relative">
       <div className="bg-primary text-md font-bold text-white">
         <div className="mx-auto relative gap-3 flex w-full max-w-[1440px] items-center justify-between px-4 py-3">
-          <BurgerIcon isOpen={isOpen} onClick={toggleMenu} />
+          <BurgerIcon
+            isOpen={isOpen}
+            onClick={toggleMenu}
+            openLabel={t('openMenu')}
+            closeLabel={t('closeMenu')}
+          />
           <div className="">
             <Link href="/">
               <Image

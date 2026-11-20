@@ -1,6 +1,6 @@
 import { CatalogView } from "@/src/components/CatalogView";
 import { localProducts } from "@/src/lib/catalog";
-import { listCategories, searchProducts } from "@/src/lib/shop.functions";
+import { searchProducts } from "@/src/lib/shop.functions";
 import { getTranslations } from "next-intl/server";
 
 type Props = {
@@ -10,10 +10,8 @@ type Props = {
 export default async function SearchPage({ searchParams }: Props) {
   const { q = "" } = await searchParams;
   const t = await getTranslations("Products");
-  const [databaseProducts, categories] = await Promise.all([
-    q ? searchProducts(q).catch(() => []) : Promise.resolve([]),
-    listCategories().catch(() => []),
-  ]);
+  const catalogT = await getTranslations("Catalog");
+  const databaseProducts = q ? await searchProducts(q).catch(() => []) : [];
 
   const normalizedQuery = q.trim().toLowerCase();
   const fallbackProducts = normalizedQuery
@@ -33,9 +31,8 @@ export default async function SearchPage({ searchParams }: Props) {
 
   return (
     <CatalogView
-      title={q ? `Результати пошуку: ${q}` : "Пошук товарів"}
+      title={q ? catalogT("searchResultsTitle", { query: q }) : catalogT("searchTitle")}
       products={databaseProducts.length > 0 ? databaseProducts : fallbackProducts}
-      categories={categories}
     />
   );
 }

@@ -1,24 +1,58 @@
 'use client';
-import { Link, usePathname } from '@/src/i18n/routing';
+import { Link } from '@/src/i18n/routing';
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
 import { ChevronDown, LayoutGrid, List, Search, X } from "lucide-react";
 import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { ProductCard, type ProductCardData } from "./ProductCard";
 
-type Category = { id: string; slug: string; name: string };
 type Product = ProductCardData & {
   id: string;
   is_new?: boolean;
   is_popular?: boolean;
   product_variants?: { size: string }[] | null;
+  brand?: string | null;
   material?: string | null;
+  color?: string | null;
   gender?: string | null;
 };
 
 type Sort = "popular" | "new" | "price-asc" | "price-desc" | "name";
 const PER_PAGE = 12;
+const COLOR_VALUES = ["black", "white", "blue", "red", "khaki"] as const;
+const FEATURED_BRANDS = [
+  "30 Seconds To Mars",
+  "Aborted",
+  "AC/DC",
+  "Accept",
+  "Adept",
+  "Alice Cooper",
+  "Amatory",
+  "Amon Amarth",
+];
+const COLOR_ALIASES: Record<string, (typeof COLOR_VALUES)[number]> = {
+  black: "black",
+  "черный": "black",
+  "чёрный": "black",
+  "чорний": "black",
+  white: "white",
+  "белый": "white",
+  "білий": "white",
+  blue: "blue",
+  "синий": "blue",
+  "синій": "blue",
+  red: "red",
+  "красный": "red",
+  "червоний": "red",
+  khaki: "khaki",
+  "хаки": "khaki",
+};
+
+function normalizeColor(color: string | null | undefined) {
+  return color ? COLOR_ALIASES[color.trim().toLowerCase()] : undefined;
+}
 
 function FilterGroup({ title, children, defaultOpen = true }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -65,15 +99,14 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
 export function CatalogView({
   title,
   products,
-  categories,
   activeCategorySlug,
 }: {
   title: string;
   products: Product[];
-  categories: Category[];
   activeCategorySlug?: string;
 }) {
-  const pathname = usePathname();
+  const t = useTranslations("Catalog");
+  const locale = useLocale();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const priceBounds = useMemo(() => {
@@ -96,11 +129,20 @@ export function CatalogView({
     return Array.from(m.entries()).sort();
   }, [products]);
 
+  const allBrands = useMemo(() => {
+    const brands = new Set(FEATURED_BRANDS);
+    products.forEach((product) => {
+      if (product.brand?.trim()) brands.add(product.brand.trim());
+    });
+    return Array.from(brands).sort((a, b) => a.localeCompare(b));
+  }, [products]);
+
   const [priceMin, setPriceMin] = useState(priceBounds.min);
   const [priceMax, setPriceMax] = useState(priceBounds.max);
   const [sizes, setSizes] = useState<Set<string>>(new Set());
   const [materials, setMaterials] = useState<Set<string>>(new Set());
-  const [showAllStaticMaterials, setShowAllStaticMaterials] = useState(false);
+  const [colors, setColors] = useState<Set<string>>(new Set());
+  const [brands, setBrands] = useState<Set<string>>(new Set());
   const [onlyNew, setOnlyNew] = useState(false);
   const [onlyPopular, setOnlyPopular] = useState(false);
   const [productions, setProductions] = useState<Set<string>>(new Set());
@@ -108,8 +150,10 @@ export function CatalogView({
   const [sort, setSort] = useState<Sort>("popular");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [page, setPage] = useState(1);
-  const [matQuery, setMatQuery] = useState("");
-  const [showAllMat, setShowAllMat] = useState(false);
+  const [brandQuery, setBrandQuery] = useState("");
+  const [showAllBrands, setShowAllBrands] = useState(false);
+  const [materialQuery, setMaterialQuery] = useState("");
+  const [showAllMaterials, setShowAllMaterials] = useState(false);
 
   const toggle = (set: Set<string>, setter: (s: Set<string>) => void, v: string) => {
     const n = new Set(set);
@@ -131,19 +175,29 @@ export function CatalogView({
       label: m,
       remove: () => toggle(materials, setMaterials, m),
     })),
-    ...(onlyNew ? [{ key: "new", label: "Новинки", remove: () => { setOnlyNew(false); setPage(1); } }] : []),
-    ...(onlyPopular ? [{ key: "pop", label: "Популярні", remove: () => { setOnlyPopular(false); setPage(1); } }] : []),
+    ...Array.from(brands).map((brand) => ({
+      key: `brand-${brand}`,
+      label: brand,
+      remove: () => toggle(brands, setBrands, brand),
+    })),
+    ...Array.from(colors).map((color) => ({
+      key: `color-${color}`,
+      label: t(`colors.${color}`),
+      remove: () => toggle(colors, setColors, color),
+    })),
+    ...(onlyNew ? [{ key: "new", label: t("new"), remove: () => { setOnlyNew(false); setPage(1); } }] : []),
+    ...(onlyPopular ? [{ key: "pop", label: t("popular"), remove: () => { setOnlyPopular(false); setPage(1); } }] : []),
     ...(priceTouched
       ? [{
         key: "price",
-        label: `${priceMin} — ${priceMax} грн.`,
+        label: `${priceMin} — ${priceMax} ${t("currency")}`,
         remove: () => { setPriceMin(priceBounds.min); setPriceMax(priceBounds.max); setPage(1); },
       }]
       : []),
     ...(gender
-      ? [{ key: "gender", label: gender === "male" ? "Чоловічі" : "Жіночі", remove: () => { setGender(""); setPage(1); } }]
+      ? [{ key: "gender", label: t(`gender.${gender}`), remove: () => { setGender(""); setPage(1); } }]
       : []),
-    ...Array.from(productions).map((p) => ({ key: `prod-${p}`, label: p, remove: () => { const n = new Set(productions); n.delete(p); setProductions(n); setPage(1); } })),
+    ...Array.from(productions).map((p) => ({ key: `prod-${p}`, label: t(`countries.${p}`), remove: () => { const n = new Set(productions); n.delete(p); setProductions(n); setPage(1); } })),
   ];
 
   const filtered = useMemo(() => {
@@ -151,6 +205,8 @@ export function CatalogView({
       if (p.price < priceMin || p.price > priceMax) return false;
       if (onlyNew && !p.is_new) return false;
       if (onlyPopular && !p.is_popular) return false;
+      if (colors.size > 0 && !colors.has(normalizeColor(p.color) ?? "")) return false;
+      if (brands.size > 0 && (!p.brand || !Array.from(brands).some((brand) => brand.toLowerCase() === p.brand?.trim().toLowerCase()))) return false;
       if (sizes.size > 0) {
         const has = p.product_variants?.some((v) => sizes.has(v.size));
         if (!has) return false;
@@ -166,9 +222,9 @@ export function CatalogView({
         const rec = p as unknown as Record<string, unknown>;
         const originRaw = String((rec.country ?? rec.origin ?? rec.manufacturer ?? p.material ?? p.name ?? "")).toLowerCase();
         const map: Record<string, string[]> = {
-          "Україна": ["ukraine", "україна", "ua"],
-          "США": ["usa", "us", "сша", "united states", "america"],
-          "Китай": ["china", "китай", "cn"],
+          ukraine: ["ukraine", "україна", "ua"],
+          usa: ["usa", "us", "сша", "united states", "america"],
+          china: ["china", "китай", "cn"],
         };
         const anyMatch = Array.from(productions).some((pr) => map[pr]?.some((kw) => originRaw.includes(kw)) ?? false);
         if (!anyMatch) return false;
@@ -185,7 +241,7 @@ export function CatalogView({
         default: return Number(!!b.is_new) - Number(!!a.is_new);
       }
     });
-  }, [products, priceMin, priceMax, onlyNew, onlyPopular, sizes, materials, sort, gender, productions]);
+  }, [products, priceMin, priceMax, onlyNew, onlyPopular, sizes, materials, colors, brands, sort, gender, productions]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const currentPage = Math.min(page, totalPages);
@@ -196,6 +252,8 @@ export function CatalogView({
     setPriceMax(priceBounds.max);
     setSizes(new Set());
     setMaterials(new Set());
+    setColors(new Set());
+    setBrands(new Set());
     setOnlyNew(false);
     setOnlyPopular(false);
     setProductions(new Set());
@@ -203,24 +261,25 @@ export function CatalogView({
     setPage(1);
   };
 
+  const visibleBrands = allBrands
+    .filter((brand) => brand.toLowerCase().includes(brandQuery.trim().toLowerCase()))
+    .slice(0, showAllBrands ? undefined : 5);
   const visibleMaterials = allMaterials
-    .filter(([m]) => m.toLowerCase().includes(matQuery.trim().toLowerCase()))
-    .slice(0, showAllMat ? undefined : 8);
+    .filter(([material]) => material.toLowerCase().includes(materialQuery.trim().toLowerCase()))
+    .slice(0, showAllMaterials ? undefined : 8);
 
   const sortLinks: { v: Sort; label: string }[] = [
-    { v: "popular", label: "Популярності" },
-    { v: "new", label: "Новизні" },
-    { v: "price-asc", label: "Ціні" },
+    { v: "popular", label: t("sortPopularity") },
+    { v: "new", label: t("sortNewest") },
+    { v: "price-asc", label: t("sortPrice") },
   ];
-
-  const activeLinkClass = "text-[color:var(--brand)] font-semibold";
 
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-6 md:px-8">
       <nav className="mb-4 text-xs text-muted-foreground">
-        <Link href="/" className="hover:underline">Головна</Link>
+        <Link href="/" className="hover:underline">{t("home")}</Link>
         <span className="mx-2">/</span>
-        <Link href="/catalog" className="hover:underline">Каталог</Link>
+        <Link href="/catalog" className="hover:underline">{t("catalog")}</Link>
         {activeCategorySlug && <><span className="mx-2">/</span><span>{title}</span></>}
       </nav>
 
@@ -228,23 +287,23 @@ export function CatalogView({
         {isFilterOpen && (
           <button
             type="button"
-            aria-label="Закрити фільтри"
+            aria-label={t("closeFilters")}
             onClick={() => setIsFilterOpen(false)}
             className="fixed inset-0 z-40 bg-primary/50 md:hidden"
           />
         )}
         <aside className={`${isFilterOpen ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 left-0 z-50 w-[min(320px,calc(100vw-32px))] overflow-y-auto bg-background px-4 py-6 text-sm transition-transform duration-300 md:static md:z-auto md:w-auto md:translate-x-0 md:overflow-visible md:px-0 md:py-0`}>
           <div className="mb-4 flex items-center justify-between md:hidden">
-            <span className="font-display text-sm uppercase tracking-widest">Фільтри</span>
-            <button type="button" onClick={() => setIsFilterOpen(false)} aria-label="Закрити фільтри" className="rounded p-1">
+            <span className="font-display text-sm uppercase tracking-widest">{t("filters")}</span>
+            <button type="button" onClick={() => setIsFilterOpen(false)} aria-label={t("closeFilters")} className="rounded p-1">
               <X className="h-5 w-5" />
             </button>
           </div>
           <div className="mb-4 bg-foreground px-4 py-3 text-center font-display text-sm uppercase tracking-widest text-background">
-            Фільтри
+            {t("filters")}
           </div>
-          <div className="">
-            <h3 className="my-4 text-center text-lg">Стать</h3>
+          <div className="border-b border-border pb-8">
+            <h3 className="my-4 text-center text-lg">{t("gender.title")}</h3>
             <div className="flex flex-col gap-2">
               <label className="flex items-center gap-2">
                 <input
@@ -254,7 +313,7 @@ export function CatalogView({
                   onChange={() => { setGender("male"); setPage(1); }}
                   className="h-4 w-4"
                 />
-                <span>Чоловічі</span>
+                <span>{t("gender.male")}</span>
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -264,72 +323,56 @@ export function CatalogView({
                   onChange={() => { setGender("female"); setPage(1); }}
                   className="h-4 w-4"
                 />
-                <span>Жіночі</span>
+                <span>{t("gender.female")}</span>
               </label>
             </div>
           </div>
-          <div className="">
-            <h3 className="my-4 text-center text-lg">Виробництво</h3>
+          <div className="border-b border-border pb-8">
+            <h3 className="my-4 text-center text-lg">{t("origin")}</h3>
             <div className="flex flex-col gap-2">
-              <Checkbox checked={productions.has("Україна")} onChange={() => toggle(productions, setProductions, "Україна")} label="Україна" />
-              <Checkbox checked={productions.has("США")} onChange={() => toggle(productions, setProductions, "США")} label="США" />
-              <Checkbox checked={productions.has("Китай")} onChange={() => toggle(productions, setProductions, "Китай")} label="Китай" />
+              <Checkbox checked={productions.has("ukraine")} onChange={() => toggle(productions, setProductions, "ukraine")} label={t("countries.ukraine")} />
+              <Checkbox checked={productions.has("usa")} onChange={() => toggle(productions, setProductions, "usa")} label={t("countries.usa")} />
+              <Checkbox checked={productions.has("china")} onChange={() => toggle(productions, setProductions, "china")} label={t("countries.china")} />
             </div>
           </div>
-          <FilterGroup title="Каталог">
-            <ul className="space-y-1">
-              <li>
-                <Link
-                  href="/catalog"
-                  className={pathname === "/catalog" ? activeLinkClass : undefined}
-                >
-                  Всі товари
-                </Link>
-              </li>
-              {categories.map((c) => {
-                const href = `/catalog/${c.slug}`;
-                const isActive = pathname === href;
-                return (
-                  <li key={c.id}>
-                    <Link href={href} className={isActive ? activeLinkClass : undefined}>
-                      {c.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </FilterGroup>
-
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  value={priceMin}
-                  onChange={(e) => { setPriceMin(Number(e.target.value)); setPage(1); }}
-                  className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
-                />
-                <span className="shrink-0 text-xs text-muted-foreground">грн.</span>
-                <input
-                  type="number"
-                  value={priceMax}
-                  onChange={(e) => { setPriceMax(Number(e.target.value)); setPage(1); }}
-                  className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
-                />
+          <div className="border-b border-border pb-[30px]">
+            <h3 className="py-5 text-center text-lg">{t("price")}</h3>
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={priceMin}
+                    onChange={(e) => { setPriceMin(Number(e.target.value)); setPage(1); }}
+                    className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
+                  />
+                  <span className="shrink-0 text-xs text-muted-foreground">{t("currency")}</span>
+                  <input
+                    type="number"
+                    value={priceMax}
+                    onChange={(e) => { setPriceMax(Number(e.target.value)); setPage(1); }}
+                    className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
+                  />
+                </div>
               </div>
-              <input
-                type="range"
-                min={priceBounds.min}
-                max={priceBounds.max}
-                value={priceMax}
-                onChange={(e) => { setPriceMax(Number(e.target.value)); setPage(1); }}
-                className="w-full accent-[color:var(--brand)]"
-              />
+            </div>
+          </div>
+          <div className="border-b border-border pb-[30px]">
+            <h3 className="py-5 text-center text-lg">{t("color")}</h3>
+            <div className="flex flex-col gap-1">
+              {COLOR_VALUES.map((color) => (
+                <Checkbox
+                  key={color}
+                  checked={colors.has(color)}
+                  onChange={() => toggle(colors, setColors, color)}
+                  label={t(`colors.${color}`)}
+                />
+              ))}
             </div>
           </div>
 
           {allSizes.length > 0 && (
-            <FilterGroup title="Розмір">
+            <FilterGroup title={t("size")}>
               <div className="flex flex-wrap gap-2">
                 {allSizes.map((s) => (
                   <button
@@ -347,13 +390,44 @@ export function CatalogView({
             </FilterGroup>
           )}
 
+          <FilterGroup title={t("brand")}>
+            <div className="relative mb-2">
+              <input
+                value={brandQuery}
+                onChange={(event) => {
+                  setBrandQuery(event.target.value);
+                  setShowAllBrands(true);
+                }}
+                placeholder={t("brandSearchPlaceholder")}
+                className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
+              />
+              <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            </div>
+            {visibleBrands.map((brand) => (
+              <Checkbox
+                key={brand}
+                checked={brands.has(brand)}
+                onChange={() => toggle(brands, setBrands, brand)}
+                label={brand}
+              />
+            ))}
+            {allBrands.length > 5 && !brandQuery.trim() && (
+              <button
+                onClick={() => setShowAllBrands((value) => !value)}
+                className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
+              >
+                {showAllBrands ? t("collapse") : t("showAll")}
+              </button>
+            )}
+          </FilterGroup>
+
           {allMaterials.length > 0 && (
-            <FilterGroup title="Група/Бренд">
+            <FilterGroup title={t("materials")}>
               <div className="relative mb-2">
                 <input
-                  value={matQuery}
-                  onChange={(e) => setMatQuery(e.target.value)}
-                  placeholder="Бавовна, наприклад..."
+                  value={materialQuery}
+                  onChange={(e) => setMaterialQuery(e.target.value)}
+                  placeholder={t("materialSearchPlaceholder")}
                   className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
                 />
                 <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -369,52 +443,14 @@ export function CatalogView({
               ))}
               {allMaterials.length > 8 && (
                 <button
-                  onClick={() => setShowAllMat(!showAllMat)}
+                  onClick={() => setShowAllMaterials(!showAllMaterials)}
                   className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
                 >
-                  {showAllMat ? "Згорнути" : "Показати все"}
+                  {showAllMaterials ? t("collapse") : t("showAll")}
                 </button>
               )}
             </FilterGroup>
           )}
-
-          <FilterGroup title="Матеріали">
-            {(() => {
-              const staticMaterials = [
-                "Хлопок",
-                "Хлопок, полиэстер - 35%/65%",
-                "Хлопок, полиэстер - 60%/30%",
-                "Хлопок, полиэстер - 80%/20%",
-                "Хлопок, полиэстер - 50%/20%",
-                "Хлопок, полиэстер - 50%/20%",
-                "Хлопок, полиэстер - 75%/20%",
-              ];
-              const visible = showAllStaticMaterials ? staticMaterials : staticMaterials.slice(0, 3);
-
-              return (
-                <>
-                  {visible.map((m, i) => (
-                    <Checkbox
-                      key={`${m}-${i}`}
-                      checked={materials.has(m)}
-                      onChange={() => toggle(materials, setMaterials, m)}
-                      label={m}
-                      labelClassName="font-Regular text-primary text-[14px]"
-                    />
-                  ))}
-
-                  {staticMaterials.length > 3 && (
-                    <button
-                      onClick={() => setShowAllStaticMaterials(!showAllStaticMaterials)}
-                      className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
-                    >
-                      {showAllStaticMaterials ? "Згорнути" : "показати все"}
-                    </button>
-                  )}
-                </>
-              );
-            })()}
-          </FilterGroup>
         </aside>
 
         <section>
@@ -423,13 +459,13 @@ export function CatalogView({
             onClick={() => setIsFilterOpen(true)}
             className="mb-4 flex w-full items-center justify-between border border-border px-4 py-3 text-sm uppercase tracking-widest md:hidden"
           >
-            Фільтри
+            {t("filters")}
             <ChevronDown className="h-4 w-4" />
           </button>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h1 className="font-display text-2xl uppercase tracking-widest">{title}</h1>
             <div className="flex flex-wrap items-center gap-3 text-sm">
-              <span className="text-muted-foreground">Виводити по:</span>
+              <span className="text-muted-foreground">{t("sortBy")}</span>
               {sortLinks.map((s) => (
                 <button
                   key={s.v}
@@ -445,14 +481,14 @@ export function CatalogView({
               <div className="hidden items-center gap-1 sm:flex">
                 <button
                   onClick={() => setView("grid")}
-                  aria-label="Сітка"
+                  aria-label={t("grid")}
                   className={`rounded p-1.5 ${view === "grid" ? "bg-foreground text-background" : "text-muted-foreground"}`}
                 >
                   <LayoutGrid className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setView("list")}
-                  aria-label="Список"
+                  aria-label={t("list")}
                   className={`rounded p-1.5 ${view === "list" ? "bg-foreground text-background" : "text-muted-foreground"}`}
                 >
                   <List className="h-4 w-4" />
@@ -463,16 +499,16 @@ export function CatalogView({
 
           {chips.length > 0 && (
             <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border pb-4">
-              <span className="text-sm uppercase tracking-widest text-muted-foreground">Ваш вибір:</span>
+              <span className="text-sm uppercase tracking-widest text-muted-foreground">{t("yourSelection")}</span>
               {chips.map((c) => <Chip key={c.key} label={c.label} onRemove={c.remove} />)}
               <button onClick={reset} className="text-xs uppercase tracking-widest text-[color:var(--brand)] hover:underline">
-                Скинути все
+                {t("clearAll")}
               </button>
             </div>
           )}
 
           {pageItems.length === 0 ? (
-            <p className="py-16 text-center text-muted-foreground">Нічого не знайдено. Спробуйте змінити фільтри.</p>
+            <p className="py-16 text-center text-muted-foreground">{t("noResults")}</p>
           ) : view === "grid" ? (
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
               {pageItems.map((p) => (
@@ -500,7 +536,7 @@ export function CatalogView({
                     <div className="flex flex-1 flex-col justify-center">
                       <div className="text-sm font-medium uppercase">{p.name}</div>
                       {p.material && <div className="text-xs text-muted-foreground">{p.material}</div>}
-                      <div className="mt-1 font-display text-lg">{uah(p.price)}</div>
+                      <div className="mt-1 font-display text-lg">{uah(p.price, locale)}</div>
                     </div>
                   </Link>
                 );
@@ -540,7 +576,7 @@ export function CatalogView({
           )}
 
           <div className="mt-4 text-center text-xs text-muted-foreground">
-            Показано {pageItems.length} з {filtered.length}
+            {t("showing", { shown: pageItems.length, total: filtered.length })}
           </div>
         </section>
       </div>

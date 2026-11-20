@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ProductDetails({ name }: { name: string }) {
+  const t = useTranslations("ProductDetails");
   const [showSizeTable, setShowSizeTable] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
   const [sent, setSent] = useState(false);
@@ -14,14 +16,14 @@ export default function ProductDetails({ name }: { name: string }) {
         onClick={() => setShowSizeTable((value) => !value)}
         className="text-sm underline underline-offset-4"
       >
-        Таблиця розмірів
+        {t("sizeTable")}
       </button>
 
       {showSizeTable && (
         <div className="overflow-x-auto border border-border">
           <table className="w-full text-center text-sm">
             <thead className="bg-secondary">
-              <tr><th className="p-3">Розмір</th><th className="p-3">Груди</th><th className="p-3">Пояс</th><th className="p-3">Бедра</th></tr>
+              <tr><th className="p-3">{t("size")}</th><th className="p-3">{t("chest")}</th><th className="p-3">{t("waist")}</th><th className="p-3">{t("hips")}</th></tr>
             </thead>
             <tbody>
               <tr className="border-t border-border"><td className="p-3">S</td><td>86–92</td><td>70–76</td><td>92–98</td></tr>
@@ -39,7 +41,7 @@ export default function ProductDetails({ name }: { name: string }) {
           onClick={() => setReviewOpen((value) => !value)}
           className="font-display text-sm uppercase"
         >
-          Залишити відгук
+          {t("leaveReview")}
         </button>
         {reviewOpen && (
           <form
@@ -50,12 +52,12 @@ export default function ProductDetails({ name }: { name: string }) {
               setReviewOpen(false);
             }}
           >
-            <input required name="name" placeholder="Ваше імʼя" className="w-full rounded border border-border px-3 py-2" />
-            <textarea required name="review" placeholder={`Відгук про ${name}`} rows={4} className="w-full rounded border border-border px-3 py-2" />
-            <button className="rounded bg-primary px-5 py-2 text-sm text-white">Надіслати</button>
+            <input required name="name" placeholder={t("yourName")} className="w-full rounded border border-border px-3 py-2" />
+            <textarea required name="review" placeholder={t("reviewPlaceholder", { name })} rows={4} className="w-full rounded border border-border px-3 py-2" />
+            <button className="rounded bg-primary px-5 py-2 text-sm text-white">{t("submitReview")}</button>
           </form>
         )}
-        {sent && <p className="mt-3 text-sm text-green-700">Дякуємо! Ваш відгук надіслано.</p>}
+        {sent && <p className="mt-3 text-sm text-green-700">{t("reviewSent")}</p>}
       </div>
     </div>
   );

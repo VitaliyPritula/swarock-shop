@@ -1,11 +1,11 @@
 import { CatalogView } from "@/src/components/CatalogView";
 import { localProducts } from "@/src/lib/catalog";
-import { listCategories, listProducts } from "@/src/lib/shop.functions";
+import { listProducts } from "@/src/lib/shop.functions";
 import { getTranslations } from "next-intl/server";
 
 export default async function CatalogPage() {
   const t = await getTranslations("Products");
-  const cats = await listCategories();
+  const catalogT = await getTranslations("Catalog");
   const products = await listProducts();
 
   const fallbackProducts = localProducts.map((product) => ({
@@ -21,9 +21,8 @@ export default async function CatalogPage() {
 
   return (
     <CatalogView
-      title="Каталог товарів"
+      title={catalogT("catalogTitle")}
       products={products.length > 0 ? products : fallbackProducts}
-      categories={cats}
     />
   );
 }

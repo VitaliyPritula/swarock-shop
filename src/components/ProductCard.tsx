@@ -3,6 +3,7 @@ import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
 import Image, { type StaticImageData } from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import ProductModal from "./ProductModal";
 
@@ -18,6 +19,8 @@ export type ProductCardData = {
 };
 
 export function ProductCard({ p }: { p: ProductCardData }) {
+  const t = useTranslations("ProductActions");
+  const locale = useLocale();
   const [selectedSize, setSelectedSize] = useState(p.sizes?.[0] ?? "");
   const [open, setOpen] = useState(false);
   const image: string | StaticImageData = p.image_url?.startsWith("http")
@@ -48,12 +51,13 @@ export function ProductCard({ p }: { p: ProductCardData }) {
           <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{p.material}</div>
         )}
         <div className="mt-1 line-clamp-2 text-sm font-medium uppercase">{p.name}</div>
-        <div className="mt-2 font-display text-lg">{uah(p.price)}</div>
+        <div className="mt-2 font-display text-lg">{uah(p.price, locale)}</div>
       </div>
 
       <div className="absolute inset-0 flex items-end justify-center bg-black/0 opacity-0 transition duration-300  group-hover:opacity-100">
         <div className="w-full bg-background/95 px-4 py-4 backdrop-blur-sm sm:px-5">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1 text-left">
+              <p className="text-sm font-medium text-muted-foreground">{t("size")}</p>
             <div className="flex justify-between">
               <div className="relative">
                 <select
@@ -99,7 +103,7 @@ export function ProductCard({ p }: { p: ProductCardData }) {
                 }}
                 className="no-underline inline-flex items-center justify-center rounded bg-primary px-4 py-2 text-sm uppercase tracking-widest text-white transition hover:bg-primary/90"
               >
-                Купити
+                {t("buy")}
               </button>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { img } from "@/src/lib/images";
 import { useWishlist } from "@/src/lib/wishlist";
 import { Heart, X } from "lucide-react";
 import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -28,6 +29,8 @@ export default function ProductModal({
   p: ProductModalItem;
   onClose: () => void;
 }) {
+  const t = useTranslations("ProductModal");
+  const locale = useLocale();
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState<string | null>(p?.product_variants?.[0]?.size ?? null);
   const [mounted, setMounted] = useState(false);
@@ -46,7 +49,7 @@ export default function ProductModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div onClick={(e) => e.stopPropagation()} className="relative z-10 w-[720px] max-w-full rounded bg-white p-6 shadow-lg">
-        <button onClick={onClose} className="absolute right-3 top-3 text-muted-foreground">
+        <button onClick={onClose} aria-label={t("close")} className="absolute right-3 top-3 text-muted-foreground">
           <X className="h-5 w-5" />
         </button>
         <div className="flex flex-wrap sm:flex-nowrap gap-6">
@@ -66,12 +69,12 @@ export default function ProductModal({
           <div className="md:w-1/2 w-full">
             <h2 className="mb-2 text-sm font-semibold uppercase">{p.name}</h2>
             <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-full border border-green-600 bg-green-50 px-2 py-0.5 text-xs text-green-700">В наявності</div>
-              <div className="text-lg font-display">{uah(p.price)}</div>
+              <div className="rounded-full border border-green-600 bg-green-50 px-2 py-0.5 text-xs text-green-700">{t("inStock")}</div>
+              <div className="text-lg font-display">{uah(p.price, locale)}</div>
             </div>
 
             <div className="mb-3">
-              <label className="block mb-1 text-xs text-muted-foreground">Кількість</label>
+              <label className="block mb-1 text-xs text-muted-foreground">{t("quantity")}</label>
               <div className="flex items-center gap-2">
                 <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="w-8 rounded border">-</button>
                 <input type="number" value={qty} onChange={(e) => setQty(Math.max(1, Number(e.target.value) || 1))} className="w-16 rounded border px-2 text-center" />
@@ -81,17 +84,17 @@ export default function ProductModal({
 
             {p.product_variants?.length ? (
               <div className="mb-3">
-                <label className="block mb-1 text-xs text-muted-foreground">Розмір</label>
+                <label className="block mb-1 text-xs text-muted-foreground">{t("size")}</label>
                 <select value={size ?? ""} onChange={(e) => setSize(e.target.value)} className="w-full rounded border px-2 py-1">
                   {p.product_variants?.map((v: Variant) => (
                     <option key={v.id} value={v.size}>{v.size}</option>
                   ))}
                 </select>
-                <div className="mt-2 text-xs"><a className="underline">Таблиця розмірів</a></div>
+                <div className="mt-2 text-xs"><a className="underline">{t("sizeTable")}</a></div>
               </div>
             ) : null}
 
-            {p.code && <div className="mb-4 text-xs">Код товару: <span className="text-[color:var(--brand)]">{p.code}</span></div>}
+            {p.code && <div className="mb-4 text-xs">{t("productCode")} <span className="text-[color:var(--brand)]">{p.code}</span></div>}
 
             <div className="flex items-center gap-3">
               <button
@@ -109,7 +112,7 @@ export default function ProductModal({
                 }}
                 className="flex-1 rounded bg-primary py-2 text-sm text-white"
               >
-                Додати в кошик
+                {t("addToCart")}
               </button>
               <WishlistHeart p={p} size={size} imageSrc={imageSrc} />
             </div>
@@ -123,6 +126,7 @@ export default function ProductModal({
 }
 
 function WishlistHeart({ p, size, imageSrc }: { p: ProductModalItem; size: string | null; imageSrc: string }) {
+  const t = useTranslations("ProductModal");
   const has = useWishlist((s) => s.has(String(p.id ?? p.slug), size));
   const toggle = useWishlist((s) => s.toggle);
   return (
@@ -141,6 +145,7 @@ function WishlistHeart({ p, size, imageSrc }: { p: ProductModalItem; size: strin
       }}
       className={`rounded border p-2 ${has ? "text-[color:var(--brand)]" : "text-muted-foreground"}`}
       aria-pressed={has}
+      aria-label={has ? t("removeFromWishlist") : t("addToWishlist")}
     >
       <Heart className="h-4 w-4" />
     </button>

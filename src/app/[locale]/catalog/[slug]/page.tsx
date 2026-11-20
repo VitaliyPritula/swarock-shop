@@ -1,19 +1,8 @@
 import { CatalogView } from "@/src/components/CatalogView";
 import { localProducts } from "@/src/lib/catalog";
-import { listCategories, listProducts } from "@/src/lib/shop.functions";
+import { listProducts } from "@/src/lib/shop.functions";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-
-const categoryNames: Record<string, string> = {
-  futbolki: "Футболки",
-  kurtki: "Куртки",
-  obuv: "Взуття",
-  "holovni-ubory": "Головні убори",
-  aksesuary: "Аксесуари",
-  muzyka: "Музика",
-  plakaty: "Плакати",
-  kvytky: "Квитки",
-};
 
 const categoryFallbackSlugs: Record<string, string[]> = {
   futbolki: ["rock-tshirt"],
@@ -32,13 +21,11 @@ type Props = {
 
 export default async function CategoryCatalogPage({ params }: Props) {
   const { slug } = await params;
-  if (!categoryNames[slug]) notFound();
+  if (!categoryFallbackSlugs[slug]) notFound();
 
   const t = await getTranslations("Products");
-  const [cats, products] = await Promise.all([
-    listCategories().catch(() => []),
-    listProducts({ category: slug }).catch(() => []),
-  ]);
+  const catalogT = await getTranslations("Catalog");
+  const products = await listProducts({ category: slug }).catch(() => []);
 
   const fallbackProducts = localProducts
     .filter((product) => categoryFallbackSlugs[slug]?.includes(product.slug))
@@ -53,14 +40,12 @@ export default async function CategoryCatalogPage({ params }: Props) {
       is_popular: product.isPopular,
     }));
 
-  const databaseCategory = cats.find((category) => category.slug === slug);
-  const title = databaseCategory?.name ?? categoryNames[slug];
+  const title = catalogT(`categories.${slug}`);
 
   return (
     <CatalogView
       title={title}
       products={products.length > 0 ? products : fallbackProducts}
-      categories={cats}
       activeCategorySlug={slug}
     />
   );

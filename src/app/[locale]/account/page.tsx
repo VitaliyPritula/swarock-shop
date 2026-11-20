@@ -2,7 +2,7 @@
 import { useRouter } from "@/src/i18n/routing";
 import { supabase } from "@/src/lovable/client";
 import { Eye, EyeOff } from 'lucide-react';
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -35,19 +35,19 @@ type Order = {
   order_items: OrderItem[];
 };
 
-const STATUS_LABELS: Record<string, string> = {
-  new: "Нове",
-  processing: "В обробці",
-  shipped: "Відправлено",
-  delivered: "Доставлено",
-  cancelled: "Скасовано",
-};
-
 type Tab = "profile" | "orders" | "addresses";
 
 export default function AccountPage() {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("Account");
+  const statusLabels: Record<string, string> = {
+    new: t("status.new"),
+    processing: t("status.processing"),
+    shipped: t("status.shipped"),
+    delivered: t("status.delivered"),
+    cancelled: t("status.cancelled"),
+  };
   const [tab, setTab] = useState<Tab>("profile");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -123,20 +123,20 @@ export default function AccountPage() {
       .upsert({ id: user.id, full_name: fullName, phone });
 
     if (error) toast.error(error.message);
-    else toast.success("Профіль збережено");
+    else toast.success(t("profileSaved"));
     setSaving(false);
   }
 
   async function savePassword() {
     if (newPassword.length < 6) {
-      toast.error("Пароль мінімум 6 символів");
+      toast.error(t("passwordMinLength"));
       return;
     }
     setSavingPassword(true);
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) toast.error(error.message);
     else {
-      toast.success("Пароль змінено");
+      toast.success(t("passwordChanged"));
       setNewPassword("");
     }
     setSavingPassword(false);
@@ -159,7 +159,7 @@ export default function AccountPage() {
       setNewCity("");
       setNewAddress("");
       setShowAddressForm(false);
-      toast.success("Адресу додано");
+      toast.success(t("addressAdded"));
     }
   }
 
@@ -168,7 +168,7 @@ export default function AccountPage() {
     if (error) toast.error(error.message);
     else {
       setAddresses((prev) => prev.filter((a) => a.id !== id));
-      toast.success("Адресу видалено");
+      toast.success(t("addressDeleted"));
     }
   }
 
@@ -179,7 +179,7 @@ export default function AccountPage() {
     await supabase.from("addresses").update({ is_default: false }).eq("user_id", user.id);
     await supabase.from("addresses").update({ is_default: true }).eq("id", id);
     setAddresses((prev) => prev.map((a) => ({ ...a, is_default: a.id === id })));
-    toast.success("Адресу за замовчуванням змінено");
+    toast.success(t("defaultAddressUpdated"));
   }
 
   async function signOut() {
@@ -188,28 +188,28 @@ export default function AccountPage() {
   }
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center">Завантаження...</div>;
+    return <div className="flex min-h-screen items-center justify-center">{t("loading")}</div>;
   }
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-display text-2xl uppercase tracking-widest">Особистий кабінет</h1>
+        <h1 className="font-display text-2xl uppercase tracking-widest">{t("title")}</h1>
         <button onClick={signOut} className="text-sm text-muted-foreground hover:underline">
-          Вийти
+          {t("signOut")}
         </button>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-4 border-b mb-8">
-        {(["profile", "orders", "addresses"] as Tab[]).map((t) => (
+        {(["profile", "orders", "addresses"] as Tab[]).map((tabName) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`pb-2 text-sm uppercase tracking-widest font-display border-b-2 transition-colors ${tab === t ? "border-primary text-primary" : "border-transparent text-muted-foreground"
+            key={tabName}
+            onClick={() => setTab(tabName)}
+            className={`pb-2 text-sm uppercase tracking-widest font-display border-b-2 transition-colors ${tab === tabName ? "border-primary text-primary" : "border-transparent text-muted-foreground"
               }`}
           >
-            {t === "profile" ? "Профіль" : t === "orders" ? "Замовлення" : "Адреси"}
+            {t(`tabs.${tabName}`)}
           </button>
         ))}
       </div>
@@ -222,38 +222,38 @@ export default function AccountPage() {
             <input value={email} disabled className="mt-1 w-full rounded border px-3 py-2 bg-muted text-muted-foreground" />
           </div>
           <div>
-            <label className="text-sm text-muted-foreground">Ім’я</label>
+            <label className="text-sm text-muted-foreground">{t("name")}</label>
             <input value={fullName} onChange={(e) => setFullName(e.target.value)}
-              placeholder="Ваше ім'я" className="mt-1 w-full rounded border px-3 py-2" />
+              placeholder={t("namePlaceholder")} className="mt-1 w-full rounded border px-3 py-2" />
           </div>
           <div>
-            <label className="text-sm text-muted-foreground">Телефон</label>
+            <label className="text-sm text-muted-foreground">{t("phone")}</label>
             <input value={phone} onChange={(e) => setPhone(e.target.value)}
               placeholder="+38 0XX XXX XX XX" className="mt-1 w-full rounded border px-3 py-2" />
           </div>
           <button onClick={saveProfile} disabled={saving}
             className="w-full rounded bg-primary py-2 text-white font-display uppercase tracking-widest disabled:opacity-60">
-            {saving ? "Збереження..." : "Зберегти"}
+            {saving ? t("saving") : t("save")}
           </button>
 
           <hr className="my-6" />
 
-          <h3 className="font-display uppercase tracking-widest text-sm">Змінити пароль</h3>
+          <h3 className="font-display uppercase tracking-widest text-sm">{t("changePassword")}</h3>
           <div className="relative">
             <input type={showPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Новий пароль" minLength={6} className="w-full rounded border px-3 py-2 pr-10" />
+              placeholder={t("newPassword")} minLength={6} className="w-full rounded border px-3 py-2 pr-10" />
             <button
               type="button"
               onClick={() => setShowPassword((value) => !value)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-900 hover:text-slate-900"
-              aria-label={showPassword ? "Сховати пароль" : "Показати пароль"}
+              aria-label={showPassword ? t("hidePassword") : t("showPassword")}
             >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
           <button onClick={savePassword} disabled={savingPassword}
             className="w-full rounded border py-2 text-sm font-display uppercase tracking-widest disabled:opacity-60">
-            {savingPassword ? "Збереження..." : "Змінити пароль"}
+            {savingPassword ? t("saving") : t("changePassword")}
           </button>
         </div>
       )}
@@ -262,19 +262,19 @@ export default function AccountPage() {
       {tab === "orders" && (
         <div className="space-y-4">
           {orders.length === 0 ? (
-            <p className="text-muted-foreground">Замовлень ще немає</p>
+            <p className="text-muted-foreground">{t("noOrders")}</p>
           ) : (
             orders.map((order) => (
               <div key={order.id} className="rounded border p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">
-                    {new Date(order.created_at).toLocaleDateString("uk-UA")}
+                    {new Date(order.created_at).toLocaleDateString(locale === "uk" ? "uk-UA" : "en-GB")}
                   </span>
                   <span className={`text-xs font-semibold uppercase px-2 py-1 rounded ${order.status === "delivered" ? "bg-green-100 text-green-700" :
                     order.status === "cancelled" ? "bg-red-100 text-red-700" :
                       "bg-blue-100 text-blue-700"
                     }`}>
-                    {STATUS_LABELS[order.status] ?? order.status}
+                    {statusLabels[order.status] ?? order.status}
                   </span>
                 </div>
                 <ul className="space-y-1 text-sm">
@@ -286,7 +286,7 @@ export default function AccountPage() {
                   ))}
                 </ul>
                 <div className="flex justify-end font-semibold">
-                  Разом: {order.total.toFixed(0)} ₴
+                  {t("total")} {order.total.toFixed(0)} ₴
                 </div>
               </div>
             ))
@@ -302,17 +302,17 @@ export default function AccountPage() {
               <div>
                 <p className="font-medium">{addr.city}, {addr.address}</p>
                 {addr.is_default && (
-                  <span className="text-xs text-green-600">За замовчуванням</span>
+                  <span className="text-xs text-green-600">{t("defaultAddress")}</span>
                 )}
               </div>
               <div className="flex gap-2 text-sm">
                 {!addr.is_default && (
                   <button onClick={() => setDefaultAddress(addr.id)} className="text-blue-500 hover:underline">
-                    Зробити основною
+                    {t("makeDefault")}
                   </button>
                 )}
                 <button onClick={() => deleteAddress(addr.id)} className="text-red-500 hover:underline">
-                  Видалити
+                  {t("delete")}
                 </button>
               </div>
             </div>
@@ -321,24 +321,24 @@ export default function AccountPage() {
           {showAddressForm ? (
             <div className="rounded border p-4 space-y-3">
               <input value={newCity} onChange={(e) => setNewCity(e.target.value)}
-                placeholder="Місто" className="w-full rounded border px-3 py-2" />
+                placeholder={t("city")} className="w-full rounded border px-3 py-2" />
               <input value={newAddress} onChange={(e) => setNewAddress(e.target.value)}
-                placeholder="Вулиця, будинок" className="w-full rounded border px-3 py-2" />
+                placeholder={t("streetAddress")} className="w-full rounded border px-3 py-2" />
               <div className="flex gap-2">
                 <button onClick={addAddress}
                   className="flex-1 rounded bg-primary py-2 text-white text-sm font-display uppercase tracking-widest">
-                  Додати
+                  {t("add")}
                 </button>
                 <button onClick={() => setShowAddressForm(false)}
                   className="flex-1 rounded border py-2 text-sm">
-                  Скасувати
+                  {t("cancel")}
                 </button>
               </div>
             </div>
           ) : (
             <button onClick={() => setShowAddressForm(true)}
               className="w-full rounded border py-2 text-sm font-display uppercase tracking-widest">
-              + Додати адресу
+              + {t("addAddress")}
             </button>
           )}
         </div>

@@ -30,7 +30,7 @@ export async function listProducts(params: ListProductsParams = {}) {
   const sb = serverClient();
   let q = sb
     .from("products")
-    .select("id,code,slug,name,price,image_url,is_new,is_popular,category_id,categories(slug,name)")
+    .select("id,code,color,brand,slug,name,price,image_url,is_new,is_popular,category_id,categories(slug,name)")
     .order("created_at", { ascending: false });
 
   if (params.category) {
@@ -67,7 +67,7 @@ export async function searchProducts(q: string) {
   const term = `%${q}%`;
   const { data } = await sb
     .from("products")
-    .select("id,code,slug,name,price,image_url")
+    .select("id,code,color,brand,slug,name,price,image_url")
     .ilike("name", term)
     .limit(30);
   return data ?? [];

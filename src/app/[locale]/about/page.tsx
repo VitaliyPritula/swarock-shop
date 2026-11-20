@@ -1,11 +1,12 @@
 
-export default function AboutPage({ params }: { params: { locale: string } }) {
-  const { locale } = params
+import { getTranslations } from "next-intl/server";
 
+export default async function AboutPage() {
+  const t = await getTranslations("About");
   return (
     <main>
-      <h1>{locale === 'uk' ? 'Про нас' : 'About'}</h1>
-      <p>{locale === 'uk' ? 'Це сторінка про наш магазин.' : 'This is the about page for our shop.'}</p>
+      <h1>{t("title")}</h1>
+      <p>{t("description")}</p>
     </main>
   )
 }

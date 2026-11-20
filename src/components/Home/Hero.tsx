@@ -10,13 +10,13 @@ import hero2 from "../../assets/sliderHome-2.jpg";
 const slides = [
   {
     image: hero1,
-    title: "Ще з Скайрока",
+    titleKey: "slideOne",
   },
   {
     image: hero2,
-    title: "Нова колекція",
+    titleKey: "slideTwo",
   },
-];
+] as const;
 
 export function Hero() {
   const t = useTranslations('Home');
@@ -54,7 +54,7 @@ export function Hero() {
           >
             <Image
               src={slide.image}
-              alt={slide.title}
+              alt={t(slide.titleKey)}
               className="h-[280px] w-full object-cover opacity-90 sm:h-[380px] lg:h-[520px]"
               priority={index === 0}
             />
@@ -70,7 +70,7 @@ export function Hero() {
 
       {/* Arrows */}
       <button
-        aria-label="Попередній"
+        aria-label={t("previousSlide")}
         onClick={prevSlide}
         className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 hover:bg-white/20"
       >
@@ -78,7 +78,7 @@ export function Hero() {
       </button>
 
       <button
-        aria-label="Наступний"
+        aria-label={t("nextSlide")}
         onClick={nextSlide}
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 hover:bg-white/20"
       >
@@ -90,7 +90,7 @@ export function Hero() {
         {slides.map((_, index) => (
           <button
             key={index}
-            aria-label={`Слайд ${index + 1}`}
+            aria-label={t("slide", { number: index + 1 })}
             onClick={() => setI(index)}
             className={`h-3.5 w-3.5 rounded-full transition ${i === index ? "bg-[#FF0000]" : "bg-white"
               }`}

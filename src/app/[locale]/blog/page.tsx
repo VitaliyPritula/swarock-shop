@@ -1,36 +1,26 @@
 import { Link } from "@/src/i18n/routing";
 import { listBlog } from "@/src/lib/shop.functions";
-
-const fallbackPosts = [
-  {
-    slug: "rok-szcogoden",
-    title: "Рок — це стиль щодня",
-    excerpt: "Як створювати виразний образ із рок-одягу та аксесуарів.",
-  },
-  {
-    slug: "dobir-rozmiru",
-    title: "Як правильно підібрати розмір",
-    excerpt: "Кілька простих порад, які допоможуть обрати зручний розмір.",
-  },
-  {
-    slug: "novi-relizy",
-    title: "Нові релізи та мерч",
-    excerpt: "Оглядаємо останні новинки нашого магазинного каталогу.",
-  },
-];
+import { getTranslations } from "next-intl/server";
 
 export default async function BlogPage() {
+  const t = await getTranslations("Blog");
   const posts = await listBlog().catch(() => []);
+  const fallbackSlugs = ["rok-szcogoden", "dobir-rozmiru", "novi-relizy"] as const;
+  const fallbackPosts = fallbackSlugs.map((slug) => ({
+    slug,
+    title: t(`fallbackPosts.${slug}.title`),
+    excerpt: t(`fallbackPosts.${slug}.excerpt`),
+  }));
   const items = posts.length > 0 ? posts : fallbackPosts;
 
   return (
     <main className="mx-auto max-w-[1440px] px-4 py-8 md:px-8">
       <nav className="mb-6 text-xs text-muted-foreground">
-        <Link href="/" className="hover:underline">Головна</Link>
+        <Link href="/" className="hover:underline">{t("home")}</Link>
         <span className="mx-2">/</span>
-        <span>Наш блог</span>
+        <span>{t("title")}</span>
       </nav>
-      <h1 className="mb-8 text-center font-display text-2xl uppercase tracking-widest">Наш блог</h1>
+      <h1 className="mb-8 text-center font-display text-2xl uppercase tracking-widest">{t("title")}</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {items.map((post: { slug: string; title: string; excerpt?: string }) => (
           <article key={post.slug} className="border border-border bg-white p-5">
@@ -40,7 +30,7 @@ export default async function BlogPage() {
               href={`/blog/${post.slug}`}
               className="mt-5 inline-block border-b border-primary text-sm uppercase tracking-widest"
             >
-              Читати
+              {t("read")}
             </Link>
           </article>
         ))}

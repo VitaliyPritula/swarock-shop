@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const result = await createOrder(body);
     return NextResponse.json(result, { status: 201 });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Помилка оформлення замовлення";
+    const message = error instanceof Error ? error.message : "ORDER_SUBMISSION_FAILED";
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }

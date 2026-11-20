@@ -2,14 +2,19 @@
   "Home": {
     "title": "Головна",
     "description": "Одяг для справжніх рок фанатів",
-    "heroText": "Д Скайрок, більше не соромно позиціонувати як своє «свою культурну ідентичність». Скайрок відкриває для власників його стилю можливість носити те, що вони обирають."
+    "heroText": "У SvaROCK легко показати свою культурну ідентичність. Обирайте одяг, у якому вам комфортно бути собою.",
+    "slideOne": "Ще більше SvaROCK",
+    "slideTwo": "Нова колекція",
+    "previousSlide": "Попередній слайд",
+    "nextSlide": "Наступний слайд",
+    "slide": "Слайд {number}"
   },
   "Footer": {
     "copyright": "Всі права захищені.",
     "shopName": "Культовий рок-магазин \"SvaROCK\"",
     "catalogTitle": "Каталог",
     "tshirts": "Футболки",
-    "jackets": "Куртки",
+    "jackets": "Косухи",
     "shoes": "Взуття",
     "headwear": "Головні убори",
     "accessories": "Аксесуари",
@@ -17,7 +22,7 @@
     "posters": "Плакати",
     "tickets": "Квитки",
     "aboutTitle": "Про нас",
-    "aboutCompany": "Про компанії",
+    "aboutCompany": "Про компанію",
     "deliveryPayment": "Оплата та доставка",
     "refund": "Повернення",
     "ourBlog": "Наш блог",
@@ -26,16 +31,289 @@
     "register": "Реєстрація",
     "callback": "Зворотній дзвінок",
     "contactsTitle": "Контакти",
-    "contactsRuTitle": "Контакт",
+    "residentsTitle": "Для жителів та гостей міста",
     "forResidents": "Для жителів та\nгостей міста Чугуєва",
     "shopNameRu": "Магазин “SvaROCK”",
     "shopAddress": "пл. Соборна 2",
     "socialTitle": "Наші спільноти"
   },
+  "Metadata": {
+    "title": "SvaROCK — рок-магазин",
+    "description": "Інтернет-магазин рок-одягу та аксесуарів."
+  },
+  "Common": {
+    "home": "Головна",
+    "catalog": "Каталог",
+    "toCatalog": "До каталогу",
+    "close": "Закрити",
+    "loading": "Завантаження…",
+    "currency": "грн."
+  },
+  "Catalog": {
+    "filters": "Фільтри",
+    "closeFilters": "Закрити фільтри",
+    "home": "Головна",
+    "catalog": "Каталог",
+    "gender": {
+      "title": "Стать",
+      "male": "Чоловічі",
+      "female": "Жіночі"
+    },
+    "origin": "Країна виробництва",
+    "countries": {
+      "ukraine": "Україна",
+      "usa": "США",
+      "china": "Китай"
+    },
+    "price": "Ціна",
+    "currency": "грн.",
+    "color": "Колір",
+    "colors": {
+      "black": "Чорний",
+      "white": "Білий",
+      "blue": "Синій",
+      "red": "Червоний",
+      "khaki": "Хакі"
+    },
+    "size": "Розмір",
+    "brand": "Група / бренд",
+    "brandSearchPlaceholder": "Пошук бренду",
+    "materialSearchPlaceholder": "Наприклад, бавовна",
+    "collapse": "Згорнути",
+    "showAll": "Показати все",
+    "materials": "Матеріали",
+    "new": "Новинки",
+    "popular": "Популярні",
+    "sortBy": "Сортувати за:",
+    "sortPopularity": "Популярністю",
+    "sortNewest": "Новизною",
+    "sortPrice": "Ціною",
+    "grid": "Відображення сіткою",
+    "list": "Відображення списком",
+    "yourSelection": "Ваш вибір:",
+    "clearAll": "Скинути все",
+    "noResults": "Нічого не знайдено. Спробуйте змінити фільтри.",
+    "showing": "Показано {shown} з {total}",
+    "searchTitle": "Пошук товарів",
+    "searchResultsTitle": "Результати пошуку: {query}",
+    "catalogTitle": "Каталог товарів",
+    "categories": {
+      "futbolki": "Футболки",
+      "kurtki": "Косухи",
+      "obuv": "Взуття",
+      "holovni-ubory": "Головні убори",
+      "aksesuary": "Аксесуари",
+      "muzyka": "Музика",
+      "plakaty": "Плакати",
+      "kvytky": "Квитки"
+    }
+  },
+  "ProductActions": {
+    "size": "Розмір",
+    "buy": "Купити"
+  },
+  "ProductModal": {
+    "inStock": "Є в наявності",
+    "quantity": "Кількість",
+    "size": "Розмір",
+    "sizeTable": "Таблиця розмірів",
+    "productCode": "Код товару:",
+    "addToCart": "Додати в кошик",
+    "close": "Закрити",
+    "addToWishlist": "Додати в обране",
+    "removeFromWishlist": "Видалити з обраного"
+  },
+  "ProductDetails": {
+    "sizeTable": "Таблиця розмірів",
+    "size": "Розмір",
+    "chest": "Груди",
+    "waist": "Талія",
+    "hips": "Стегна",
+    "leaveReview": "Залишити відгук",
+    "yourName": "Ваше ім’я",
+    "reviewPlaceholder": "Відгук про {name}",
+    "submitReview": "Надіслати",
+    "reviewSent": "Дякуємо! Ваш відгук надіслано."
+  },
+  "Cart": {
+    "empty": "Кошик порожній",
+    "toCatalog": "До каталогу",
+    "title": "Кошик ({count, plural, one {# товар} few {# товари} other {# товарів}})",
+    "currency": "грн.",
+    "productCode": "Код товару:",
+    "size": "Розмір:",
+    "noSize": "Без розміру",
+    "quantity": "Кількість",
+    "price": "Ціна:",
+    "remove": "Видалити",
+    "edit": "Редагувати",
+    "addToWishlist": "Додати в обране",
+    "total": "Загалом:",
+    "checkout": "Оформити замовлення",
+    "orderSummary": "Ваше замовлення",
+    "subtotal": "Сума:",
+    "itemCount": "({count, plural, one {# товар} few {# товари} other {# товарів}})",
+    "promoCodePlaceholder": "Введіть промокод",
+    "giftCertificatePlaceholder": "№ подарункового сертифіката",
+    "discount": "Знижка",
+    "discountUnavailable": "Промокоди та сертифікати поки що не підтримуються.",
+    "pay": "Оплатити",
+    "continueShopping": "Продовжити покупки",
+    "editTitle": "Редагувати товар",
+    "loadingSizes": "Завантаження розмірів…",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "noSizesAvailable": "Для цього товару немає доступних розмірів.",
+    "loadSizesError": "Не вдалося завантажити розміри: {message}",
+    "unknownError": "Невідома помилка",
+    "sizeUpdated": "Розмір товару оновлено"
+  },
+  "Checkout": {
+    "thanks": "Дякуємо за замовлення!",
+    "orderNumber": "Номер замовлення:",
+    "toCatalog": "До каталогу",
+    "emptyCart": "Кошик порожній",
+    "title": "Оформлення замовлення",
+    "fullName": "Ім’я та прізвище",
+    "phone": "Телефон",
+    "email": "Email",
+    "city": "Місто",
+    "address": "Адреса відділення або кур’єра",
+    "comment": "Коментар",
+    "paymentMethod": "Спосіб оплати",
+    "cashOnDelivery": "Оплата при отриманні",
+    "cardPayment": "Оплата карткою",
+    "yourOrder": "Ваше замовлення",
+    "amountDue": "До сплати",
+    "submitting": "Оформлення…",
+    "confirm": "Підтвердити замовлення",
+    "submitError": "Не вдалося оформити замовлення",
+    "genericError": "Сталася помилка"
+  },
+  "Wishlist": {
+    "emptyTitle": "Список бажань порожній",
+    "emptyDescription": "Додавайте товари до обраного, щоб швидко знайти їх пізніше.",
+    "toCatalog": "Перейти до каталогу",
+    "title": "Обране",
+    "size": "Розмір:",
+    "noSize": "Без розміру",
+    "price": "Ціна:",
+    "addToCart": "Додати в кошик",
+    "remove": "Видалити"
+  },
+  "Account": {
+    "status": {
+      "new": "Нове",
+      "processing": "В обробці",
+      "shipped": "Відправлено",
+      "delivered": "Доставлено",
+      "cancelled": "Скасовано"
+    },
+    "loading": "Завантаження…",
+    "title": "Особистий кабінет",
+    "signOut": "Вийти",
+    "tabs": {
+      "profile": "Профіль",
+      "orders": "Замовлення",
+      "addresses": "Адреси"
+    },
+    "email": "Email",
+    "name": "Ім’я",
+    "namePlaceholder": "Ваше ім’я",
+    "phone": "Телефон",
+    "save": "Зберегти",
+    "saving": "Збереження…",
+    "changePassword": "Змінити пароль",
+    "newPassword": "Новий пароль",
+    "hidePassword": "Сховати пароль",
+    "showPassword": "Показати пароль",
+    "passwordMinLength": "Пароль має містити щонайменше 6 символів.",
+    "passwordChanged": "Пароль змінено.",
+    "profileSaved": "Профіль збережено.",
+    "noOrders": "Замовлень ще немає.",
+    "total": "Разом:",
+    "defaultAddress": "За замовчуванням",
+    "makeDefault": "Зробити основною",
+    "delete": "Видалити",
+    "city": "Місто",
+    "streetAddress": "Вулиця, будинок",
+    "add": "Додати",
+    "cancel": "Скасувати",
+    "addAddress": "Додати адресу",
+    "addressAdded": "Адресу додано.",
+    "addressDeleted": "Адресу видалено.",
+    "defaultAddressUpdated": "Основну адресу змінено."
+  },
+  "Auth": {
+    "missingCredentials": "Email і пароль обов’язкові.",
+    "invalidCredentials": "Неправильний email або пароль.",
+    "unknownError": "Сталася помилка. Спробуйте ще раз.",
+    "welcomeBack": "З поверненням!",
+    "signupSuccess": "Реєстрація успішна.",
+    "error": "Помилка",
+    "login": "Вхід",
+    "signup": "Реєстрація",
+    "email": "Email",
+    "password": "Пароль",
+    "hidePassword": "Сховати пароль",
+    "showPassword": "Показати пароль",
+    "signIn": "Увійти",
+    "signUp": "Зареєструватися",
+    "signInWithGoogle": "Увійти через Google",
+    "needAccount": "Немає акаунта? Зареєструватися",
+    "haveAccount": "Вже маєте акаунт? Увійти"
+  },
+  "Blog": {
+    "title": "Наш блог",
+    "home": "Головна",
+    "read": "Читати",
+    "fallbackPosts": {
+      "rok-szcogoden": {
+        "title": "Рок — це стиль щодня",
+        "excerpt": "Як створити виразний образ за допомогою рок-одягу та аксесуарів.",
+        "content": "Виразний образ починається з базових речей: чорної футболки, міцного взуття та атмосферного мерчу. Додавайте аксесуари поступово, щоб зберегти власний характер."
+      },
+      "dobir-rozmiru": {
+        "title": "Як правильно підібрати розмір",
+        "excerpt": "Кілька простих порад, які допоможуть обрати зручний розмір.",
+        "content": "Перед замовленням звірте параметри свого одягу з таблицею розмірів. Для вільнішої посадки оберіть розмір на один більший."
+      },
+      "novi-relizy": {
+        "title": "Нові релізи та мерч",
+        "excerpt": "Оглядаємо новинки каталогу нашого магазину.",
+        "content": "У каталозі з’являються нові колекції одягу та атрибутики. Переглядайте розділ новинок, щоб не пропустити свіжі релізи."
+      }
+    }
+  },
+  "Payment": {
+    "delivery1": {
+      "title": "Доставка та оплата",
+      "text": "Оберіть зручний спосіб доставки: Нова пошта або кур’єрська доставка."
+    },
+    "delivery2": {
+      "title": "Способи оплати",
+      "text": "Оплатіть карткою онлайн або готівкою під час отримання замовлення."
+    },
+    "delivery3": {
+      "title": "Підтвердження доставки",
+      "text": "Після оформлення ми зв’яжемося з вами, щоб підтвердити дані та повідомити номер відправлення."
+    },
+    "continueToCheckout": "Перейти до оформлення"
+  },
+  "About": {
+    "title": "Про нас",
+    "description": "Це сторінка про наш магазин."
+  },
+  "Contact": {
+    "title": "Контакти",
+    "description": "Зв’язатися з нами можна тут."
+  },
   "Header": {
     "searchPlaceholder": "Пошук…",
     "searchAria": "Пошук",
     "openSearch": "Відкрити пошук",
+    "openMenu": "Відкрити меню",
+    "closeMenu": "Закрити меню",
     "user": "Користувач",
     "favorites": "Обране",
     "cart": "Кошик",
@@ -47,7 +325,7 @@
       "home": "Головна",
       "catalog": "Каталог",
       "tshirts": "Футболки",
-      "jackets": "Куртки",
+      "jackets": "Косухи",
       "shoes": "Взуття",
       "headwear": "Головні убори",
       "accessories": "Аксесуари",
@@ -101,10 +379,5 @@
         "description": "\u0412\u0456\u043d\u0456\u043b\u043e\u0432\u0438\u0439 \u0440\u0435\u043b\u0456\u0437 \u0434\u043b\u044f \u0441\u043f\u0440\u0430\u0432\u0436\u043d\u044c\u043e\u0433\u043e \u043f\u0440\u043e\u0441\u043b\u0443\u0445\u043e\u0432\u0443\u0432\u0430\u043d\u043d\u044f."
       }
     }
-  },
-  "Auth": {
-    "missingCredentials": "Email і пароль обов'язкові",
-    "invalidCredentials": "Невірний email або пароль",
-    "unknownError": "Сталася помилка, спробуйте ще раз"
   }
 }

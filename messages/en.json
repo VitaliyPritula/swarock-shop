@@ -1,7 +1,12 @@
 {
   "Home": {
     "title": "Main page",
-    "heroText": "Dee Snider, former vocalist for the glam metal band Twisted Sister, has announced the release of a new album under the promising title For the Love of Metal."
+    "heroText": "Show your identity with SvaROCK. Choose clothes that make you feel comfortable being yourself.",
+    "slideOne": "More from SvaROCK",
+    "slideTwo": "New collection",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "slide": "Slide {number}"
   },
   "Footer": {
     "copyright": "All rights reserved.",
@@ -16,7 +21,7 @@
     "posters": "Posters",
     "tickets": "Tickets",
     "aboutTitle": "About",
-    "aboutCompany": "About company",
+    "aboutCompany": "About us",
     "deliveryPayment": "Delivery & payment",
     "refund": "Returns",
     "ourBlog": "Our blog",
@@ -25,16 +30,289 @@
     "register": "Register",
     "callback": "Callback",
     "contactsTitle": "Contacts",
-    "contactsRuTitle": "Contacts",
+    "residentsTitle": "For residents and visitors",
     "forResidents": "For residents and\ncity guests\nof Chuhuiv",
     "shopNameRu": "Shop “SvaROCK”",
     "shopAddress": "Soborna Sq. 2",
-    "socialTitle": "Our social"
+    "socialTitle": "Our community"
+  },
+  "Metadata": {
+    "title": "SvaROCK — Rock Shop",
+    "description": "Online shop for rock clothing and accessories."
+  },
+  "Common": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "toCatalog": "Go to catalog",
+    "close": "Close",
+    "loading": "Loading…",
+    "currency": "UAH"
+  },
+  "Catalog": {
+    "filters": "Filters",
+    "closeFilters": "Close filters",
+    "home": "Home",
+    "catalog": "Catalog",
+    "gender": {
+      "title": "Gender",
+      "male": "Men",
+      "female": "Women"
+    },
+    "origin": "Country of origin",
+    "countries": {
+      "ukraine": "Ukraine",
+      "usa": "United States",
+      "china": "China"
+    },
+    "price": "Price",
+    "currency": "UAH",
+    "color": "Color",
+    "colors": {
+      "black": "Black",
+      "white": "White",
+      "blue": "Blue",
+      "red": "Red",
+      "khaki": "Khaki"
+    },
+    "size": "Size",
+    "brand": "Group / brand",
+    "brandSearchPlaceholder": "Search brands",
+    "materialSearchPlaceholder": "For example, cotton",
+    "collapse": "Show less",
+    "showAll": "Show all",
+    "materials": "Materials",
+    "new": "New arrivals",
+    "popular": "Popular",
+    "sortBy": "Sort by:",
+    "sortPopularity": "Popularity",
+    "sortNewest": "Newest",
+    "sortPrice": "Price",
+    "grid": "Grid view",
+    "list": "List view",
+    "yourSelection": "Your selection:",
+    "clearAll": "Clear all",
+    "noResults": "No products found. Try changing the filters.",
+    "showing": "Showing {shown} of {total}",
+    "searchTitle": "Search products",
+    "searchResultsTitle": "Search results: {query}",
+    "catalogTitle": "Product catalog",
+    "categories": {
+      "futbolki": "T-shirts",
+      "kurtki": "Leather jackets",
+      "obuv": "Footwear",
+      "holovni-ubory": "Headwear",
+      "aksesuary": "Accessories",
+      "muzyka": "Music",
+      "plakaty": "Posters",
+      "kvytky": "Tickets"
+    }
+  },
+  "ProductActions": {
+    "size": "Size",
+    "buy": "Buy"
+  },
+  "ProductModal": {
+    "inStock": "In stock",
+    "quantity": "Quantity",
+    "size": "Size",
+    "sizeTable": "Size guide",
+    "productCode": "Product code:",
+    "addToCart": "Add to cart",
+    "close": "Close",
+    "addToWishlist": "Add to wishlist",
+    "removeFromWishlist": "Remove from wishlist"
+  },
+  "ProductDetails": {
+    "sizeTable": "Size guide",
+    "size": "Size",
+    "chest": "Chest",
+    "waist": "Waist",
+    "hips": "Hips",
+    "leaveReview": "Leave a review",
+    "yourName": "Your name",
+    "reviewPlaceholder": "Review for {name}",
+    "submitReview": "Submit",
+    "reviewSent": "Thank you! Your review has been sent."
+  },
+  "Cart": {
+    "empty": "Your cart is empty",
+    "toCatalog": "Go to catalog",
+    "title": "Cart ({count, plural, one {# item} other {# items}})",
+    "currency": "UAH",
+    "productCode": "Product code:",
+    "size": "Size:",
+    "noSize": "No size",
+    "quantity": "Quantity",
+    "price": "Price:",
+    "remove": "Remove",
+    "edit": "Edit",
+    "addToWishlist": "Add to wishlist",
+    "total": "Total:",
+    "checkout": "Checkout",
+    "orderSummary": "Your order",
+    "subtotal": "Subtotal:",
+    "itemCount": "({count, plural, one {# item} other {# items}})",
+    "promoCodePlaceholder": "Enter promo code",
+    "giftCertificatePlaceholder": "Gift certificate number",
+    "discount": "Discount",
+    "discountUnavailable": "Promo codes and gift certificates are not available yet.",
+    "pay": "Pay",
+    "continueShopping": "Continue shopping",
+    "editTitle": "Edit product",
+    "loadingSizes": "Loading sizes…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "noSizesAvailable": "No sizes are available for this product.",
+    "loadSizesError": "Could not load sizes: {message}",
+    "unknownError": "Unknown error",
+    "sizeUpdated": "Product size updated"
+  },
+  "Checkout": {
+    "thanks": "Thank you for your order!",
+    "orderNumber": "Order number:",
+    "toCatalog": "Go to catalog",
+    "emptyCart": "Your cart is empty",
+    "title": "Checkout",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "email": "Email",
+    "city": "City",
+    "address": "Pickup point or delivery address",
+    "comment": "Comment",
+    "paymentMethod": "Payment method",
+    "cashOnDelivery": "Cash on delivery",
+    "cardPayment": "Pay by card",
+    "yourOrder": "Your order",
+    "amountDue": "Amount due",
+    "submitting": "Placing order…",
+    "confirm": "Place order",
+    "submitError": "Could not place the order",
+    "genericError": "Something went wrong"
+  },
+  "Wishlist": {
+    "emptyTitle": "Your wishlist is empty",
+    "emptyDescription": "Add products to your wishlist to find them easily later.",
+    "toCatalog": "Browse the catalog",
+    "title": "Wishlist",
+    "size": "Size:",
+    "noSize": "No size",
+    "price": "Price:",
+    "addToCart": "Add to cart",
+    "remove": "Remove"
+  },
+  "Account": {
+    "status": {
+      "new": "New",
+      "processing": "Processing",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "loading": "Loading…",
+    "title": "My account",
+    "signOut": "Sign out",
+    "tabs": {
+      "profile": "Profile",
+      "orders": "Orders",
+      "addresses": "Addresses"
+    },
+    "email": "Email",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "phone": "Phone",
+    "save": "Save",
+    "saving": "Saving…",
+    "changePassword": "Change password",
+    "newPassword": "New password",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password",
+    "passwordMinLength": "Password must be at least 6 characters.",
+    "passwordChanged": "Password changed.",
+    "profileSaved": "Profile saved.",
+    "noOrders": "You have no orders yet.",
+    "total": "Total:",
+    "defaultAddress": "Default",
+    "makeDefault": "Make default",
+    "delete": "Delete",
+    "city": "City",
+    "streetAddress": "Street and building",
+    "add": "Add",
+    "cancel": "Cancel",
+    "addAddress": "Add address",
+    "addressAdded": "Address added.",
+    "addressDeleted": "Address deleted.",
+    "defaultAddressUpdated": "Default address updated."
+  },
+  "Auth": {
+    "missingCredentials": "Email and password are required.",
+    "invalidCredentials": "Incorrect email or password.",
+    "unknownError": "Something went wrong. Please try again.",
+    "welcomeBack": "Welcome back!",
+    "signupSuccess": "Registration successful.",
+    "error": "Error",
+    "login": "Sign in",
+    "signup": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "signInWithGoogle": "Continue with Google",
+    "needAccount": "New here? Create an account",
+    "haveAccount": "Already have an account? Sign in"
+  },
+  "Blog": {
+    "title": "Our blog",
+    "home": "Home",
+    "read": "Read",
+    "fallbackPosts": {
+      "rok-szcogoden": {
+        "title": "Rock is an everyday style",
+        "excerpt": "Create a distinctive look with rock clothing and accessories.",
+        "content": "A distinctive look starts with the essentials: a black T-shirt, sturdy footwear, and band merch. Add accessories gradually to keep your own character."
+      },
+      "dobir-rozmiru": {
+        "title": "How to choose the right size",
+        "excerpt": "A few simple tips to help you find a comfortable fit.",
+        "content": "Before ordering, compare your favourite garment's measurements with the size guide. For a looser fit, choose one size up."
+      },
+      "novi-relizy": {
+        "title": "New releases and merch",
+        "excerpt": "Take a look at the latest additions to our store.",
+        "content": "New clothing and merchandise collections are added to the catalog. Check the new arrivals section to keep up with the latest releases."
+      }
+    }
+  },
+  "Payment": {
+    "delivery1": {
+      "title": "Delivery and payment",
+      "text": "Choose a convenient delivery option: Nova Poshta or courier delivery."
+    },
+    "delivery2": {
+      "title": "Payment methods",
+      "text": "Pay online by card or in cash when your order arrives."
+    },
+    "delivery3": {
+      "title": "Delivery confirmation",
+      "text": "After checkout, we’ll contact you to confirm your details and share the tracking number."
+    },
+    "continueToCheckout": "Continue to checkout"
+  },
+  "About": {
+    "title": "About us",
+    "description": "Learn more about our store."
+  },
+  "Contact": {
+    "title": "Contact",
+    "description": "You can reach us here."
   },
   "Header": {
     "searchPlaceholder": "Search…",
     "searchAria": "Search",
     "openSearch": "Open search",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "user": "User",
     "favorites": "Favorites",
     "cart": "Cart",
@@ -100,10 +378,5 @@
         "description": "A vinyl release for a proper listening session."
       }
     }
-  },
-  "Auth": {
-    "missingCredentials": "Email and password are required",
-    "invalidCredentials": "Invalid email or password",
-    "unknownError": "Something went wrong, please try again"
   }
 }

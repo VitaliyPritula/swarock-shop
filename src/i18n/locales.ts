@@ -1,4 +1,4 @@
-export const appLocales = ["uk", "en", "it"] as const;
+export const appLocales = ["uk", "en"] as const;
 
 export type AppLocale = (typeof appLocales)[number];
 export type ContentLocale = "uk" | "en";
@@ -25,13 +25,6 @@ export const localeOptions: LocaleOption[] = [
     intlLabel: "en-GB",
     nativeLabel: "English",
     ogLocale: "en_GB",
-  },
-  {
-    code: "it",
-    shortLabel: "IT",
-    intlLabel: "it-IT",
-    nativeLabel: "Italiano",
-    ogLocale: "it_IT",
   },
 ];
 

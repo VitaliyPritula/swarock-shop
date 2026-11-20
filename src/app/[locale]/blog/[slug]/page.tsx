@@ -1,21 +1,7 @@
 import { Link } from "@/src/i18n/routing";
 import { getBlogPost } from "@/src/lib/shop.functions";
 import { notFound } from "next/navigation";
-
-const fallbackPosts: Record<string, { title: string; content: string }> = {
-  "rok-szcogoden": {
-    title: "Рок — це стиль щодня",
-    content: "Виразний образ починається з базових речей: чорної футболки, міцного взуття та атмосферного мерчу. Додавайте аксесуари поступово, щоб зберегти власний характер.",
-  },
-  "dobir-rozmiru": {
-    title: "Як правильно підібрати розмір",
-    content: "Перед замовленням звірте параметри вашого улюбленого одягу з таблицею розмірів. Для вільнішого крою обирайте розмір на один більший.",
-  },
-  "novi-relizy": {
-    title: "Нові релізи та мерч",
-    content: "У каталозі зʼявляються оновлені колекції одягу та атрибутики. Дотримуйтеся розділу новинок, щоб не пропустити нові релізи.",
-  },
-};
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -23,18 +9,20 @@ type Props = {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
+  const t = await getTranslations("Blog");
   const post = await getBlogPost(slug).catch(() => null);
-  const fallback = fallbackPosts[slug];
+  const fallbackSlugs = ["rok-szcogoden", "dobir-rozmiru", "novi-relizy"] as const;
+  const fallbackSlug = fallbackSlugs.find((item) => item === slug);
 
-  if (!post && !fallback) notFound();
+  if (!post && !fallbackSlug) notFound();
 
-  const title = post?.title ?? fallback?.title ?? "";
-  const content = post?.content ?? fallback?.content ?? "";
+  const title = post?.title ?? t(`fallbackPosts.${fallbackSlug!}.title`);
+  const content = post?.content ?? t(`fallbackPosts.${fallbackSlug!}.content`);
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
       <nav className="mb-6 text-xs text-muted-foreground">
-        <Link href="/blog" className="hover:underline">Наш блог</Link>
+        <Link href="/blog" className="hover:underline">{t("title")}</Link>
         <span className="mx-2">/</span>
         <span>{title}</span>
       </nav>
