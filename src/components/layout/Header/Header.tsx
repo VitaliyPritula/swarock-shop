@@ -77,11 +77,11 @@ export default function Header() {
           <div className="">
             <Link href="/">
               <Image
-                className="h-10 w-30 md:w-40"
-                src="/LOGO.svg"
-                alt="Logo"
-                width={98}
-                height={98}
+                className="h-8 w-auto md:h-10"
+                src="/Logo.svg"
+                alt="SvaROCK"
+                width={222}
+                height={47}
                 priority
               />
             </Link>

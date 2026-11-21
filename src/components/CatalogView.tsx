@@ -275,311 +275,320 @@ export function CatalogView({
   ];
 
   return (
-    <div className="mx-auto max-w-[1440px] px-4 py-6 md:px-8">
-      <nav className="mb-4 text-xs text-muted-foreground">
-        <Link href="/" className="hover:underline">{t("home")}</Link>
-        <span className="mx-2">/</span>
-        <Link href="/catalog" className="hover:underline">{t("catalog")}</Link>
-        {activeCategorySlug && <><span className="mx-2">/</span><span>{title}</span></>}
-      </nav>
-
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-[260px_1fr]">
-        {isFilterOpen && (
-          <button
-            type="button"
-            aria-label={t("closeFilters")}
-            onClick={() => setIsFilterOpen(false)}
-            className="fixed inset-0 z-40 bg-primary/50 md:hidden"
-          />
-        )}
-        <aside className={`${isFilterOpen ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 left-0 z-50 w-[min(320px,calc(100vw-32px))] overflow-y-auto bg-background px-4 py-6 text-sm transition-transform duration-300 md:static md:z-auto md:w-auto md:translate-x-0 md:overflow-visible md:px-0 md:py-0`}>
-          <div className="mb-4 flex items-center justify-between md:hidden">
-            <span className="font-display text-sm uppercase tracking-widest">{t("filters")}</span>
-            <button type="button" onClick={() => setIsFilterOpen(false)} aria-label={t("closeFilters")} className="rounded p-1">
-              <X className="h-5 w-5" />
-            </button>
+    <section className="">
+      <section className="border-b border-border py-2 bg-background">
+        <div className="mx-auto max-w-[1440px] px-4  md:px-8">
+          <div className="flex items-center flex-col gap-2 sm:flex-row">
+            <nav className="text-xs text-muted-foreground flex-[0_0_22%]">
+              <Link href="/" className="hover:underline">{t("home")}</Link>
+              <span className="mx-2">/</span>
+              <Link href="/catalog" className="hover:underline">{t("catalog")}</Link>
+              {activeCategorySlug && <><span className="mx-2">/</span><span>{title}</span></>}
+            </nav>
+            <h1 className="font-display text-2xl uppercase tracking-widest">{title}</h1>
           </div>
-          <div className="mb-4 bg-foreground px-4 py-3 text-center font-display text-sm uppercase tracking-widest text-background">
-            {t("filters")}
-          </div>
-          <div className="border-b border-border pb-8">
-            <h3 className="my-4 text-center text-lg">{t("gender.title")}</h3>
-            <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="gender"
-                  checked={gender === "male"}
-                  onChange={() => { setGender("male"); setPage(1); }}
-                  className="h-4 w-4"
-                />
-                <span>{t("gender.male")}</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="gender"
-                  checked={gender === "female"}
-                  onChange={() => { setGender("female"); setPage(1); }}
-                  className="h-4 w-4"
-                />
-                <span>{t("gender.female")}</span>
-              </label>
-            </div>
-          </div>
-          <div className="border-b border-border pb-8">
-            <h3 className="my-4 text-center text-lg">{t("origin")}</h3>
-            <div className="flex flex-col gap-2">
-              <Checkbox checked={productions.has("ukraine")} onChange={() => toggle(productions, setProductions, "ukraine")} label={t("countries.ukraine")} />
-              <Checkbox checked={productions.has("usa")} onChange={() => toggle(productions, setProductions, "usa")} label={t("countries.usa")} />
-              <Checkbox checked={productions.has("china")} onChange={() => toggle(productions, setProductions, "china")} label={t("countries.china")} />
-            </div>
-          </div>
-          <div className="border-b border-border pb-[30px]">
-            <h3 className="py-5 text-center text-lg">{t("price")}</h3>
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    value={priceMin}
-                    onChange={(e) => { setPriceMin(Number(e.target.value)); setPage(1); }}
-                    className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
-                  />
-                  <span className="shrink-0 text-xs text-muted-foreground">{t("currency")}</span>
-                  <input
-                    type="number"
-                    value={priceMax}
-                    onChange={(e) => { setPriceMax(Number(e.target.value)); setPage(1); }}
-                    className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
-                  />
+        </div>
+      </section>
+      <section className="py-8">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[260px_1fr]">
+            {isFilterOpen && (
+              <button
+                type="button"
+                aria-label={t("closeFilters")}
+                onClick={() => setIsFilterOpen(false)}
+                className="fixed inset-0 z-40 bg-primary/50 md:hidden"
+              />
+            )}
+            <aside className={`${isFilterOpen ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 left-0 z-50 w-[min(320px,calc(100vw-32px))] overflow-y-auto bg-background px-4 py-6 text-sm transition-transform duration-300 md:static md:z-auto md:w-auto md:translate-x-0 md:overflow-visible md:px-0 md:py-0`}>
+              <div className="mb-4 flex items-center justify-between md:hidden">
+                <span className="font-display text-sm uppercase tracking-widest">{t("filters")}</span>
+                <button type="button" onClick={() => setIsFilterOpen(false)} aria-label={t("closeFilters")} className="rounded p-1">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="mb-4 bg-foreground px-4 py-3 text-center font-display text-sm uppercase tracking-widest text-background">
+                {t("filters")}
+              </div>
+              <div className="border-b border-border pb-8">
+                <h3 className="my-4 text-center text-lg">{t("gender.title")}</h3>
+                <div className="flex flex-col gap-2">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="gender"
+                      checked={gender === "male"}
+                      onChange={() => { setGender("male"); setPage(1); }}
+                      className="h-4 w-4"
+                    />
+                    <span>{t("gender.male")}</span>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="gender"
+                      checked={gender === "female"}
+                      onChange={() => { setGender("female"); setPage(1); }}
+                      className="h-4 w-4"
+                    />
+                    <span>{t("gender.female")}</span>
+                  </label>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="border-b border-border pb-[30px]">
-            <h3 className="py-5 text-center text-lg">{t("color")}</h3>
-            <div className="flex flex-col gap-1">
-              {COLOR_VALUES.map((color) => (
-                <Checkbox
-                  key={color}
-                  checked={colors.has(color)}
-                  onChange={() => toggle(colors, setColors, color)}
-                  label={t(`colors.${color}`)}
-                />
-              ))}
-            </div>
-          </div>
-
-          {allSizes.length > 0 && (
-            <FilterGroup title={t("size")}>
-              <div className="flex flex-wrap gap-2">
-                {allSizes.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => toggle(sizes, setSizes, s)}
-                    className={`min-w-[36px] rounded border px-2 py-1 text-xs uppercase transition ${sizes.has(s)
-                      ? "border-[color:var(--brand)] bg-[color:var(--brand)] text-white"
-                      : "border-border hover:border-foreground"
-                      }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+              <div className="border-b border-border pb-8">
+                <h3 className="my-4 text-center text-lg">{t("origin")}</h3>
+                <div className="flex flex-col gap-2">
+                  <Checkbox checked={productions.has("ukraine")} onChange={() => toggle(productions, setProductions, "ukraine")} label={t("countries.ukraine")} />
+                  <Checkbox checked={productions.has("usa")} onChange={() => toggle(productions, setProductions, "usa")} label={t("countries.usa")} />
+                  <Checkbox checked={productions.has("china")} onChange={() => toggle(productions, setProductions, "china")} label={t("countries.china")} />
+                </div>
               </div>
-            </FilterGroup>
-          )}
-
-          <FilterGroup title={t("brand")}>
-            <div className="relative mb-2">
-              <input
-                value={brandQuery}
-                onChange={(event) => {
-                  setBrandQuery(event.target.value);
-                  setShowAllBrands(true);
-                }}
-                placeholder={t("brandSearchPlaceholder")}
-                className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
-              />
-              <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            </div>
-            {visibleBrands.map((brand) => (
-              <Checkbox
-                key={brand}
-                checked={brands.has(brand)}
-                onChange={() => toggle(brands, setBrands, brand)}
-                label={brand}
-              />
-            ))}
-            {allBrands.length > 5 && !brandQuery.trim() && (
-              <button
-                onClick={() => setShowAllBrands((value) => !value)}
-                className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
-              >
-                {showAllBrands ? t("collapse") : t("showAll")}
-              </button>
-            )}
-          </FilterGroup>
-
-          {allMaterials.length > 0 && (
-            <FilterGroup title={t("materials")}>
-              <div className="relative mb-2">
-                <input
-                  value={materialQuery}
-                  onChange={(e) => setMaterialQuery(e.target.value)}
-                  placeholder={t("materialSearchPlaceholder")}
-                  className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
-                />
-                <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              </div>
-              {visibleMaterials.map(([m, count]) => (
-                <Checkbox
-                  key={m}
-                  checked={materials.has(m)}
-                  onChange={() => toggle(materials, setMaterials, m)}
-                  label={m}
-                  count={count}
-                />
-              ))}
-              {allMaterials.length > 8 && (
-                <button
-                  onClick={() => setShowAllMaterials(!showAllMaterials)}
-                  className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
-                >
-                  {showAllMaterials ? t("collapse") : t("showAll")}
-                </button>
-              )}
-            </FilterGroup>
-          )}
-        </aside>
-
-        <section>
-          <button
-            type="button"
-            onClick={() => setIsFilterOpen(true)}
-            className="mb-4 flex w-full items-center justify-between border border-border px-4 py-3 text-sm uppercase tracking-widest md:hidden"
-          >
-            {t("filters")}
-            <ChevronDown className="h-4 w-4" />
-          </button>
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <h1 className="font-display text-2xl uppercase tracking-widest">{title}</h1>
-            <div className="flex flex-wrap items-center gap-3 text-sm">
-              <span className="text-muted-foreground">{t("sortBy")}</span>
-              {sortLinks.map((s) => (
-                <button
-                  key={s.v}
-                  onClick={() => { setSort(s.v); setPage(1); }}
-                  className={`underline-offset-4 transition ${sort === s.v || (s.v === "price-asc" && sort === "price-desc")
-                    ? "font-semibold text-[color:var(--brand)] underline"
-                    : "text-foreground underline hover:text-[color:var(--brand)]"
-                    }`}
-                >
-                  {s.label}
-                </button>
-              ))}
-              <div className="hidden items-center gap-1 sm:flex">
-                <button
-                  onClick={() => setView("grid")}
-                  aria-label={t("grid")}
-                  className={`rounded p-1.5 ${view === "grid" ? "bg-foreground text-background" : "text-muted-foreground"}`}
-                >
-                  <LayoutGrid className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setView("list")}
-                  aria-label={t("list")}
-                  className={`rounded p-1.5 ${view === "list" ? "bg-foreground text-background" : "text-muted-foreground"}`}
-                >
-                  <List className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {chips.length > 0 && (
-            <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border pb-4">
-              <span className="text-sm uppercase tracking-widest text-muted-foreground">{t("yourSelection")}</span>
-              {chips.map((c) => <Chip key={c.key} label={c.label} onRemove={c.remove} />)}
-              <button onClick={reset} className="text-xs uppercase tracking-widest text-[color:var(--brand)] hover:underline">
-                {t("clearAll")}
-              </button>
-            </div>
-          )}
-
-          {pageItems.length === 0 ? (
-            <p className="py-16 text-center text-muted-foreground">{t("noResults")}</p>
-          ) : view === "grid" ? (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-              {pageItems.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  p={{
-                    ...p,
-                    sizes: p.product_variants?.map((v) => v.size) ?? [],
-                  }}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col divide-y divide-border">
-              {pageItems.map((p) => {
-                const raw = img(p.image_url) as unknown;
-                const src = typeof raw === "string" ? raw : (raw as { src?: string })?.src;
-                return (
-                  <Link
-                    key={p.id}
-                    href={`/product/${p.slug}`}
-                    className="flex gap-4 py-4 hover:bg-muted/30"
-                  >
-                    <Image src={src ?? ""} alt={p.name} width={96} height={96} className="h-24 w-24 bg-white object-contain" />
-                    <div className="flex flex-1 flex-col justify-center">
-                      <div className="text-sm font-medium uppercase">{p.name}</div>
-                      {p.material && <div className="text-xs text-muted-foreground">{p.material}</div>}
-                      <div className="mt-1 font-display text-lg">{uah(p.price, locale)}</div>
+              <div className="border-b border-border pb-[30px]">
+                <h3 className="py-5 text-center text-lg">{t("price")}</h3>
+                <div className="mb-4 flex flex-wrap items-center gap-2">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        value={priceMin}
+                        onChange={(e) => { setPriceMin(Number(e.target.value)); setPage(1); }}
+                        className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
+                      />
+                      <span className="shrink-0 text-xs text-muted-foreground">{t("currency")}</span>
+                      <input
+                        type="number"
+                        value={priceMax}
+                        onChange={(e) => { setPriceMax(Number(e.target.value)); setPage(1); }}
+                        className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
+                      />
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+                  </div>
+                </div>
+              </div>
+              <div className="border-b border-border pb-[30px]">
+                <h3 className="py-5 text-center text-lg">{t("color")}</h3>
+                <div className="flex flex-col gap-1">
+                  {COLOR_VALUES.map((color) => (
+                    <Checkbox
+                      key={color}
+                      checked={colors.has(color)}
+                      onChange={() => toggle(colors, setColors, color)}
+                      label={t(`colors.${color}`)}
+                    />
+                  ))}
+                </div>
+              </div>
 
-          {totalPages > 1 && (
-            <div className="mt-8 flex items-center justify-center gap-2">
-              <button
-                onClick={() => setPage(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-                className="rounded border border-border px-3 py-1 text-sm disabled:opacity-40"
-              >
-                ←
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-                <button
-                  key={n}
-                  onClick={() => setPage(n)}
-                  className={`h-8 w-8 rounded text-sm ${n === currentPage
-                    ? "bg-[color:var(--brand)] text-white"
-                    : "border border-border hover:border-foreground"
-                    }`}
-                >
-                  {n}
-                </button>
-              ))}
-              <button
-                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
-                disabled={currentPage === totalPages}
-                className="rounded border border-border px-3 py-1 text-sm disabled:opacity-40"
-              >
-                →
-              </button>
-            </div>
-          )}
+              {allSizes.length > 0 && (
+                <FilterGroup title={t("size")}>
+                  <div className="flex flex-wrap gap-2">
+                    {allSizes.map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => toggle(sizes, setSizes, s)}
+                        className={`min-w-[36px] rounded border px-2 py-1 text-xs uppercase transition ${sizes.has(s)
+                          ? "border-[color:var(--brand)] bg-[color:var(--brand)] text-white"
+                          : "border-border hover:border-foreground"
+                          }`}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </FilterGroup>
+              )}
 
-          <div className="mt-4 text-center text-xs text-muted-foreground">
-            {t("showing", { shown: pageItems.length, total: filtered.length })}
+              <FilterGroup title={t("brand")}>
+                <div className="relative mb-2">
+                  <input
+                    value={brandQuery}
+                    onChange={(event) => {
+                      setBrandQuery(event.target.value);
+                      setShowAllBrands(true);
+                    }}
+                    placeholder={t("brandSearchPlaceholder")}
+                    className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
+                  />
+                  <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                </div>
+                {visibleBrands.map((brand) => (
+                  <Checkbox
+                    key={brand}
+                    checked={brands.has(brand)}
+                    onChange={() => toggle(brands, setBrands, brand)}
+                    label={brand}
+                  />
+                ))}
+                {allBrands.length > 5 && !brandQuery.trim() && (
+                  <button
+                    onClick={() => setShowAllBrands((value) => !value)}
+                    className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
+                  >
+                    {showAllBrands ? t("collapse") : t("showAll")}
+                  </button>
+                )}
+              </FilterGroup>
+
+              {allMaterials.length > 0 && (
+                <FilterGroup title={t("materials")}>
+                  <div className="relative mb-2">
+                    <input
+                      value={materialQuery}
+                      onChange={(e) => setMaterialQuery(e.target.value)}
+                      placeholder={t("materialSearchPlaceholder")}
+                      className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
+                    />
+                    <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  </div>
+                  {visibleMaterials.map(([m, count]) => (
+                    <Checkbox
+                      key={m}
+                      checked={materials.has(m)}
+                      onChange={() => toggle(materials, setMaterials, m)}
+                      label={m}
+                      count={count}
+                    />
+                  ))}
+                  {allMaterials.length > 8 && (
+                    <button
+                      onClick={() => setShowAllMaterials(!showAllMaterials)}
+                      className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
+                    >
+                      {showAllMaterials ? t("collapse") : t("showAll")}
+                    </button>
+                  )}
+                </FilterGroup>
+              )}
+            </aside>
+
+            <section>
+              <button
+                type="button"
+                onClick={() => setIsFilterOpen(true)}
+                className="mb-4 flex w-full items-center justify-between border border-border px-4 py-3 text-sm uppercase tracking-widest md:hidden"
+              >
+                {t("filters")}
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              <div className="mb-4 flex flex-wrap items-center justify-end gap-3">
+                <div className="flex flex-wrap items-center gap-3 text-sm">
+                  <span className="text-muted-foreground">{t("sortBy")}</span>
+                  {sortLinks.map((s) => (
+                    <button
+                      key={s.v}
+                      onClick={() => { setSort(s.v); setPage(1); }}
+                      className={`underline-offset-4 transition ${sort === s.v || (s.v === "price-asc" && sort === "price-desc")
+                        ? "font-semibold text-[color:var(--brand)] underline"
+                        : "text-foreground underline hover:text-[color:var(--brand)]"
+                        }`}
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                  <div className="hidden items-center gap-1 sm:flex">
+                    <button
+                      onClick={() => setView("grid")}
+                      aria-label={t("grid")}
+                      className={`rounded p-1.5 ${view === "grid" ? "bg-foreground text-background" : "text-muted-foreground"}`}
+                    >
+                      <LayoutGrid className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => setView("list")}
+                      aria-label={t("list")}
+                      className={`rounded p-1.5 ${view === "list" ? "bg-foreground text-background" : "text-muted-foreground"}`}
+                    >
+                      <List className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {chips.length > 0 && (
+                <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border pb-4">
+                  <span className="text-sm uppercase tracking-widest text-muted-foreground">{t("yourSelection")}</span>
+                  {chips.map((c) => <Chip key={c.key} label={c.label} onRemove={c.remove} />)}
+                  <button onClick={reset} className="text-xs uppercase tracking-widest text-[color:var(--brand)] hover:underline">
+                    {t("clearAll")}
+                  </button>
+                </div>
+              )}
+
+              {pageItems.length === 0 ? (
+                <p className="py-16 text-center text-muted-foreground">{t("noResults")}</p>
+              ) : view === "grid" ? (
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                  {pageItems.map((p) => (
+                    <ProductCard
+                      key={p.id}
+                      p={{
+                        ...p,
+                        sizes: p.product_variants?.map((v) => v.size) ?? [],
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col divide-y divide-border">
+                  {pageItems.map((p) => {
+                    const raw = img(p.image_url) as unknown;
+                    const src = typeof raw === "string" ? raw : (raw as { src?: string })?.src;
+                    return (
+                      <Link
+                        key={p.id}
+                        href={`/product/${p.slug}`}
+                        className="flex gap-4 py-4 hover:bg-muted/30"
+                      >
+                        <Image src={src ?? ""} alt={p.name} width={96} height={96} className="h-24 w-24 bg-white object-contain" />
+                        <div className="flex flex-1 flex-col justify-center">
+                          <div className="text-sm font-medium uppercase">{p.name}</div>
+                          {p.material && <div className="text-xs text-muted-foreground">{p.material}</div>}
+                          <div className="mt-1 font-display text-lg">{uah(p.price, locale)}</div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+
+              {totalPages > 1 && (
+                <div className="mt-8 flex items-center justify-center gap-2">
+                  <button
+                    onClick={() => setPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className="rounded border border-border px-3 py-1 text-sm disabled:opacity-40"
+                  >
+                    ←
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                    <button
+                      key={n}
+                      onClick={() => setPage(n)}
+                      className={`h-8 w-8 rounded text-sm ${n === currentPage
+                        ? "bg-[color:var(--brand)] text-white"
+                        : "border border-border hover:border-foreground"
+                        }`}
+                    >
+                      {n}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                    className="rounded border border-border px-3 py-1 text-sm disabled:opacity-40"
+                  >
+                    →
+                  </button>
+                </div>
+              )}
+
+              <div className="mt-4 text-center text-xs text-muted-foreground">
+                {t("showing", { shown: pageItems.length, total: filtered.length })}
+              </div>
+            </section>
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+      </section>
+    </section>
   );
 }
