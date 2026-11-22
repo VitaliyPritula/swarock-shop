@@ -34,14 +34,14 @@ export default function HeaderActions({ isMenuOpen, onOpenSearch, t }: HeaderAct
   }, []);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-4">
       <button
         type="button"
         onClick={onOpenSearch}
         className="md:hidden"
         aria-label={t('openSearch')}
       >
-        <Search className="h-5 w-4 text-white" />
+        <Search className="h-5 w-5 text-white" />
       </button>
 
       <div className="flex items-center gap-3">
