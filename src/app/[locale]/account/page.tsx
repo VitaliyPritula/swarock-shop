@@ -195,7 +195,7 @@ export default function AccountPage() {
     <div className="mx-auto max-w-4xl px-4 py-10">
       <div className="flex items-center justify-between mb-8">
         <h1 className="font-display text-2xl uppercase tracking-widest">{t("title")}</h1>
-        <button onClick={signOut} className="text-sm text-muted-foreground hover:underline">
+        <button onClick={signOut} className="text-sm text-primary hover:underline">
           {t("signOut")}
         </button>
       </div>
@@ -206,7 +206,7 @@ export default function AccountPage() {
           <button
             key={tabName}
             onClick={() => setTab(tabName)}
-            className={`pb-2 text-sm uppercase tracking-widest font-display border-b-2 transition-colors ${tab === tabName ? "border-primary text-primary" : "border-transparent text-muted-foreground"
+            className={`pb-2 text-sm uppercase tracking-widest font-display border-b-2 transition-colors ${tab === tabName ? "border-primary text-primary" : "border-transparent text-primary"
               }`}
           >
             {t(`tabs.${tabName}`)}
@@ -218,16 +218,16 @@ export default function AccountPage() {
       {tab === "profile" && (
         <div className="space-y-6 max-w-md">
           <div>
-            <label className="text-sm text-muted-foreground">Email</label>
-            <input value={email} disabled className="mt-1 w-full rounded border px-3 py-2 bg-muted text-muted-foreground" />
+            <label className="text-sm text-primary">Email</label>
+            <input value={email} disabled className="mt-1 w-full rounded border px-3 py-2 bg-muted text-primary" />
           </div>
           <div>
-            <label className="text-sm text-muted-foreground">{t("name")}</label>
+            <label className="text-sm text-primary">{t("name")}</label>
             <input value={fullName} onChange={(e) => setFullName(e.target.value)}
               placeholder={t("namePlaceholder")} className="mt-1 w-full rounded border px-3 py-2" />
           </div>
           <div>
-            <label className="text-sm text-muted-foreground">{t("phone")}</label>
+            <label className="text-sm text-primary">{t("phone")}</label>
             <input value={phone} onChange={(e) => setPhone(e.target.value)}
               placeholder="+38 0XX XXX XX XX" className="mt-1 w-full rounded border px-3 py-2" />
           </div>
@@ -262,12 +262,12 @@ export default function AccountPage() {
       {tab === "orders" && (
         <div className="space-y-4">
           {orders.length === 0 ? (
-            <p className="text-muted-foreground">{t("noOrders")}</p>
+            <p className="text-primary">{t("noOrders")}</p>
           ) : (
             orders.map((order) => (
               <div key={order.id} className="rounded border p-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-primary">
                     {new Date(order.created_at).toLocaleDateString(locale === "uk" ? "uk-UA" : "en-GB")}
                   </span>
                   <span className={`text-xs font-semibold uppercase px-2 py-1 rounded ${order.status === "delivered" ? "bg-green-100 text-green-700" :

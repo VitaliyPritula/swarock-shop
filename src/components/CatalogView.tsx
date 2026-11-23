@@ -3,8 +3,8 @@ import { Link } from '@/src/i18n/routing';
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
 import { ChevronDown, LayoutGrid, List, Search, X } from "lucide-react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { ProductCard, type ProductCardData } from "./ProductCard";
 
@@ -77,9 +77,9 @@ function FilterGroup({ title, children, defaultOpen = true }: { title: string; c
 function Checkbox({ checked, onChange, label, count, labelClassName }: { checked: boolean; onChange: () => void; label: React.ReactNode; count?: number; labelClassName?: string }) {
   return (
     <label className="flex cursor-pointer items-center gap-2 py-1 text-sm">
-      <input type="checkbox" checked={checked} onChange={onChange} className="h-4 w-4 shrink-0 accent-[color:var(--brand)]" />
+      <input type="checkbox" checked={checked} onChange={onChange} className="h-4 w-4 shrink-0 accent-primary" />
       <span className={`min-w-0 flex-1 ${labelClassName ?? ""}`}>{label}</span>
-      {count !== undefined && <span className="text-xs text-muted-foreground">({count})</span>}
+      {count !== undefined && <span className="text-xs text-primary">({count})</span>}
     </label>
   );
 }
@@ -88,7 +88,7 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
     <button
       onClick={onRemove}
-      className="inline-flex items-center gap-1.5 text-sm text-foreground transition hover:text-[color:var(--brand)]"
+      className="inline-flex items-center gap-1.5 text-sm text-primary transition hover:text-primary/90"
     >
       <span>{label}</span>
       <X className="h-3.5 w-3.5" />
@@ -279,7 +279,7 @@ export function CatalogView({
       <section className="border-b border-border py-2 bg-background">
         <div className="mx-auto max-w-[1440px] px-4  md:px-8">
           <div className="flex items-center flex-col gap-2 sm:flex-row">
-            <nav className="text-xs text-muted-foreground flex-[0_0_22%]">
+            <nav className="text-xs text-primary flex-[0_0_22%]">
               <Link href="/" className="hover:underline">{t("home")}</Link>
               <span className="mx-2">/</span>
               <Link href="/catalog" className="hover:underline">{t("catalog")}</Link>
@@ -354,7 +354,7 @@ export function CatalogView({
                         onChange={(e) => { setPriceMin(Number(e.target.value)); setPage(1); }}
                         className="w-full rounded border border-border bg-background px-2 py-1 text-center text-sm"
                       />
-                      <span className="shrink-0 text-xs text-muted-foreground">{t("currency")}</span>
+                      <span className="shrink-0 text-xs text-primary">{t("currency")}</span>
                       <input
                         type="number"
                         value={priceMax}
@@ -409,7 +409,7 @@ export function CatalogView({
                     placeholder={t("brandSearchPlaceholder")}
                     className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
                   />
-                  <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
                 </div>
                 {visibleBrands.map((brand) => (
                   <Checkbox
@@ -422,7 +422,7 @@ export function CatalogView({
                 {allBrands.length > 5 && !brandQuery.trim() && (
                   <button
                     onClick={() => setShowAllBrands((value) => !value)}
-                    className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
+                    className="mt-2 ml-auto block text-xs text-primary underline hover:text-primary/90"
                   >
                     {showAllBrands ? t("collapse") : t("showAll")}
                   </button>
@@ -438,7 +438,7 @@ export function CatalogView({
                       placeholder={t("materialSearchPlaceholder")}
                       className="w-full rounded border border-border bg-background py-1.5 pl-2 pr-8 text-sm"
                     />
-                    <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
                   </div>
                   {visibleMaterials.map(([m, count]) => (
                     <Checkbox
@@ -452,7 +452,7 @@ export function CatalogView({
                   {allMaterials.length > 8 && (
                     <button
                       onClick={() => setShowAllMaterials(!showAllMaterials)}
-                      className="mt-2 ml-auto block text-xs text-muted-foreground underline hover:text-foreground"
+                      className="mt-2 ml-auto block text-xs text-primary underline hover:text-primary/90"
                     >
                       {showAllMaterials ? t("collapse") : t("showAll")}
                     </button>
@@ -472,14 +472,14 @@ export function CatalogView({
               </button>
               <div className="mb-4 flex flex-wrap items-center justify-end gap-3">
                 <div className="flex flex-wrap items-center gap-3 text-sm">
-                  <span className="text-muted-foreground">{t("sortBy")}</span>
+                  <span className="text-primary">{t("sortBy")}</span>
                   {sortLinks.map((s) => (
                     <button
                       key={s.v}
                       onClick={() => { setSort(s.v); setPage(1); }}
                       className={`underline-offset-4 transition ${sort === s.v || (s.v === "price-asc" && sort === "price-desc")
-                        ? "font-semibold text-[color:var(--brand)] underline"
-                        : "text-foreground underline hover:text-[color:var(--brand)]"
+                        ? "font-semibold text-primary underline"
+                        : "text-foreground underline hover:text-primary/90"
                         }`}
                     >
                       {s.label}
@@ -489,14 +489,14 @@ export function CatalogView({
                     <button
                       onClick={() => setView("grid")}
                       aria-label={t("grid")}
-                      className={`rounded p-1.5 ${view === "grid" ? "bg-foreground text-background" : "text-muted-foreground"}`}
+                      className={`rounded p-1.5 ${view === "grid" ? "bg-foreground text-background" : "text-primary"}`}
                     >
                       <LayoutGrid className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => setView("list")}
                       aria-label={t("list")}
-                      className={`rounded p-1.5 ${view === "list" ? "bg-foreground text-background" : "text-muted-foreground"}`}
+                      className={`rounded p-1.5 ${view === "list" ? "bg-foreground text-background" : "text-primary"}`}
                     >
                       <List className="h-4 w-4" />
                     </button>
@@ -506,16 +506,16 @@ export function CatalogView({
 
               {chips.length > 0 && (
                 <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border pb-4">
-                  <span className="text-sm uppercase tracking-widest text-muted-foreground">{t("yourSelection")}</span>
+                  <span className="text-sm uppercase tracking-widest text-primary">{t("yourSelection")}</span>
                   {chips.map((c) => <Chip key={c.key} label={c.label} onRemove={c.remove} />)}
-                  <button onClick={reset} className="text-xs uppercase tracking-widest text-[color:var(--brand)] hover:underline">
+                  <button onClick={reset} className="text-xs uppercase tracking-widest text-primary hover:underline">
                     {t("clearAll")}
                   </button>
                 </div>
               )}
 
               {pageItems.length === 0 ? (
-                <p className="py-16 text-center text-muted-foreground">{t("noResults")}</p>
+                <p className="py-16 text-center text-primary">{t("noResults")}</p>
               ) : view === "grid" ? (
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                   {pageItems.map((p) => (
@@ -542,7 +542,7 @@ export function CatalogView({
                         <Image src={src ?? ""} alt={p.name} width={96} height={96} className="h-24 w-24 bg-white object-contain" />
                         <div className="flex flex-1 flex-col justify-center">
                           <div className="text-sm font-medium uppercase">{p.name}</div>
-                          {p.material && <div className="text-xs text-muted-foreground">{p.material}</div>}
+                          {p.material && <div className="text-xs text-primary">{p.material}</div>}
                           <div className="mt-1 font-display text-lg">{uah(p.price, locale)}</div>
                         </div>
                       </Link>
@@ -582,7 +582,7 @@ export function CatalogView({
                 </div>
               )}
 
-              <div className="mt-4 text-center text-xs text-muted-foreground">
+              <div className="mt-4 text-center text-xs text-primary">
                 {t("showing", { shown: pageItems.length, total: filtered.length })}
               </div>
             </section>

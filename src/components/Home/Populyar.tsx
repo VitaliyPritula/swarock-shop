@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 import { ProductCard, type ProductCardData } from "@/src/components/ProductCard";
 import { localProducts } from "@/src/lib/catalog";
 import { listProducts } from "@/src/lib/shop.functions";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { SectionTitle } from "../SectionTitle";
 
 export default function Populyar() {
@@ -44,7 +44,7 @@ export default function Populyar() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="my-8 items-center gap-8">
           <SectionTitle>{t('popular')}</SectionTitle>
-          <p className="-mt-4 text-center text-xs uppercase tracking-widest text-muted-foreground">{t('popularDescription')}</p>
+          <p className="-mt-4 text-center text-xs uppercase tracking-widest text-primary">{t('popularDescription')}</p>
           <div className="mt-6 flex snap-x snap-mandatory gap-15 overflow-x-auto pb-3 [scrollbar-width:thin]">
             {popular.map((p) => (
               <div key={p.slug} className="w-[78vw] max-w-[350px] shrink-0 snap-start sm:w-[320px] sm:max-w-none">
@@ -53,7 +53,7 @@ export default function Populyar() {
             ))}
           </div>
           <SectionTitle>{t('new')}</SectionTitle>
-          <p className="-mt-4 text-center text-xs uppercase tracking-widest text-muted-foreground">{t('newDescription')}</p>
+          <p className="-mt-4 text-center text-xs uppercase tracking-widest text-primary">{t('newDescription')}</p>
           <div className="mt-6 flex snap-x snap-mandatory gap-15 overflow-x-auto pb-3 [scrollbar-width:thin]">
             {news.map((p) => (
               <div key={p.slug} className="w-[78vw] max-w-[350px] shrink-0 snap-start sm:w-[320px] sm:max-w-none">

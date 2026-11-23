@@ -71,7 +71,7 @@ export default function CheckoutPage() {
           <div className="mx-auto max-w-xl border border-border px-6 py-12 text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary text-3xl">✓</div>
             <h2 className="mt-6 font-display text-3xl uppercase">{t("thanks")}</h2>
-            <p className="mt-4 text-muted-foreground">{t("orderNumber")} <strong className="text-foreground">{orderId}</strong></p>
+            <p className="mt-4 text-primary">{t("orderNumber")} <strong className="text-foreground">{orderId}</strong></p>
             <Link href="/catalog" className="mt-8 inline-flex bg-primary px-8 py-3 text-sm uppercase text-white">
               {t("toCatalog")}
             </Link>
@@ -117,11 +117,11 @@ export default function CheckoutPage() {
               <div className="grid gap-3 sm:grid-cols-2">
                 <label className={`flex cursor-pointer items-start gap-3 border p-4 ${delivery === "nova" ? "border-primary bg-secondary/30" : "border-border"}`}>
                   <input className="mt-1" type="radio" name="delivery" checked={delivery === "nova"} onChange={() => setDelivery("nova")} />
-                  <span><strong className="block text-sm">{t("novaPost")}</strong><span className="mt-1 block text-xs text-muted-foreground">{t("novaPostText")}</span></span>
+                  <span><strong className="block text-sm">{t("novaPost")}</strong><span className="mt-1 block text-xs text-primary">{t("novaPostText")}</span></span>
                 </label>
                 <label className={`flex cursor-pointer items-start gap-3 border p-4 ${delivery === "courier" ? "border-primary bg-secondary/30" : "border-border"}`}>
                   <input className="mt-1" type="radio" name="delivery" checked={delivery === "courier"} onChange={() => setDelivery("courier")} />
-                  <span><strong className="block text-sm">{t("courier")}</strong><span className="mt-1 block text-xs text-muted-foreground">{t("courierText")}</span></span>
+                  <span><strong className="block text-sm">{t("courier")}</strong><span className="mt-1 block text-xs text-primary">{t("courierText")}</span></span>
                 </label>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -135,11 +135,11 @@ export default function CheckoutPage() {
               <div className="grid gap-3 sm:grid-cols-2">
                 <label className={`flex cursor-pointer items-start gap-3 border p-4 ${payment === "cod" ? "border-primary bg-secondary/30" : "border-border"}`}>
                   <input className="mt-1" type="radio" name="payment" checked={payment === "cod"} onChange={() => setPayment("cod")} />
-                  <span><strong className="block text-sm">{t("cashOnDelivery")}</strong><span className="mt-1 block text-xs text-muted-foreground">{t("codText")}</span></span>
+                  <span><strong className="block text-sm">{t("cashOnDelivery")}</strong><span className="mt-1 block text-xs text-primary">{t("codText")}</span></span>
                 </label>
                 <label className={`flex cursor-pointer items-start gap-3 border p-4 ${payment === "card" ? "border-primary bg-secondary/30" : "border-border"}`}>
                   <input className="mt-1" type="radio" name="payment" checked={payment === "card"} onChange={() => setPayment("card")} />
-                  <span><strong className="block text-sm">{t("cardPayment")}</strong><span className="mt-1 block text-xs text-muted-foreground">{t("cardText")}</span></span>
+                  <span><strong className="block text-sm">{t("cardPayment")}</strong><span className="mt-1 block text-xs text-primary">{t("cardText")}</span></span>
                 </label>
               </div>
               {payment === "card" && (
@@ -164,8 +164,8 @@ export default function CheckoutPage() {
                   </div>
                   <div className="min-w-0 flex-1 text-sm">
                     <p className="font-medium">{item.name}</p>
-                    {item.size && <p className="mt-1 text-xs text-muted-foreground">{t("size")} {item.size.toUpperCase()}</p>}
-                    <p className="mt-1 text-xs text-muted-foreground">{t("qty")} {item.qty}</p>
+                    {item.size && <p className="mt-1 text-xs text-primary">{t("size")} {item.size.toUpperCase()}</p>}
+                    <p className="mt-1 text-xs text-primary">{t("qty")} {item.qty}</p>
                   </div>
                   <strong className="shrink-0 text-sm">{item.price * item.qty} ₴</strong>
                 </div>

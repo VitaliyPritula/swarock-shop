@@ -101,7 +101,7 @@ export default function CartPage() {
     return (
       <div className="mx-auto max-w-2xl px-4 pt-6 text-center">
         <h1 className="font-display text-2xl uppercase tracking-widest">{t("empty")}</h1>
-        <Link href="/catalog" className="mt-6 inline-flex rounded bg-[color:var(--brand)] px-4 py-2 text-white">
+        <Link href="/catalog" className="mt-6 inline-flex rounded bg-primary px-4 py-2 text-white">
           {t("toCatalog")}
         </Link>
       </div>
@@ -131,7 +131,7 @@ export default function CartPage() {
                 </div>
                 <div className="">
                   <div className="flex flex-wrap items-center sm:gap-25 gap-8">
-                    <div className="mt-3 space-y-1 text-muted-foreground">
+                    <div className="mt-3 space-y-1 text-primary">
                       <h2 className="font-medium text-l">{item.name}</h2>
                       {item.code && <p>{t("productCode")} {item.code}</p>}
                       <p className="text-sm">{item.size ? <>{t("size")} {item.size.toUpperCase()}</> : t("noSize")}</p>
@@ -147,7 +147,7 @@ export default function CartPage() {
                           type="button"
                           aria-label={`${t("quantity")} −`}
                           onClick={() => setQty(item.id, Math.max(1, item.qty - 1))}
-                          className="h-8 w-8 border-r border-border text-muted-foreground hover:bg-slate-100"
+                          className="h-8 w-8 border-r border-border text-primary hover:bg-primary/10"
                         >
                           −
                         </button>
@@ -163,7 +163,7 @@ export default function CartPage() {
                           type="button"
                           aria-label={`${t("quantity")} +`}
                           onClick={() => setQty(item.id, item.qty + 1)}
-                          className="h-8 w-8 border-l border-border text-muted-foreground hover:bg-slate-100"
+                          className="h-8 w-8 border-l border-border text-primary hover:bg-primary/10"
                         >
                           +
                         </button>
@@ -171,14 +171,14 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className="my-4 flex flex-wrap gap-x-8 gap-y-2 text-sm">
-                    <button type="button" onClick={() => remove(item.id)} className="underline underline-offset-2 hover:text-red-600">
+                    <button type="button" onClick={() => remove(item.id)} className="underline underline-offset-2 hover:text-primary/70">
                       {t("remove")}
                     </button>
                     <button
                       type="button"
                       onClick={() => void editSize(item.id, item.slug, item.size)}
                       disabled={loadingSizes}
-                      className="underline underline-offset-2 hover:text-red-600"
+                      className="underline underline-offset-2 hover:text-primary/70"
                     >
                       {t("edit")}
                     </button>
@@ -193,7 +193,7 @@ export default function CartPage() {
                         size: item.size,
                         price: item.price,
                       })}
-                      className="underline underline-offset-2 hover:text-red-600"
+                      className="underline underline-offset-2 hover:text-primary/70"
                     >
                       {t("addToWishlist")}
                     </button>
@@ -216,7 +216,7 @@ export default function CartPage() {
                 <div className="mt-4 flex items-start justify-between gap-4 text-sm">
                   <div>
                     <p className="font-semibold">{t("subtotal")}</p>
-                    <p className="mt-1 text-muted-foreground">{t("itemCount", { count: cartCount })}</p>
+                    <p className="mt-1 text-primary">{t("itemCount", { count: cartCount })}</p>
                   </div>
                   <p className="font-semibold">{total} {t("currency")}</p>
                 </div>
@@ -273,23 +273,30 @@ export default function CartPage() {
                   className="h-full w-full object-contain"
                 />
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">{editingItem.name}</p>
+              <p className="mt-2 text-sm text-primary">{editingItem.name}</p>
               <label htmlFor="edit-cart-item-size" className="mt-5 block text-sm">
                 {t("size")}
               </label>
-              <select
-                id="edit-cart-item-size"
-                value={selectedSize}
-                onChange={(event) => setSelectedSize(event.target.value)}
-                disabled={loadingSizes}
-                className="mt-2 w-full rounded border border-border bg-white px-3 py-2"
-              >
-                {editingItem.size === null && <option value="">{t("noSize")}</option>}
-                {availableSizes.map((size) => (
-                  <option key={size} value={size}>{size.toUpperCase()}</option>
-                ))}
-              </select>
-              {loadingSizes && <p className="mt-2 text-sm text-muted-foreground">{t("loadingSizes")}</p>}
+              <div className="relative mt-2">
+                <select
+                  id="edit-cart-item-size"
+                  value={selectedSize}
+                  onChange={(event) => setSelectedSize(event.target.value)}
+                  disabled={loadingSizes}
+                  className="w-full appearance-none rounded border border-border bg-white px-3 py-2 pr-9 text-sm text-primary outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {editingItem.size === null && <option value="">{t("noSize")}</option>}
+                  {availableSizes.map((size) => (
+                    <option key={size} value={size}>{size.toUpperCase()}</option>
+                  ))}
+                </select>
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  <svg width="13" height="13" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.6597 1.44721C18.9921 0.782314 18.5086 -3.82322e-08 17.7653 -7.07265e-08L1.00134 -8.03501e-07C0.257954 -8.35995e-07 -0.225544 0.782312 0.106907 1.44721L8.48887 18.2111C8.8574 18.9482 9.9092 18.9482 10.2777 18.2111L18.6597 1.44721Z" fill="#1D1D24" />
+                  </svg>
+                </span>
+              </div>
+              {loadingSizes && <p className="mt-2 text-sm text-primary">{t("loadingSizes")}</p>}
               <div className="mt-6 flex justify-end gap-3">
                 <button
                   type="button"
@@ -299,14 +306,14 @@ export default function CartPage() {
                     toast.success(t("sizeUpdated"));
                   }}
                   disabled={loadingSizes}
-                  className="rounded bg-[color:var(--brand)] px-4 py-2 text-sm disabled:opacity-50"
+                  className="rounded border border-border px-4 py-2 text-sm text-primary hover:bg-primary hover:text-white"
                 >
                   {t("save")}
                 </button>
                 <button
                   type="button"
                   onClick={() => setEditingItemId(null)}
-                  className="rounded border border-border px-4 py-2 text-sm"
+                  className="rounded border border-border px-4 py-2 text-sm text-primary hover:bg-primary hover:text-white"
                 >
                   {t("cancel")}
                 </button>

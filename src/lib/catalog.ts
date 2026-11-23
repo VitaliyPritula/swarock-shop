@@ -15,3 +15,8 @@ export const localProducts: LocalProduct[] = [
   { slug: "band-mask", imageKey: "mask", translationKey: "bandMask", price: 440, isPopular: false, isNew: true },
   { slug: "rock-poster", imageKey: "poster", translationKey: "rockPoster", price: 320, isPopular: false, isNew: true },
 ];
+
+export function getLocalProductCode(slug: string): string | undefined {
+  const index = localProducts.findIndex((product) => product.slug === slug);
+  return index < 0 ? undefined : String(14081488 + index);
+}

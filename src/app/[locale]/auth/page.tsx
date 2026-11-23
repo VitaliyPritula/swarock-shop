@@ -104,7 +104,7 @@ export default function AuthPage() {
         {t("signInWithGoogle")}
       </button>
       <button type="button" onClick={() => setMode(mode === "login" ? "signup" : "login")}
-        className="mt-4 w-full text-sm text-muted-foreground">
+        className="mt-4 w-full text-sm text-primary">
         {mode === "login" ? t("needAccount") : t("haveAccount")}
       </button>
     </div>

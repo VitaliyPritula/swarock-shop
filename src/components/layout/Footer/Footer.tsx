@@ -16,15 +16,15 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'catalog',
       title: t('catalogTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
-          <li><Link href="/catalog/futbolki">{t('tshirts')}</Link></li>
-          <li><Link href="/catalog/kurtki">{t('jackets')}</Link></li>
-          <li><Link href="/catalog/obuv">{t('shoes')}</Link></li>
-          <li><Link href="/catalog/holovni-ubory">{t('headwear')}</Link></li>
-          <li><Link href="/catalog/aksesuary">{t('accessories')}</Link></li>
-          <li><Link href="/catalog/muzyka">{t('music')}</Link></li>
-          <li><Link href="/catalog/plakaty">{t('posters')}</Link></li>
-          <li><Link href="/catalog/kvytky">{t('tickets')}</Link></li>
+        <ul className="space-y-1 text-sm">
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/futbolki">{t('tshirts')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/kurtki">{t('jackets')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/obuv">{t('shoes')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/holovni-ubory">{t('headwear')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/aksesuary">{t('accessories')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/muzyka">{t('music')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/plakaty">{t('posters')}</Link></li>
+          <li className='text-primary hover:text-primary/70'><Link href="/catalog/kvytky">{t('tickets')}</Link></li>
         </ul>
       ),
     },
@@ -33,18 +33,18 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       title: t('aboutTitle'),
       content: (
         <div className="space-y-4">
-          <ul className="space-y-1 text-sm text-muted-foreground">
-            <li><Link href="/contacts">{t('aboutCompany')}</Link></li>
-            <li><Link href="/payment">{t('deliveryPayment')}</Link></li>
-            <li><Link href="/blog">{t('refund')}</Link></li>
-            <li><Link href="/blog">{t('ourBlog')}</Link></li>
+          <ul className="space-y-1 text-sm text-primary">
+            <li className='text-primary hover:text-primary/70'><Link href="/contacts">{t('aboutCompany')}</Link></li>
+            <li className='text-primary hover:text-primary/70'><Link href="/payment">{t('deliveryPayment')}</Link></li>
+            <li className='text-primary hover:text-primary/70'><Link href="/blog">{t('refund')}</Link></li>
+            <li className='text-primary hover:text-primary/70'><Link href="/blog">{t('ourBlog')}</Link></li>
           </ul>
           <div className="space-y-2">
             <h4 className="font-display text-sm uppercase tracking-widest">{t('userSection')}</h4>
-            <ul className="space-y-1 text-sm text-muted-foreground">
-              <li><Link href="/auth">{t('login')}</Link></li>
-              <li><Link href="/auth">{t('register')}</Link></li>
-              <li><Link href="/contacts">{t('callback')}</Link></li>
+            <ul className="space-y-1 text-sm text-primary">
+              <li className='text-primary hover:text-primary/70'><Link href="/auth">{t('login')}</Link></li>
+              <li className='text-primary hover:text-primary/70'><Link href="/auth">{t('register')}</Link></li>
+              <li className='text-primary hover:text-primary/70'><Link href="/contacts">{t('callback')}</Link></li>
             </ul>
           </div>
         </div>
@@ -54,17 +54,17 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'contacts',
       title: t('contactsTitle'),
       content: (
-        <div className="space-y-5 text-sm text-muted-foreground">
+        <div className="space-y-5 text-sm text-primary">
           <div>
             <ul className="space-y-1">
-              <li><a href="tel:+380677778867">+38 067 777 88 67</a></li>
-              <li><a href="tel:+380501234567">+38 050 123 45 67</a></li>
-              <li><a href="mailto:svarock.mag@gmail.com">svarock.mag@gmail.com</a></li>
+              <li className='text-primary hover:text-primary/70'><a href="tel:+380677778867">+38 067 777 88 67</a></li>
+              <li className='text-primary hover:text-primary/70'><a href="tel:+380501234567">+38 050 123 45 67</a></li>
+              <li className='text-primary hover:text-primary/70'><a href="mailto:svarock.mag@gmail.com">svarock.mag@gmail.com</a></li>
               {/* <li className="pt-2">{t('locationUk')}</li> */}
             </ul>
           </div>
           <div className="max-w-[200px]">
-            <h5 className="font-normal text-foreground text-xl pb-6">{t('forResidents')}</h5>
+            <h5 className="font-normal text-primary text-xl pb-6">{t('forResidents')}</h5>
             <ul className="space-y-1">
               <li>{t('shopName')}</li>
               <li>{t('shopAddress')}</li>
@@ -79,7 +79,7 @@ function getDesktopSections(t: ReturnType<typeof useTranslations>): Section[] {
       title: t('socialTitle'),
       content: (
         <div className="space-y-3">
-          <div className="flex flex-wrap gap-3 text-foreground">
+          <div className="flex flex-wrap gap-3 text-primary">
             <a href="#" aria-label="Facebook" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold"><ICONS.FACEBOOK /></a>
             <a href="#" aria-label="Instagram" className="inline-flex items-center justify-center rounded bg-gray-100 p-1 text-xs font-semibold"><ICONS.INSTAGRAM /></a>
           </div>
@@ -95,7 +95,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'catalog',
       title: t('catalogTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
+        <ul className="space-y-1 text-sm text-primary hover:text-primary/70">
           <li><Link href="/catalog/futbolki">{t('tshirts')}</Link></li>
           <li><Link href="/catalog/kurtki">{t('jackets')}</Link></li>
           <li><Link href="/catalog/obuv">{t('shoes')}</Link></li>
@@ -111,7 +111,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'about',
       title: t('aboutTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
+        <ul className="space-y-1 text-sm text-primary">
           <li><Link href="/contacts">{t('aboutCompany')}</Link></li>
           <li><Link href="/payment">{t('deliveryPayment')}</Link></li>
           <li><Link href="/blog">{t('refund')}</Link></li>
@@ -123,7 +123,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'user',
       title: t('userSection'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
+        <ul className="space-y-1 text-sm text-primary">
           <li><Link href="/auth">{t('login')}</Link></li>
           <li><Link href="/auth">{t('register')}</Link></li>
           <li><Link href="/contacts">{t('callback')}</Link></li>
@@ -134,7 +134,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'contactsT',
       title: t('contactsTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
+        <ul className="space-y-1 text-sm text-primary">
           <li><a href="tel:+380677778867">+38 067 777 88 67</a></li>
           <li><a href="tel:+380501234567">+38 050 123 45 67</a></li>
           <li><a href="mailto:svarock.mag@gmail.com">svarock.mag@gmail.com</a></li>
@@ -145,7 +145,7 @@ function getMobileSections(t: ReturnType<typeof useTranslations>): Section[] {
       id: 'contactsR',
       title: t('residentsTitle'),
       content: (
-        <ul className="space-y-1 text-sm text-muted-foreground">
+        <ul className="space-y-1 text-sm text-primary">
           <li>{t('forResidents')}</li>
           <li>{t('shopName')}</li>
           <li>{t('shopAddress')}</li>
@@ -211,7 +211,7 @@ export default function Footer() {
       {/* Mobile/Tablet < lg */}
       <FooterAccordion sections={mobileSections} t={t} />
 
-      <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
+      <div className="border-t border-border py-4 text-center text-xs text-primary">
         © {new Date().getFullYear()} {t('copyright')} <br /> {t('shopName')}
       </div>
     </footer>

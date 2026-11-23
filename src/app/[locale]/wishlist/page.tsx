@@ -1,8 +1,8 @@
 'use client';
 import { Link } from '@/src/i18n/routing';
 import { useCart } from '@/src/lib/cart';
-import { useWishlist } from '@/src/lib/wishlist';
 import { img } from "@/src/lib/images";
+import { useWishlist } from '@/src/lib/wishlist';
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
 
@@ -16,7 +16,7 @@ export default function WishlistPage() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
         <h1 className="font-display text-2xl uppercase tracking-widest">{t("emptyTitle")}</h1>
-        <p className="mt-4 text-muted-foreground">{t("emptyDescription")}</p>
+        <p className="mt-4 text-primary">{t("emptyDescription")}</p>
         <Link href="/catalog" className="mt-6 inline-flex rounded bg-[color:var(--brand)] px-4 py-2 text-white">
           {t("toCatalog")}
         </Link>
@@ -42,7 +42,7 @@ export default function WishlistPage() {
               </div>
               <div className="space-y-2">
                 <div className="font-semibold">{item.name}</div>
-                <div className="text-sm text-muted-foreground">{item.size ? `${t("size")} ${item.size}` : t("noSize")}</div>
+                <div className="text-sm text-primary">{item.size ? `${t("size")} ${item.size}` : t("noSize")}</div>
                 <div className="text-sm">{t("price")} {item.price ? `${item.price} ₴` : '—'}</div>
               </div>
             </div>

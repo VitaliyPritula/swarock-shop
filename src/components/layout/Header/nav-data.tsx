@@ -17,7 +17,7 @@ export const NAV: Item[] = [
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" className={`font-display text-2xl font-bold tracking-widest text-[color:var(--brand)] ${className}`}>
+    <Link href="/" className={`font-display text-2xl font-bold tracking-widest text-primary ${className}`}>
       SVAROCK
     </Link>
   );

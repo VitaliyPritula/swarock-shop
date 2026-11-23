@@ -47,7 +47,7 @@
     "toCatalog": "До каталогу",
     "close": "Закрити",
     "loading": "Завантаження…",
-    "currency": "грн."
+    "currency": "₴."
   },
   "Catalog": {
     "filters": "Фільтри",
@@ -66,7 +66,7 @@
       "china": "Китай"
     },
     "price": "Ціна",
-    "currency": "грн.",
+    "currency": "₴.",
     "color": "Колір",
     "colors": {
       "black": "Чорний",
@@ -139,7 +139,7 @@
     "empty": "Кошик порожній",
     "toCatalog": "До каталогу",
     "title": "Кошик ({count, plural, one {# товар} few {# товари} other {# товарів}})",
-    "currency": "грн.",
+    "currency": "₴.",
     "productCode": "Код товару:",
     "size": "Розмір:",
     "noSize": "Без розміру",

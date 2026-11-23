@@ -1,7 +1,7 @@
 import { Link } from "@/src/i18n/routing";
 import { getBlogPost } from "@/src/lib/shop.functions";
-import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -21,14 +21,14 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <nav className="mb-6 text-xs text-muted-foreground">
+      <nav className="mb-6 text-xs text-primary">
         <Link href="/blog" className="hover:underline">{t("title")}</Link>
         <span className="mx-2">/</span>
         <span>{title}</span>
       </nav>
       <article>
         <h1 className="font-display text-3xl uppercase">{title}</h1>
-        <p className="mt-6 leading-8 text-muted-foreground">{content}</p>
+        <p className="mt-6 leading-8 text-primary">{content}</p>
       </article>
     </main>
   );

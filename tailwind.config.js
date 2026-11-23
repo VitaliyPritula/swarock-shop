@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primary: '#1D1D24',
         secondary: '#DADFE2',
-        // accent: '#1d1d24',
+        accen: '#44CD14',
       },
       screens: {
         // Custom breakpoints

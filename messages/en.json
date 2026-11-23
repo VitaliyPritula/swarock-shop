@@ -65,7 +65,7 @@
       "china": "China"
     },
     "price": "Price",
-    "currency": "UAH",
+    "currency": "₴",
     "color": "Color",
     "colors": {
       "black": "Black",
@@ -138,7 +138,7 @@
     "empty": "Your cart is empty",
     "toCatalog": "Go to catalog",
     "title": "Cart ({count, plural, one {# item} other {# items}})",
-    "currency": "UAH",
+    "currency": "₴",
     "productCode": "Product code:",
     "size": "Size:",
     "noSize": "No size",

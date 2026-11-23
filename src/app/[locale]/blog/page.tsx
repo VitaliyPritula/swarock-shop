@@ -15,7 +15,7 @@ export default async function BlogPage() {
 
   return (
     <main className="mx-auto max-w-[1440px] px-4 py-8 md:px-8">
-      <nav className="mb-6 text-xs text-muted-foreground">
+      <nav className="mb-6 text-xs text-primary">
         <Link href="/" className="hover:underline">{t("home")}</Link>
         <span className="mx-2">/</span>
         <span>{t("title")}</span>
@@ -25,7 +25,7 @@ export default async function BlogPage() {
         {items.map((post: { slug: string; title: string; excerpt?: string }) => (
           <article key={post.slug} className="border border-border bg-white p-5">
             <h2 className="font-display text-lg uppercase">{post.title}</h2>
-            {post.excerpt && <p className="mt-3 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>}
+            {post.excerpt && <p className="mt-3 text-sm leading-6 text-primary">{post.excerpt}</p>}
             <Link
               href={`/blog/${post.slug}`}
               className="mt-5 inline-block border-b border-primary text-sm uppercase tracking-widest"

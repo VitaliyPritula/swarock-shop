@@ -2,8 +2,8 @@
 import { useCart } from "@/src/lib/cart";
 import { uah } from "@/src/lib/format";
 import { img } from "@/src/lib/images";
-import Image, { type StaticImageData } from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
 import ProductModal from "./ProductModal";
 
@@ -48,7 +48,7 @@ export function ProductCard({ p }: { p: ProductCardData }) {
 
       <div className="mt-3 flex flex-1 flex-col items-center px-2 pb-3">
         {p.material && (
-          <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{p.material}</div>
+          <div className="text-[11px] uppercase tracking-widest text-primary">{p.material}</div>
         )}
         <div className="mt-1 line-clamp-2 text-sm font-medium uppercase">{p.name}</div>
         <div className="mt-2 font-display text-lg">{uah(p.price, locale)}</div>
@@ -57,7 +57,7 @@ export function ProductCard({ p }: { p: ProductCardData }) {
       <div className="absolute inset-0 flex items-end justify-center bg-black/0 opacity-0 transition duration-300  group-hover:opacity-100">
         <div className="w-full bg-background/95 px-4 py-4 backdrop-blur-sm sm:px-5">
           <div className="flex flex-col gap-1 text-left">
-              <p className="text-sm font-medium text-muted-foreground">{t("size")}</p>
+            <p className="text-sm font-medium text-primary">{t("size")}</p>
             <div className="flex justify-between">
               <div className="relative">
                 <select
@@ -85,7 +85,6 @@ export function ProductCard({ p }: { p: ProductCardData }) {
                   <svg width="13" height="13" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.6597 1.44721C18.9921 0.782314 18.5086 -3.82322e-08 17.7653 -7.07265e-08L1.00134 -8.03501e-07C0.257954 -8.35995e-07 -0.225544 0.782312 0.106907 1.44721L8.48887 18.2111C8.8574 18.9482 9.9092 18.9482 10.2777 18.2111L18.6597 1.44721Z" fill="#1D1D24" />
                   </svg>
-
                 </span>
               </div>
               <button
