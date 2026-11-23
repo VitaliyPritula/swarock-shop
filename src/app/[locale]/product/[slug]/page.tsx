@@ -13,6 +13,17 @@ type ProductPageProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
+type ProductVariant = { id: string; size: string; stock?: number };
+
+type RelatedRow = {
+  id: string;
+  code?: string | null;
+  slug: string;
+  name: string;
+  price: number | string;
+  image_url: string | null;
+};
+
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
   const t = await getTranslations("Products");
@@ -48,22 +59,28 @@ export default async function ProductPage({ params }: ProductPageProps) {
     : guideType === "jacket"
       ? ["S", "M", "L", "XL", "XXL", "XXXL"]
       : ["S", "M", "L", "XL", "XXL"];
-  const variants = (databaseProduct?.product_variants?.length
-    ? databaseProduct.product_variants
-    : fallbackSizes.map((size, index) => ({ id: `${slug}-${index}`, size, stock: 10 }))
-  ).filter((variant) => variant.stock === undefined || variant.stock > 0);
 
-  const related: ProductCardData[] = databaseRelated.length > 0
-    ? databaseRelated
+  const allVariants: ProductVariant[] = databaseProduct?.product_variants?.length
+    ? (databaseProduct.product_variants as ProductVariant[])
+    : fallbackSizes.map(
+        (size, index): ProductVariant => ({ id: `${slug}-${index}`, size, stock: 10 })
+      );
+  const variants = allVariants.filter(
+    (variant) => variant.stock === undefined || variant.stock > 0
+  );
+
+  const relatedRows = (databaseRelated ?? []) as RelatedRow[];
+  const related: ProductCardData[] = relatedRows.length > 0
+    ? relatedRows
       .filter((item) => item.slug !== slug)
       .slice(0, 5)
       .map((item) => ({
         id: item.id,
-        code: item.code,
+        code: item.code ?? null,
         slug: item.slug,
         name: item.name,
         price: Number(item.price),
-        image_url: item.image_url,
+        image_url: item.image_url ?? null,
       }))
     : localProducts
       .filter((item) => item.slug !== slug)
