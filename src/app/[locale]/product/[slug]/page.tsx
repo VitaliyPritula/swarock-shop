@@ -63,8 +63,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const allVariants: ProductVariant[] = databaseProduct?.product_variants?.length
     ? (databaseProduct.product_variants as ProductVariant[])
     : fallbackSizes.map(
-        (size, index): ProductVariant => ({ id: `${slug}-${index}`, size, stock: 10 })
-      );
+      (size, index): ProductVariant => ({ id: `${slug}-${index}`, size, stock: 10 })
+    );
   const variants = allVariants.filter(
     (variant) => variant.stock === undefined || variant.stock > 0
   );
@@ -95,7 +95,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       }));
 
   return (
-    <section className="px-4">
+    <section className="">
       <nav className="border-b border-border xl:px-10 py-4 flex items-center gap-2 text-xs text-primary ">
         <div className="max-w-[1440px] xl:px-10 mx-auto flex items-center gap-2 w-full">
           <Link href="/" className="text-sm font-medium tracking-widest text-primary hover:text-foreground">
@@ -124,8 +124,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       </nav>
 
-      <div className="mx-auto mt-6 grid max-w-[1440px] gap-8 md:grid-cols-[minmax(280px,0.9fr)_minmax(360px,1.1fr)] xl:px-10 md:gap-10">
-        <div className="grid grid-cols-[72px_minmax(0,1fr)] gap-3 sm:grid-cols-[96px_minmax(0,1fr)]">
+      <div className="mx-auto mt-6 grid max-w-[1440px] md:grid-cols-[minmax(280px,0.9fr)_minmax(360px,540px)] xl:px-10">
+        <div className="flex gap-3">
           <div className="flex flex-col gap-3">
             {[0, 1, 2].map((thumb) => (
               <div key={thumb} className="aspect-square border border-border bg-white p-1">
@@ -139,13 +139,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
             ))}
           </div>
-          <div className="aspect-[4/5] overflow-hidden ">
+          <div className=" overflow-hidden ">
             <Image
               src={image}
               alt={name}
               width={typeof image === "string" ? 900 : image.width}
               height={typeof image === "string" ? 1100 : image.height}
-              className="h-full w-full object-contain"
+              className="h-[56%] w-full object-contain"
               priority
             />
           </div>
@@ -164,6 +164,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           material={material}
           description={description}
         />
+      </div>
+      <div className=" border-t border-border md:col-span-2">
+        AZ
       </div>
     </section>
   );

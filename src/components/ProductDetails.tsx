@@ -35,8 +35,8 @@ export default function ProductDetails({
   price: number;
   variants?: Variant[];
   related?: ProductCardData[];
-  material?: string;
-  description?: string;
+  material?: string | null;
+  description?: string | null;
 }) {
   const t = useTranslations("ProductDetails");
   const productT = useTranslations("ProductModal");
@@ -78,7 +78,7 @@ export default function ProductDetails({
   };
 
   return (
-    <section className="mx-auto max-w-2xl px-4 pt-8 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="pt-8">
       <div className="flex justify-between items-center mb-5">
         <h3 className="text-[22px] font-medium uppercase leading-tight text-primary">{name}</h3>
         <p className="font-display text-3xl text-primary">{uah(price, locale)}</p>
@@ -93,6 +93,12 @@ export default function ProductDetails({
         {code && <p className=" text-xs text-primary">{productT("productCode")}
           <span className="text-accen"> {code}</span></p>}
       </div>
+      {(material || description) && (
+        <div className="mt-5 space-y-2 text-sm text-primary">
+          {material && <p>{material}</p>}
+          {description && <p className="leading-relaxed">{description}</p>}
+        </div>
+      )}
       <div className="mt-5 flex items-center gap-3">
         <div className="flex h-10 items-center border border-border">
           <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="grid h-full w-9 place-items-center" aria-label="Decrease quantity">
@@ -131,23 +137,14 @@ export default function ProductDetails({
           </div>
         )}
         <div className="flex items-center gap-8">
-
-          <button type="button" onClick={proceedToCheckout} className="h-10 rounded bg-primary px-8 text-xs font-semibold uppercase tracking-wider text-white">
+          <button type="button" onClick={proceedToCheckout} className="h-10  rounded bg-primary px-[46px] max-w-[160px] text-xs font-semibold uppercase tracking-wider text-white">
             {cartT("checkout")}
           </button>
           <button type="button" onClick={toggleWishlistItem} className={`grid h-10 w-10 place-items-center rounded border border-border ${wishlistHas ? "text-[color:var(--brand)]" : "text-primary"}`} aria-pressed={wishlistHas}>
             <Heart className="h-4 w-4" />
           </button>
         </div>
-
-        {(material || description) && (
-          <div className="mt-7 border-t border-border pt-5 text-xs leading-5 text-primary">
-            {material && <p className="mb-2"><span className="font-semibold">Матеріал:</span> {material}</p>}
-            {description && <p>{description}</p>}
-          </div>
-        )}
       </div>
-
       {related.length > 0 && (
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="mb-5 text-center font-display text-sm font-semibold uppercase tracking-[0.16em]">Ще товари на сайті</h2>
@@ -156,6 +153,7 @@ export default function ProductDetails({
           </div>
         </section>
       )}
+{/* 
 
       <section className="mt-10 border-t border-border pt-7">
         <h2 className="mb-4 text-center font-display text-sm font-semibold uppercase tracking-[0.16em]">Відгуки про товар</h2>
@@ -175,9 +173,9 @@ export default function ProductDetails({
           <button type="submit" className="mt-3 h-10 rounded bg-primary px-6 text-xs font-semibold uppercase tracking-wider text-white">{t("submitReview")}</button>
           {sent && <p className="mt-3 text-sm text-green-700">{t("reviewSent")}</p>}
         </form>
-      </section>
+      </section> */}
 
       <SizeGuideModal open={showSizeTable} onClose={() => setShowSizeTable(false)} type={guideType} />
-    </section>
+    </div>
   );
 }
