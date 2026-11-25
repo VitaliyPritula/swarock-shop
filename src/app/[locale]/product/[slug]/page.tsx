@@ -7,7 +7,8 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { SizeGuideType } from "@/src/components/SizeGuideModal";
-import type { ProductCardData } from "@/src/components/ProductCard";
+import { ProductCard, type ProductCardData } from "@/src/components/ProductCard";
+import ProductInfoTabs from "@/src/components/ProductInfoTabs";
 
 type ProductPageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -124,7 +125,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       </nav>
 
-      <div className="mx-auto mt-6 grid max-w-[1440px] md:grid-cols-[minmax(280px,0.9fr)_minmax(360px,540px)] xl:px-10">
+      <div className="mx-auto my-6 grid gap-8 max-w-[1440px] md:grid-cols-[minmax(280px,0.9fr)_minmax(360px,590px)] xl:px-10">
         <div className="flex gap-3">
           <div className="flex flex-col gap-3">
             {[0, 1, 2].map((thumb) => (
@@ -160,13 +161,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
           image={image}
           price={price}
           variants={variants}
-          related={related}
           material={material}
           description={description}
         />
       </div>
-      <div className=" border-t border-border md:col-span-2">
-        AZ
+      <div className=" md:col-span-2">
+        <ProductInfoTabs name={name} material={material} description={description} />
+        {related.length > 0 && (
+        <section className="mt-12 border-t border-border pt-8">
+          <h2 className="mb-5 text-center font-display text-sm font-semibold uppercase tracking-[0.16em]">Ще товари на сайті</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {related.slice(0, 5).map((item) => <ProductCard key={item.id ?? item.slug} p={item} />)}
+          </div>
+        </section>
+        )}
       </div>
     </section>
   );

@@ -134,6 +134,33 @@
     "submitReview": "Submit",
     "reviewSent": "Thank you! Your review has been sent."
   },
+  "ProductInfo": {
+    "tabs": {
+      "description": "Description",
+      "delivery": "Delivery",
+      "payment": "Payment"
+    },
+    "noDescription": "The product description will be added soon.",
+    "delivery": {
+      "novaPost": "Delivery via Nova Post to a branch or parcel locker.",
+      "courier": "Courier delivery to the specified address is also available.",
+      "confirmation": "After checkout, we will contact you to confirm the order."
+    },
+    "payment": {
+      "online": "Pay securely online with a bank card.",
+      "cod": "Cash or card payment upon receipt is also available.",
+      "confirmation": "Payment details and status can be checked in your account."
+    },
+    "reviews": {
+      "title": "Product reviews",
+      "name": "Your name",
+      "email": "E-mail",
+      "rating": "Product rating",
+      "placeholder": "Review for {name}",
+      "submit": "Submit",
+      "sent": "Thank you! Your review has been sent."
+    }
+  },
   "Cart": {
     "empty": "Your cart is empty",
     "toCatalog": "Go to catalog",

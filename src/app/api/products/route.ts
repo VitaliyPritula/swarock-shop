@@ -27,7 +27,7 @@ export async function GET(req: Request) {
 
   try {
     function buildQuery() {
-      let q = sb
+      const q = sb
         .from('products')
         .select('id,code,color,brand,slug,name,price,image_url,is_new,is_popular,material')
         .order(sort === 'new' ? 'created_at' : sort.startsWith('price') ? 'price' : 'name');
@@ -52,7 +52,7 @@ export async function GET(req: Request) {
     // sizes filter requires looking up product ids from product_variants
     if (sizes.length > 0) {
       const { data: rows } = await sb.from('product_variants').select('product_id').in('size', sizes as string[]);
-      const ids = Array.from(new Set((rows ?? []).map((r: any) => r.product_id)));
+      const ids = Array.from(new Set((rows ?? []).map((r: { product_id: string }) => r.product_id)));
       if (ids.length === 0) {
         return NextResponse.json({ items: [], total: 0 });
       }
@@ -69,9 +69,10 @@ export async function GET(req: Request) {
     if (error) throw error;
 
     return NextResponse.json({ items: data ?? [], total });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Server error';
     console.error(err);
-    return new Response(JSON.stringify({ error: err?.message || 'Server error' }), {
+    return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { 'content-type': 'application/json' },
     });

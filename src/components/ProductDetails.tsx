@@ -8,7 +8,6 @@ import SizeGuideModal, { type SizeGuideType } from "./SizeGuideModal";
 import { useCart } from "@/src/lib/cart";
 import { useWishlist } from "@/src/lib/wishlist";
 import { uah } from "@/src/lib/format";
-import { ProductCard, type ProductCardData } from "./ProductCard";
 import { useRouter } from "@/src/i18n/routing";
 
 type Variant = { id: string; size: string; stock?: number };
@@ -22,7 +21,6 @@ export default function ProductDetails({
   image,
   price,
   variants = [],
-  related = [],
   material,
   description,
 }: {
@@ -34,7 +32,6 @@ export default function ProductDetails({
   image: string | StaticImageData;
   price: number;
   variants?: Variant[];
-  related?: ProductCardData[];
   material?: string | null;
   description?: string | null;
 }) {
@@ -44,10 +41,8 @@ export default function ProductDetails({
   const locale = useLocale();
   const router = useRouter();
   const [showSizeTable, setShowSizeTable] = useState(false);
-  const [sent, setSent] = useState(false);
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState<string | null>(variants[0]?.size ?? null);
-  const [reviewRating, setReviewRating] = useState(5);
   const imageSrc = typeof image === "string" ? image : image.src;
   const wishlistHas = useWishlist((s) => s.has(String(id ?? slug), size));
   const toggleWishlist = useWishlist((s) => s.toggle);
@@ -145,14 +140,14 @@ export default function ProductDetails({
           </button>
         </div>
       </div>
-      {related.length > 0 && (
+      {/* {related.length > 0 && (
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="mb-5 text-center font-display text-sm font-semibold uppercase tracking-[0.16em]">Ще товари на сайті</h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {related.slice(0, 5).map((item) => <ProductCard key={item.id ?? item.slug} p={item} />)}
           </div>
         </section>
-      )}
+      )} */}
 {/* 
 
       <section className="mt-10 border-t border-border pt-7">
